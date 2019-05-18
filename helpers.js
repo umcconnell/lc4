@@ -21,6 +21,11 @@ function shuffle(arr) {
     return arr;
 }
 
+function shiftRowRight(state, row) {
+    state[row] = [...state[row].slice(1), state[row][0]];
+    return state;
+}
+
 function position(char, state) {
     let vector = [];
 
@@ -40,4 +45,4 @@ function validLC4(input) {
     return input.every(char => ALPHABET.indexOf(char) > -1);
 }
 
-export { shuffle, position, validLC4 };
+export { shuffle, shiftRowRight, position, validLC4 };
