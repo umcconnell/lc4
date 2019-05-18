@@ -4,7 +4,7 @@ import { validateEncryptSettings } from "./validate.js";
 
 function generateKey(keyword = false) {
     if (keyword) {
-        if (![...keyword].every(char => ALPHABET.indexOf(char) > -1))
+        if (!validLC4([...keyword]))
             throw new Error(
                 "Keyword for key generation contains invalid characters!\n" +
                     "You may only use following characters: " +
@@ -32,20 +32,4 @@ function initState(key) {
     return S;
 }
 
-function encrypt(settings) {
-    settings = Object.assign(
-        {},
-        settings,
-        { key: generateKey() },
-        DEFAULT_SETTINGS
-    );
-
-    validateEncryptSettings(settings);
-
-    let state = initState(settings.key);
-    let marker = { i: 0, j: 0 };
-
-    return encryptMsg(state, marker, settings.message);
-}
-
-export { encrypt };
+export { initState, generateKey };
