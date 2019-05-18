@@ -1,6 +1,5 @@
-import { ALPHABET, GRIDSIZE, DEFAULT_SETTINGS } from "./config.js";
+import { ALPHABET, GRIDSIZE } from "./config.js";
 import { shuffle, validLC4 } from "./helpers.js";
-import { validateEncryptSettings } from "./validate.js";
 
 function generateKey(keyword = false) {
     if (keyword) {
