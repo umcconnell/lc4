@@ -77,3 +77,5 @@ function encrypt(settings) {
 
     return encryptMsg(state, marker, settings.message);
 }
+
+export { encrypt };
