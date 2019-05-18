@@ -19,4 +19,19 @@ function shuffle(arr) {
     return arr;
 }
 
-export { shuffle };
+function position(char, state) {
+    let vector = [];
+
+    for (let row = 0; row < state.length; row++) {
+        let column = row.indexOf(char);
+
+        if (column > -1) {
+            vector = [row, column];
+            break;
+        }
+    }
+
+    return vector;
+}
+
+export { shuffle, position };
