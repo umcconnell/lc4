@@ -1,0 +1,16 @@
+{
+    "name": "lc4js",
+    "version": "1.0.0",
+    "description": "A spec-compliant lc4 encryption library",
+    "type": "module",
+    "main": "lc4.js",
+    "scripts": {
+        "start": "node --experimental-modules lc4.js"
+    },
+    "keywords": [
+        "lc4",
+        "encryption"
+    ],
+    "author": "Ulysse McConnell",
+    "license": "MIT"
+}
