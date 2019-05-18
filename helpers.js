@@ -1,3 +1,5 @@
+import { ALPHABET } from "./config.js";
+
 function shuffle(arr) {
     // Copy the array
     arr = arr.slice();
@@ -34,10 +36,8 @@ function position(char, state) {
     return vector;
 }
 
-function validLC4(alphabet) {
-    return function(key) {
-        return key.every(char => alphabet.indexOf(key) > -1);
-    };
+function validLC4(input) {
+    return input.every(char => ALPHABET.indexOf(char) > -1);
 }
 
 export { shuffle, position, validLC4 };
