@@ -1,11 +1,6 @@
+import { ALPHABET, GRIDSIZE, DEFAULT_SETTINGS } from "./config.js";
 import { shuffle, validLC4 } from "./helpers.js";
 import { validateEncryptSettings } from "./validate.js";
-
-const ALPHABET = "#_23456789abcdefghijklmnopqrstuvwxyz";
-const GRIDSIZE = 6;
-const DEFAULT_SETTINGS = { signature: null, headerData: null, nonce: null };
-
-validLC4 = validLC4(ALPHABET);
 
 function generateKey(keyword = false) {
     if (keyword) {
