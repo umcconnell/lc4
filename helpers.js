@@ -34,4 +34,10 @@ function position(char, state) {
     return vector;
 }
 
-export { shuffle, position };
+function validLC4(alphabet) {
+    return function(key) {
+        return key.every(char => alphabet.indexOf(key) > -1);
+    };
+}
+
+export { shuffle, position, validLC4 };
