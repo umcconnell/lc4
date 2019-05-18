@@ -1,4 +1,4 @@
-import { ALPHABET } from "./config.js";
+import { ALPHABET, GRIDSIZE } from "./config.js";
 
 function shuffle(arr) {
     // Copy the array
@@ -26,6 +26,19 @@ function shiftRowRight(state, row) {
     return state;
 }
 
+function shiftColumnDown(state, col) {
+    let shiftRow = GRIDSIZE - 1,
+        last = state[shiftRow][col];
+
+    return state.map(row => {
+        let temp = row[col];
+        row[col] = last;
+        last = temp;
+        shiftRow = (shiftRow + 1) % GRIDSIZE;
+        return row;
+    });
+}
+
 function position(char, state) {
     let vector = [];
 
@@ -45,4 +58,4 @@ function validLC4(input) {
     return input.every(char => ALPHABET.indexOf(char) > -1);
 }
 
-export { shuffle, shiftRowRight, position, validLC4 };
+export { shuffle, shiftRowRight, shiftColumnDown, position, validLC4 };
