@@ -18,7 +18,17 @@ function generateKey(keyword = false) {
         [...ALPHABET].filter(char =>
             keyword ? keyword.indexOf(char) > -1 : true
         )
-    );
+    ).join("");
 
     return (keyword ? keyword : "") + key;
+}
+
+function initState(key) {
+    let S = new Array(GRIDSIZE).fill(0).map(_ => new Array(6).fill(0));
+
+    for (let k = 0; k < ALPHABET.length; k++) {
+        S[Math.floor(k / 6)][k % 6] = key[k];
+    }
+
+    return S;
 }
