@@ -21,15 +21,18 @@ function shuffle(arr) {
     return arr;
 }
 
-function shiftRowRight(state, row) {
+function shiftRowRight(state, row, marker) {
     state[row] = [
         state[row][state[row].length - 1],
         ...state[row].slice(0, -1)
     ];
+
+    if (marker.i === row) marker.j = (marker.j + 1) % GRIDSIZE;
+
     return state;
 }
 
-function shiftColumnDown(state, col) {
+function shiftColumnDown(state, col, marker) {
     let shiftRow = GRIDSIZE - 1,
         last = state[shiftRow][col];
 
@@ -40,6 +43,8 @@ function shiftColumnDown(state, col) {
         shiftRow = (shiftRow + 1) % GRIDSIZE;
         return row;
     });
+
+    if (marker.j === col) marker.i = (marker.i + 1) % GRIDSIZE;
 
     return state;
 }

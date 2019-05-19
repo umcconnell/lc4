@@ -50,15 +50,11 @@ function encryptMsg({ state, marker }, msg) {
 
             let out = state[x][y];
 
-            shiftRowRight(state, row);
-
+            shiftRowRight(state, row, marker);
             if (x === row) y = (y + 1) % GRIDSIZE;
-            if (marker.i === row) marker.j = (marker.j + 1) % GRIDSIZE;
 
-            shiftColumnDown(state, y);
-
+            shiftColumnDown(state, y, marker);
             if (y === col) row = (row + 1) % GRIDSIZE;
-            if (marker.j === y) marker.i = (marker.i + 1) % GRIDSIZE;
 
             marker.i = (marker.i + Math.floor(out / GRIDSIZE)) % GRIDSIZE;
             marker.j = (marker.j + (out % GRIDSIZE)) % GRIDSIZE;
