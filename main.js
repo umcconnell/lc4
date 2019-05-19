@@ -6,9 +6,9 @@ import { initState, generateKey, encryptMsg } from "./lc4.js";
 function encrypt(settings) {
     settings = Object.assign(
         {},
-        settings,
         { key: generateKey() },
-        DEFAULT_SETTINGS
+        DEFAULT_SETTINGS,
+        settings
     );
 
     validateEncryptSettings(settings);
