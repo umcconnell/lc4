@@ -53,12 +53,12 @@ function encryptMsg({ state, marker }, msg) {
 
             let out = state[x][y];
 
-            state = shiftRowRight(state, row);
+            shiftRowRight(state, row);
 
             if (x === row) y = (y + 1) % 6;
             if (marker.i === row) marker.j = (marker.j + 1) % 6;
 
-            state = shiftColumnDown(state, y);
+            shiftColumnDown(state, y);
 
             if (y === col) row = (row + 1) % 6;
             if (marker.j === y) marker.i = (marker.i + 1) % 6;
