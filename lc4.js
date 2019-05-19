@@ -38,32 +38,37 @@ function initState(key) {
 }
 
 function encryptMsg({ state, marker }, msg) {
-    [...msg].map(char => {
-        let [row, col] = position(char, state);
+    return [...msg]
+        .map(char => {
+            let [row, col] = position(char, state);
 
-        let x =
-            (row +
-                ALPHABET.indexOf(Math.floor(state[marker.i][marker.j]) / 6)) %
-            6;
-        let y = (col + (ALPHABET.indexOf(state[marker.i][marker.j]) % 6)) % 6;
+            let x =
+                (row +
+                    Math.floor(
+                        ALPHABET.indexOf(state[marker.i][marker.j]) / 6
+                    )) %
+                6;
+            let y =
+                (col + (ALPHABET.indexOf(state[marker.i][marker.j]) % 6)) % 6;
 
-        let out = state[x][y];
+            let out = state[x][y];
 
-        state = shiftRowRight(state, row);
+            state = shiftRowRight(state, row);
 
-        if (x === row) y = (y + 1) % 6;
-        if (marker.i === row) marker.j = (marker.j + 1) % 6;
+            if (x === row) y = (y + 1) % 6;
+            if (marker.i === row) marker.j = (marker.j + 1) % 6;
 
-        state = shiftColumnDown(state, y);
+            state = shiftColumnDown(state, y);
 
-        if (y === col) row = (row + 1) % 6;
-        if (marker.j === y) marker.i = (marker.i + 1) % 6;
+            if (y === col) row = (row + 1) % 6;
+            if (marker.j === y) marker.i = (marker.i + 1) % 6;
 
-        marker.i = marker.i + (Math.floor(ALPHABET.indexOf(out) / 6) % 6);
-        marker.j = marker.j + ((ALPHABET.indexOf(out) % 6) % 6);
+            marker.i = marker.i + (Math.floor(ALPHABET.indexOf(out) / 6) % 6);
+            marker.j = marker.j + ((ALPHABET.indexOf(out) % 6) % 6);
 
-        return out;
-    });
+            return out;
+        })
+        .join("");
 }
 
-export { initState, generateKey };
+export { initState, generateKey, encryptMsg };
