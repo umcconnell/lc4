@@ -13,17 +13,18 @@ function encrypt(settings) {
 
     validateEncryptSettings(settings);
 
-    let state = initState(settings.key);
-    let marker = { i: 0, j: 0 };
+    let env = {
+        state: initState(settings.key),
+        marker = { i: 0, j: 0 }
+    };
 
     // Encrypt nonce and discard
-    if (settings.nonce) encryptMsg(state, marker, settings.nonce);
+    if (settings.nonce) encryptMsg(env, settings.nonce);
     // Encrypt header data and discard
-    if (settings.headerData) encryptMsg(state, marker, settings.headerData);
+    if (settings.headerData) encryptMsg(env, settings.headerData);
     // Encrypt message concatenated with signature
     return encryptMsg(
-        state,
-        marker,
+        env,
         settings.message + (settings.signature || "")
     );
 }
