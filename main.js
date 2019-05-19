@@ -26,4 +26,22 @@ function encrypt(settings) {
     return encryptMsg(env, settings.message + (settings.signature || ""));
 }
 
+function decrypt(settings) {
+    settins = Object.assign({}, DEFAULT_SETTINGS, settings);
+
+    validateSettings(settings);
+
+    let env = {
+        state: initState(settings.key),
+        marker: { i: 0, j: 0 }
+    };
+
+    // Encrypt nonce and discard
+    if (settings.nonce) encryptMsg(env, settings.nonce);
+    // Encrypt header data and discard
+    if (settings.headerData) encryptMsg(env, settings.headerData);
+    // Decrypt message and signature
+    return decryptMsg(env, settings.message);
+}
+
 export { encrypt };
