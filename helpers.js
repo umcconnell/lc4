@@ -1,5 +1,24 @@
 import { ALPHABET, GRIDSIZE } from "./config.js";
 
+function escapeToLC4(string) {
+    return [
+        ...string
+            .replace(/0/g, "#")
+            .replace(/1/g, "_")
+            .replace(/\u00dc/g, "Ue")
+            .replace(/\u00fc/g, "ue")
+            .replace(/\u00c4/g, "Ae")
+            .replace(/\u00e4/g, "ae")
+            .replace(/\u00d6/g, "Oe")
+            .replace(/\u00f6/g, "oe")
+            .replace(/\u00df/g, "ss")
+            .replace(/\s/g, "_")
+            .toLowerCase()
+    ]
+        .filter(char => ALPHABET.indexOf(char) > -1)
+        .join("");
+}
+
 function shuffle(arr) {
     // Copy the array
     arr = arr.slice();
@@ -73,6 +92,7 @@ function validLC4(input) {
 }
 
 export {
+    escapeToLC4,
     shuffle,
     randomElement,
     shiftRowRight,
