@@ -63,8 +63,8 @@ function encryptMsg({ state, marker }, msg) {
             if (y === col) row = (row + 1) % 6;
             if (marker.j === y) marker.i = (marker.i + 1) % 6;
 
-            marker.i = marker.i + (Math.floor(ALPHABET.indexOf(out) / 6) % 6);
-            marker.j = marker.j + ((ALPHABET.indexOf(out) % 6) % 6);
+            marker.i = (marker.i + Math.floor(ALPHABET.indexOf(out) / 6)) % 6;
+            marker.j = (marker.j + (ALPHABET.indexOf(out) % 6)) % 6;
 
             return out;
         })
