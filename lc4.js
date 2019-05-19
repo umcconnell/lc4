@@ -28,10 +28,10 @@ function generateKey(keyword = false) {
 }
 
 function initState(key) {
-    let S = new Array(GRIDSIZE).fill(0).map(_ => new Array(6).fill(0));
+    let S = new Array(GRIDSIZE).fill(0).map(_ => new Array(GRIDSIZE).fill(0));
 
     for (let k = 0; k < ALPHABET.length; k++) {
-        S[Math.floor(k / 6)][k % 6] = key[k];
+        S[Math.floor(k / GRIDSIZE)][k % GRIDSIZE] = key[k];
     }
 
     return S;
@@ -45,26 +45,31 @@ function encryptMsg({ state, marker }, msg) {
             let x =
                 (row +
                     Math.floor(
-                        ALPHABET.indexOf(state[marker.i][marker.j]) / 6
+                        ALPHABET.indexOf(state[marker.i][marker.j]) / GRIDSIZE
                     )) %
-                6;
+                GRIDSIZE;
             let y =
-                (col + (ALPHABET.indexOf(state[marker.i][marker.j]) % 6)) % 6;
+                (col +
+                    (ALPHABET.indexOf(state[marker.i][marker.j]) % GRIDSIZE)) %
+                GRIDSIZE;
 
             let out = state[x][y];
 
             shiftRowRight(state, row);
 
-            if (x === row) y = (y + 1) % 6;
-            if (marker.i === row) marker.j = (marker.j + 1) % 6;
+            if (x === row) y = (y + 1) % GRIDSIZE;
+            if (marker.i === row) marker.j = (marker.j + 1) % GRIDSIZE;
 
             shiftColumnDown(state, y);
 
-            if (y === col) row = (row + 1) % 6;
-            if (marker.j === y) marker.i = (marker.i + 1) % 6;
+            if (y === col) row = (row + 1) % GRIDSIZE;
+            if (marker.j === y) marker.i = (marker.i + 1) % GRIDSIZE;
 
-            marker.i = (marker.i + Math.floor(ALPHABET.indexOf(out) / 6)) % 6;
-            marker.j = (marker.j + (ALPHABET.indexOf(out) % 6)) % 6;
+            marker.i =
+                (marker.i + Math.floor(ALPHABET.indexOf(out) / GRIDSIZE)) %
+                GRIDSIZE;
+            marker.j =
+                (marker.j + (ALPHABET.indexOf(out) % GRIDSIZE)) % GRIDSIZE;
 
             return out;
         })
