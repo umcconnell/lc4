@@ -43,7 +43,12 @@ function decrypt(settings) {
     // Encrypt header data and discard
     if (settings.headerData) encryptMsg(env, settings.headerData);
     // Decrypt message and signature
-    return decryptMsg(env, settings.message);
+    let msg = decryptMsg(env, settings.message);
+
+    if (settings.signature && !msg.endsWith(escapeToLC4(signature)))
+        throw new Error("Invalid signature");
+
+    return msg;
 }
 
 export { encrypt, decrypt };
