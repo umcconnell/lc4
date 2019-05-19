@@ -1,6 +1,7 @@
 import { ALPHABET, GRIDSIZE } from "./config.js";
 import {
     shuffle,
+    randomElement,
     shiftRowRight,
     shiftColumnDown,
     position,
@@ -25,6 +26,17 @@ function generateKey(keyword = false) {
     ).join("");
 
     return (keyword ? keyword : "") + key;
+}
+
+function generateNonce(length = 10) {
+    if (length < 6) {
+        throw new Error("Nonce must be at least 6 characters long");
+    }
+
+    return new Array(length)
+        .fill(0)
+        .map(_ => randomElement(...ALPHABET))
+        .join("");
 }
 
 function initState(key) {
@@ -94,4 +106,4 @@ function decryptMsg({ state, marker }, msg) {
         .join("");
 }
 
-export { initState, generateKey, encryptMsg, decryptMsg };
+export { initState, generateKey, generateNonce, encryptMsg, decryptMsg };
