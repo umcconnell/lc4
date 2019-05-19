@@ -37,8 +37,7 @@ function initState(key) {
     return S;
 }
 
-// FIXME: Changed state isn't returned. Possibly use object reference.
-function encryptMsg(state, marker, msg) {
+function encryptMsg({ state, marker }, msg) {
     [...msg].map(char => {
         let [row, col] = position(char, state);
 
