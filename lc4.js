@@ -31,7 +31,7 @@ function initState(key) {
     let S = new Array(GRIDSIZE).fill(0).map(_ => new Array(GRIDSIZE).fill(0));
 
     for (let k = 0; k < ALPHABET.length; k++) {
-        S[Math.floor(k / GRIDSIZE)][k % GRIDSIZE] = key[k];
+        S[Math.floor(k / GRIDSIZE)][k % GRIDSIZE] = ALPHABET.indexOf(key[k]);
     }
 
     return S;
