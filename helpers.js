@@ -21,6 +21,10 @@ function shuffle(arr) {
     return arr;
 }
 
+function randomElement(arr) {
+    return arr[Math.floor(Math.random() * arr.length)];
+}
+
 function shiftRowRight(state, row, marker) {
     state[row] = [
         state[row][state[row].length - 1],
@@ -68,4 +72,11 @@ function validLC4(input) {
     return input.every(char => ALPHABET.indexOf(char) > -1);
 }
 
-export { shuffle, shiftRowRight, shiftColumnDown, position, validLC4 };
+export {
+    shuffle,
+    randomElement,
+    shiftRowRight,
+    shiftColumnDown,
+    position,
+    validLC4
+};
