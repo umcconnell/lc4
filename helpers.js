@@ -22,7 +22,10 @@ function shuffle(arr) {
 }
 
 function shiftRowRight(state, row) {
-    state[row] = [...state[row].slice(1), state[row][0]];
+    state[row] = [
+        state[row][state[row].length - 1],
+        ...state[row].slice(0, -1)
+    ];
     return state;
 }
 
