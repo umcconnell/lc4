@@ -1,7 +1,7 @@
 import { DEFAULT_SETTINGS } from "./config.js";
 import { validateSettings } from "./validate.js";
 
-import { initState, generateKey, encryptMsg } from "./lc4.js";
+import { initState, generateKey, encryptMsg, decryptMsg } from "./lc4.js";
 
 function encrypt(settings) {
     settings = Object.assign(
@@ -27,7 +27,7 @@ function encrypt(settings) {
 }
 
 function decrypt(settings) {
-    settins = Object.assign({}, DEFAULT_SETTINGS, settings);
+    settings = Object.assign({}, DEFAULT_SETTINGS, settings);
 
     validateSettings(settings);
 
@@ -44,4 +44,4 @@ function decrypt(settings) {
     return decryptMsg(env, settings.message);
 }
 
-export { encrypt };
+export { encrypt, decrypt };
