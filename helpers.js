@@ -33,13 +33,15 @@ function shiftColumnDown(state, col) {
     let shiftRow = GRIDSIZE - 1,
         last = state[shiftRow][col];
 
-    return state.map(row => {
+    state = state.map(row => {
         let temp = row[col];
         row[col] = last;
         last = temp;
         shiftRow = (shiftRow + 1) % GRIDSIZE;
         return row;
     });
+
+    return state;
 }
 
 function position(char, state) {
