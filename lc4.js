@@ -64,4 +64,34 @@ function encryptMsg({ state, marker }, msg) {
         .join("");
 }
 
-export { initState, generateKey, encryptMsg };
+function decryptMsg({ state, marker }, msg) {
+    return [...msg]
+        .map(char => {
+            let code = ALPHABET.indexOf(char);
+            let [x, y] = position(code, state);
+
+            let row =
+                (x - Math.floor(state[marker.i][marker.j] / GRIDSIZE)) %
+                GRIDSIZE;
+            let col = (y - (state[marker.i][marker.j] % GRIDSIZE)) % GRIDSIZE;
+
+            if (row < 0) row += GRIDSIZE;
+            if (col < 0) col += GRIDSIZE;
+
+            let out = state[row][col];
+
+            shiftRowRight(state, row, marker);
+            if (x === row) y = (y + 1) % GRIDSIZE;
+
+            shiftColumnDown(state, y, marker);
+            if (y === col) row = (row + 1) % GRIDSIZE;
+
+            marker.i = (marker.i + Math.floor(code / GRIDSIZE)) % GRIDSIZE;
+            marker.j = (marker.j + (code % GRIDSIZE)) % GRIDSIZE;
+
+            return ALPHABET[out];
+        })
+        .join("");
+}
+
+export { initState, generateKey, encryptMsg, decryptMsg };
