@@ -40,18 +40,13 @@ function initState(key) {
 function encryptMsg({ state, marker }, msg) {
     return [...msg]
         .map(char => {
-            let [row, col] = position(char, state);
+            let code = ALPHABET.indexOf(char);
+            let [row, col] = position(code, state);
 
             let x =
-                (row +
-                    Math.floor(
-                        ALPHABET.indexOf(state[marker.i][marker.j]) / GRIDSIZE
-                    )) %
+                (row + Math.floor(state[marker.i][marker.j] / GRIDSIZE)) %
                 GRIDSIZE;
-            let y =
-                (col +
-                    (ALPHABET.indexOf(state[marker.i][marker.j]) % GRIDSIZE)) %
-                GRIDSIZE;
+            let y = (col + (state[marker.i][marker.j] % GRIDSIZE)) % GRIDSIZE;
 
             let out = state[x][y];
 
@@ -65,13 +60,10 @@ function encryptMsg({ state, marker }, msg) {
             if (y === col) row = (row + 1) % GRIDSIZE;
             if (marker.j === y) marker.i = (marker.i + 1) % GRIDSIZE;
 
-            marker.i =
-                (marker.i + Math.floor(ALPHABET.indexOf(out) / GRIDSIZE)) %
-                GRIDSIZE;
-            marker.j =
-                (marker.j + (ALPHABET.indexOf(out) % GRIDSIZE)) % GRIDSIZE;
+            marker.i = (marker.i + Math.floor(out / GRIDSIZE)) % GRIDSIZE;
+            marker.j = (marker.j + (out % GRIDSIZE)) % GRIDSIZE;
 
-            return out;
+            return ALPHABET[out];
         })
         .join("");
 }
