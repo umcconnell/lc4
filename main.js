@@ -1,5 +1,6 @@
 import { DEFAULT_SETTINGS } from "./config.js";
 import { validateSettings } from "./validate.js";
+import { escapeToLC4 } from "./helpers.js";
 
 import { initState, generateKey, encryptMsg, decryptMsg } from "./lc4.js";
 
@@ -11,6 +12,7 @@ function encrypt(settings) {
         settings
     );
 
+    settings.message = escapeToLC4(settings.message);
     validateSettings(settings);
 
     let env = {
