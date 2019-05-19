@@ -1,8 +1,10 @@
 import { validLC4 } from "./helpers.js";
 import { ALPHABET } from "./config.js";
 
-function validateEncryptSettings(settings) {
-    if (!validLC4([...settings.key])) {
+function validateSettings(settings) {
+    if (!settings.key) {
+        throw new Error("You must specify a (valid) key!");
+    } else if (!validLC4([...settings.key])) {
         throw new Error(
             "Keyword for key generation contains invalid characters!\n" +
                 "You may only use following characters: " +
@@ -32,4 +34,4 @@ function validateEncryptSettings(settings) {
         throw new Error("You must specify a message to encrypt");
 }
 
-export { validateEncryptSettings };
+export { validateSettings };
