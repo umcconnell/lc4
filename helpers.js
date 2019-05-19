@@ -43,7 +43,7 @@ function position(char, state) {
     let vector = [];
 
     for (let row = 0; row < state.length; row++) {
-        let column = row.indexOf(char);
+        let column = state[row].indexOf(char);
 
         if (column > -1) {
             vector = [row, column];
