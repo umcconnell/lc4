@@ -15,7 +15,7 @@ function encrypt(settings) {
 
     let env = {
         state: initState(settings.key),
-        marker = { i: 0, j: 0 }
+        marker: { i: 0, j: 0 }
     };
 
     // Encrypt nonce and discard
@@ -23,10 +23,7 @@ function encrypt(settings) {
     // Encrypt header data and discard
     if (settings.headerData) encryptMsg(env, settings.headerData);
     // Encrypt message concatenated with signature
-    return encryptMsg(
-        env,
-        settings.message + (settings.signature || "")
-    );
+    return encryptMsg(env, settings.message + (settings.signature || ""));
 }
 
 export { encrypt };
