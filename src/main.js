@@ -12,7 +12,7 @@ function encrypt(settings) {
         settings
     );
 
-    settings.message = escapeToLC4(settings.message);
+    if (settings.message) settings.message = escapeToLC4(settings.message);
     validateSettings(settings);
 
     let env = {
