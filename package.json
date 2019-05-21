@@ -1,5 +1,5 @@
 {
-    "name": "lc4js",
+    "name": "lc4",
     "version": "1.0.0",
     "description": "A spec-compliant lc4 encryption library",
     "main": "/src/main.js",
