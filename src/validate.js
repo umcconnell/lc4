@@ -3,7 +3,11 @@ import { ALPHABET } from "./config.js";
 
 function validateSettings(settings) {
     if (!settings.key) {
-        throw new Error("You must specify a (valid) key!");
+        throw new Error(
+            "You must specify a (valid) key!\n" +
+                "You may only use following characters: " +
+                ALPHABET
+        );
     } else if (!validLC4([...settings.key])) {
         throw new Error(
             "Keyword for key generation contains invalid characters!\n" +

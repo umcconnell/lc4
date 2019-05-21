@@ -2,15 +2,16 @@ import { DEFAULT_SETTINGS } from "./config.js";
 import { validateSettings } from "./validate.js";
 import { escapeToLC4 } from "./helpers.js";
 
-import { initState, generateKey, encryptMsg, decryptMsg } from "./lc4.js";
+import {
+    initState,
+    generateKey,
+    generateNonce,
+    encryptMsg,
+    decryptMsg
+} from "./lc4.js";
 
 function encrypt(settings) {
-    settings = Object.assign(
-        {},
-        { key: generateKey() },
-        DEFAULT_SETTINGS,
-        settings
-    );
+    settings = Object.assign({}, DEFAULT_SETTINGS, settings);
 
     if (settings.message) settings.message = escapeToLC4(settings.message);
     validateSettings(settings);
@@ -51,4 +52,4 @@ function decrypt(settings) {
     return msg;
 }
 
-export { encrypt, decrypt };
+export { encrypt, decrypt, generateKey, generateNonce };
