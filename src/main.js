@@ -10,6 +10,24 @@ import {
     decryptMsg
 } from "./lc4.js";
 
+/**
+ * Encrypt a message with LC4
+ * @param {Object} settings encryption settings
+ * @param {String} settings.message message to encrypt. Invalid LC4 strings are escaped
+ * @param {String} settings.key valid LC4 key
+ * @param {String} [settings.nonce=null] valid LC4 nonce
+ * @param {String} [settings.headerData=null] header data
+ * @param {String} [settings.signature=null] signature for signing the message
+ * @example <caption>Encrypt a message with a random key</caption>
+ * const { encrypt, generateKey } = require("lc4");
+ *
+ * encrypt({
+ *     message: "hello_world",
+ *     key: generateKey(),
+ *     nonce: "lorem_ipsum"
+ * })
+ * @returns {String} the encrypted (and signed) message
+ */
 function encrypt(settings) {
     settings = Object.assign({}, DEFAULT_SETTINGS, settings);
 
