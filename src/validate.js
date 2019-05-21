@@ -2,12 +2,16 @@ import { validLC4 } from "./helpers.js";
 import { ALPHABET } from "./config.js";
 
 function validateSettings(settings) {
-    if (!settings.key) {
+    if (!settings.message) {
+        throw new Error("You must specify a message to encrypt");
+    } else if (!settings.key) {
         throw new Error(
             "You must specify a (valid) key!\n" +
                 "You may only use following characters: " +
                 ALPHABET
         );
+    } else if (key.length !== ALPHABET.length) {
+        throw new Error("Key is too short");
     } else if (!validLC4([...settings.key])) {
         throw new Error(
             "Keyword for key generation contains invalid characters!\n" +
@@ -34,8 +38,7 @@ function validateSettings(settings) {
                 ALPHABET +
                 " and must be at least 10 characters long."
         );
-    } else if (!settings.message)
-        throw new Error("You must specify a message to encrypt");
+    }
 }
 
 export { validateSettings };
