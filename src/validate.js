@@ -10,7 +10,7 @@ function validateSettings(settings) {
                 "You may only use following characters: " +
                 ALPHABET
         );
-    } else if (key.length !== ALPHABET.length) {
+    } else if (settings.key.length !== ALPHABET.length) {
         throw new Error("Key is too short");
     } else if (!validLC4([...settings.key])) {
         throw new Error(
