@@ -25,7 +25,17 @@ import {
  *     message: "hello_world",
  *     key: generateKey(),
  *     nonce: "lorem_ipsum"
- * })
+ * });
+ *
+ * @example <caption>Encrypt and sign a message</caption>
+ * const {encrypt, generateKey, generateNonce} = require("lc4");
+ *
+ * encrypt({
+ *     message: "Lorem Ipsum", // will be escaped to lorem_ipsum
+ *     key: generateKey(),
+ *     nonce: generateNonce(),
+ *     signature: "#secret"
+ * });
  * @returns {String} the encrypted (and signed) message
  */
 export function encrypt(settings) {
