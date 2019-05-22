@@ -49,41 +49,41 @@ describe("LC4 encryption and decryption", () => {
 describe("Input validation", () => {
     describe("string passed as input", () => {
         it("should throw at encryption", () => {
-            expect(decrypt.bind(null, "hi")).to.throw(Error);
+            expect(decrypt.bind(null, "hi")).to.throw(TypeError);
         });
 
         it("should throw at decryption", () => {
-            expect(decrypt.bind(null, "hi")).to.throw(Error);
+            expect(decrypt.bind(null, "hi")).to.throw(TypeError);
         });
     });
 
     describe("empty object passed", () => {
         it("should throw at encryption", () => {
-            expect(encrypt.bind(null, {})).to.throw(Error);
+            expect(encrypt.bind(null, {})).to.throw(TypeError);
         });
 
         it("should throw at decryption", () => {
-            expect(decrypt.bind(null, {})).to.throw(Error);
+            expect(decrypt.bind(null, {})).to.throw(TypeError);
         });
     });
 
     describe("no message passed", () => {
         it("should throw at encryption", () => {
-            expect(encrypt.bind(null, {})).to.throw(Error);
+            expect(encrypt.bind(null, {})).to.throw(TypeError);
         });
 
         it("should throw at decryption", () => {
-            expect(decrypt.bind(null, {})).to.throw(Error);
+            expect(decrypt.bind(null, {})).to.throw(TypeError);
         });
     });
 
     describe("no key passed", () => {
         it("should throw at encryption", () => {
-            expect(encrypt.bind(null, { message: "hi" })).to.throw(Error);
+            expect(encrypt.bind(null, { message: "hi" })).to.throw(TypeError);
         });
 
         it("should throw at decryption", () => {
-            expect(decrypt.bind(null, { message: "hi" })).to.throw(Error);
+            expect(decrypt.bind(null, { message: "hi" })).to.throw(TypeError);
         });
     });
 
@@ -91,13 +91,13 @@ describe("Input validation", () => {
         it("should throw at encryption", () => {
             expect(
                 encrypt.bind(null, { message: "hi", key: "invalid" })
-            ).to.throw(Error);
+            ).to.throw(TypeError);
         });
 
         it("should throw at decryption", () => {
             expect(
                 decrypt.bind(null, { message: "hi", key: "invalid" })
-            ).to.throw(Error);
+            ).to.throw(TypeError);
         });
     });
 });
