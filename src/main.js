@@ -59,6 +59,41 @@ export function encrypt(settings) {
     return encryptMsg(env, settings.message + (settings.signature || ""));
 }
 
+/**
+ * Decrypt a message with LC4
+ * @param {Object} settings decryption settings
+ * @param {String} settings.message message to decrypt
+ * @param {String} settings.key valid LC4 key
+ * @param {String} [settings.nonce=null] valid LC4 nonce
+ * @param {String} [settings.headerData=null] header data
+ * @param {String} [settings.signature=null] signature of signed message
+ * @example <caption>Decrypt a message with a given key</caption>
+ * const { decrypt } = require("lc4");
+ *
+ * decrypt({
+ *     message: "v74hxj5pxmo",
+ *     key: "igqehmd48pvxrl7k36y95j2sfnbo#wc_ztau",
+ *     nonce: "lorem_ipsum"
+ * });
+ *
+ * //=> "hello_world"
+ * @example <caption>Encrypt and sign a message</caption>
+ * const { decrypt } = require("lc4");
+ *
+ * decrypt({
+ *     message: "6q4ijz8p_qxbp5ys5w8qg_srnk3r",
+ *     key: "notds7u_i3exc2wlbyzpa4g85#v9fqjkrmh6",
+ *     nonce: "r#39_4kgpz",
+ *     signature: "#secret_signature"
+ * });
+ *
+ * //=> "lorem_ipsum#secret_signature"
+ * @throws {Error} Will throw error "Invalid Signature" if message doesn't end
+ * with specified signature
+ * @throws {TypeError} Will throw a type error if settings are invalid or
+ * missing
+ * @returns {String} the encrypted (and signed) message
+ */
 export function decrypt(settings) {
     settings = Object.assign({}, DEFAULT_SETTINGS, settings);
 
