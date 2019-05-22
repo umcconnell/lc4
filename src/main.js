@@ -36,6 +36,7 @@ import {
  *     nonce: generateNonce(),
  *     signature: "#secret"
  * });
+ * @throws {TypeError} Will throw a type error if settings are invalid or missing
  * @returns {String} the encrypted (and signed) message
  */
 export function encrypt(settings) {
