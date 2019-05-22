@@ -75,7 +75,7 @@ export function decrypt(settings) {
     // Decrypt message and signature
     let msg = decryptMsg(env, settings.message);
 
-    if (settings.signature && !msg.endsWith(escapeToLC4(signature)))
+    if (settings.signature && !msg.endsWith(escapeToLC4(settings.signature)))
         throw new Error("Invalid signature");
 
     return msg;
