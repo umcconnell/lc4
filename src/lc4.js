@@ -1,3 +1,4 @@
+/** @module lc4/lc4 */
 import { ALPHABET, GRIDSIZE } from "./config.js";
 import {
     shuffle,
@@ -8,6 +9,24 @@ import {
     validLC4
 } from "./helpers.js";
 
+/**
+ * Generate a valid random LC4 key
+ * @param {String} [keyword=false] keyword to base key off (less secure)
+ * @example <caption>Generate a random key</caption>
+ * let { generateKey } = require("lc4");
+ *
+ * generateKey();
+ * @example <caption>Encrypt a message with a random key</caption>
+ * const { encrypt, generateKey } = require("lc4");
+ *
+ * encrypt({
+ *     message: "hello_world",
+ *     key: generateKey(),
+ * });
+ * @throws {Error} Will throw an error if the keyword contains invalid LC4
+ * characters
+ * @returns {String} a valid LC4 key
+ */
 export function generateKey(keyword = false) {
     if (keyword) {
         if (!validLC4([...keyword]))
