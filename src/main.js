@@ -28,15 +28,16 @@ import {
  * });
  *
  * @example <caption>Encrypt and sign a message</caption>
- * const {encrypt, generateKey, generateNonce} = require("lc4");
+ * const { encrypt, generateKey, generateNonce } = require("lc4");
  *
  * encrypt({
  *     message: "Lorem Ipsum", // will be escaped to lorem_ipsum
  *     key: generateKey(),
  *     nonce: generateNonce(),
- *     signature: "#secret"
+ *     signature: "#secret_signature"
  * });
- * @throws {TypeError} Will throw a type error if settings are invalid or missing
+ * @throws {TypeError} Will throw a type error if settings are invalid or
+ * missing
  * @returns {String} the encrypted (and signed) message
  */
 export function encrypt(settings) {
