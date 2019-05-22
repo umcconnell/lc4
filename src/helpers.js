@@ -1,6 +1,6 @@
 import { ALPHABET, GRIDSIZE } from "./config.js";
 
-function escapeToLC4(string) {
+export function escapeToLC4(string) {
     return [
         ...string
             .replace(/0/g, "#")
@@ -19,7 +19,7 @@ function escapeToLC4(string) {
         .join("");
 }
 
-function shuffle(arr) {
+export function shuffle(arr) {
     // Copy the array
     arr = arr.slice();
 
@@ -40,11 +40,11 @@ function shuffle(arr) {
     return arr;
 }
 
-function randomElement(arr) {
+export function randomElement(arr) {
     return arr[Math.floor(Math.random() * arr.length)];
 }
 
-function shiftRowRight(state, row, marker) {
+export function shiftRowRight(state, row, marker) {
     state[row] = [
         state[row][state[row].length - 1],
         ...state[row].slice(0, -1)
@@ -55,7 +55,7 @@ function shiftRowRight(state, row, marker) {
     return state;
 }
 
-function shiftColumnDown(state, col, marker) {
+export function shiftColumnDown(state, col, marker) {
     let shiftRow = GRIDSIZE - 1,
         last = state[shiftRow][col];
 
@@ -72,7 +72,7 @@ function shiftColumnDown(state, col, marker) {
     return state;
 }
 
-function position(char, state) {
+export function position(char, state) {
     let vector = [];
 
     for (let row = 0; row < state.length; row++) {
@@ -87,16 +87,6 @@ function position(char, state) {
     return vector;
 }
 
-function validLC4(input) {
+export function validLC4(input) {
     return input.every(char => ALPHABET.indexOf(char) > -1);
 }
-
-export {
-    escapeToLC4,
-    shuffle,
-    randomElement,
-    shiftRowRight,
-    shiftColumnDown,
-    position,
-    validLC4
-};

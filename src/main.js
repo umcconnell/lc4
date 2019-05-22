@@ -28,7 +28,7 @@ import {
  * })
  * @returns {String} the encrypted (and signed) message
  */
-function encrypt(settings) {
+export function encrypt(settings) {
     settings = Object.assign({}, DEFAULT_SETTINGS, settings);
 
     if (settings.message) settings.message = escapeToLC4(settings.message);
@@ -47,7 +47,7 @@ function encrypt(settings) {
     return encryptMsg(env, settings.message + (settings.signature || ""));
 }
 
-function decrypt(settings) {
+export function decrypt(settings) {
     settings = Object.assign({}, DEFAULT_SETTINGS, settings);
 
     validateSettings(settings);
@@ -70,4 +70,4 @@ function decrypt(settings) {
     return msg;
 }
 
-export { encrypt, decrypt, generateKey, generateNonce };
+export { generateKey, generateNonce };

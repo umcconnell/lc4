@@ -1,7 +1,7 @@
 import { validLC4 } from "./helpers.js";
 import { ALPHABET } from "./config.js";
 
-function validateSettings(settings) {
+export function validateSettings(settings) {
     if (!settings.message) {
         throw new Error("You must specify a message to encrypt");
     } else if (!settings.key) {
@@ -40,5 +40,3 @@ function validateSettings(settings) {
         );
     }
 }
-
-export { validateSettings };

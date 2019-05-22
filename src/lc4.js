@@ -8,7 +8,7 @@ import {
     validLC4
 } from "./helpers.js";
 
-function generateKey(keyword = false) {
+export function generateKey(keyword = false) {
     if (keyword) {
         if (!validLC4([...keyword]))
             throw new Error(
@@ -28,7 +28,7 @@ function generateKey(keyword = false) {
     return (keyword ? keyword : "") + key;
 }
 
-function generateNonce(length = 10) {
+export function generateNonce(length = 10) {
     if (length < 6) {
         throw new Error("Nonce must be at least 6 characters long");
     }
@@ -39,7 +39,7 @@ function generateNonce(length = 10) {
         .join("");
 }
 
-function initState(key) {
+export function initState(key) {
     let S = new Array(GRIDSIZE).fill(0).map(_ => new Array(GRIDSIZE).fill(0));
 
     for (let k = 0; k < ALPHABET.length; k++) {
@@ -49,7 +49,7 @@ function initState(key) {
     return S;
 }
 
-function encryptMsg({ state, marker }, msg) {
+export function encryptMsg({ state, marker }, msg) {
     return [...msg]
         .map(char => {
             let code = ALPHABET.indexOf(char);
@@ -76,7 +76,7 @@ function encryptMsg({ state, marker }, msg) {
         .join("");
 }
 
-function decryptMsg({ state, marker }, msg) {
+export function decryptMsg({ state, marker }, msg) {
     return [...msg]
         .map(char => {
             let code = ALPHABET.indexOf(char);
@@ -105,5 +105,3 @@ function decryptMsg({ state, marker }, msg) {
         })
         .join("");
 }
-
-export { initState, generateKey, generateNonce, encryptMsg, decryptMsg };
