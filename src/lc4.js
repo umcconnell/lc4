@@ -76,6 +76,11 @@ export function generateNonce(length = 10) {
         .join("");
 }
 
+/**
+ * Populate a state matrix by filling in a key row by row
+ * @param {(String|Key)} key key string or array
+ * @returns {Array} state matrix
+ */
 export function initState(key) {
     let S = new Array(GRIDSIZE).fill(0).map(_ => new Array(GRIDSIZE).fill(0));
 
