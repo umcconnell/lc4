@@ -64,6 +64,15 @@ export function randomElement(arr) {
     return arr[Math.floor(Math.random() * arr.length)];
 }
 
+/**
+ * Shift given row in the state matrix and move the marker if needed
+ * @param {Array} state state matrix
+ * @param {Number} row index of row to shift
+ * @param {Object} marker marker object representing active element
+ * @param {Number} marker.i row of the marker in the state
+ * @param {Number} marker.j column of the marker in the state
+ * @returns {Array} updated state matrix
+ */
 export function shiftRowRight(state, row, marker) {
     state[row] = [
         state[row][state[row].length - 1],
