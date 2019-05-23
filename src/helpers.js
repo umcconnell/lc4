@@ -29,6 +29,11 @@ export function escapeToLC4(string) {
         .join("");
 }
 
+/**
+ * Fisher-Yates array Shuffle
+ * @param {Array} arr input array to be shuffled
+ * @returns {Array} shuffled array
+ */
 export function shuffle(arr) {
     // Copy the array
     arr = arr.slice();
