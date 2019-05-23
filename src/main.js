@@ -45,6 +45,8 @@ export function encrypt(settings) {
     settings = Object.assign({}, DEFAULT_SETTINGS, settings);
 
     if (settings.message) settings.message = escapeToLC4(settings.message);
+    if (settings.headerData)
+        settings.headerData = escapeToLC4(settings.headerData);
     validateSettings(settings);
 
     let env = {
@@ -97,6 +99,9 @@ export function encrypt(settings) {
  */
 export function decrypt(settings) {
     settings = Object.assign({}, DEFAULT_SETTINGS, settings);
+
+    if (settings.headerData)
+        settings.headerData = escapeToLC4(settings.headerData);
 
     validateSettings(settings);
 
