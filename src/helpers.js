@@ -84,6 +84,15 @@ export function shiftRowRight(state, row, marker) {
     return state;
 }
 
+/**
+ * Shift given column in the state matrix and move the marker if needed
+ * @param {Array} state state matrix
+ * @param {Number} col index of column to shift
+ * @param {Object} marker marker object representing active element
+ * @param {Number} marker.i row of the marker in the state
+ * @param {Number} marker.j column of the marker in the state
+ * @returns {Array} updated state matrix
+ */
 export function shiftColumnDown(state, col, marker) {
     let shiftRow = GRIDSIZE - 1,
         last = state[shiftRow][col];
