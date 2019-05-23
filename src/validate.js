@@ -1,6 +1,20 @@
+/** @module lc4/validate */
 import { validLC4 } from "./helpers.js";
 import { ALPHABET } from "./config.js";
 
+/**
+ * Validate encryption/decryption LC4 settings
+ * @param {Object} settings LC4 settings message
+ * @param {String} settings.message valid LC4 string
+ * @param {String} settings.key valid LC4 string
+ * @param {String} [settings.signature=null] valid LC4 string (at least 10
+ * characters long)
+ * @param {String} [settings.headerData=null] valid LC4 string
+ * @param {String} [settings.nonce=null] valid LC4 string (at least 6 characters
+ * long)
+ * @throws {TypeError} When message and/or key is missing or if invalid value
+ * (invalid LC4 string) is passed
+ */
 export function validateSettings(settings) {
     if (!settings.message) {
         throw new TypeError("You must specify a message to encrypt");
