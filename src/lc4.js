@@ -91,6 +91,16 @@ export function initState(key) {
     return S;
 }
 
+/**
+ * Encrypt a cleartext message and change the environment
+ * @param {Object} env environment object
+ * @param {Array} env.state state matrix
+ * @param {Object} env.marker marker object representing active element
+ * @param {Number} env.marker.i row of the marker in the state
+ * @param {Number} env.marker.j column of the marker in the state
+ * @param {String} msg cleartext message
+ * @returns {String} ciphertext message
+ */
 export function encryptMsg({ state, marker }, msg) {
     return [...msg]
         .map(char => {
