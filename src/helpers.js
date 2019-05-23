@@ -110,6 +110,12 @@ export function shiftColumnDown(state, col, marker) {
     return state;
 }
 
+/**
+ * Return the coordinates of given search element in the state matrix
+ * @param {*} char search element
+ * @param {Array} state state matrix
+ * @returns {Array} position vector in the form [`row`, `column`]
+ */
 export function position(char, state) {
     let vector = [];
 
