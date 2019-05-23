@@ -1,5 +1,15 @@
+/** @module lc4/helpers */
 import { ALPHABET, GRIDSIZE } from "./config.js";
 
+/**
+ * Escape string to valid LC4 string
+ * @param {String} string (invalid) LC4 string
+ * @example
+ * escapeToLC4("Hello World! This is the 10th test!");
+ *
+ * //=> "hello_world_this_is_the__#th_test"
+ * @returns {String} valid LC4 string
+ */
 export function escapeToLC4(string) {
     return [
         ...string
