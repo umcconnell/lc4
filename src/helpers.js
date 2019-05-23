@@ -131,6 +131,11 @@ export function position(char, state) {
     return vector;
 }
 
+/**
+ * Determine if input contains only valid LC4 characters
+ * @param {Array} input input array
+ * @returns {Boolean} indicating if input is valid LC4
+ */
 export function validLC4(input) {
     return input.every(char => ALPHABET.indexOf(char) > -1);
 }
