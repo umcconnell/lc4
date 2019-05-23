@@ -47,6 +47,24 @@ export function generateKey(keyword = false) {
     return (keyword ? keyword : "") + key;
 }
 
+/**
+ * Generate a valid random LC4 nonce
+ * @param {Number} [length=10] length of nonce (at least 6)
+ * @example <caption>Generate a random nonce</caption>
+ * let { generateNonce } = require("lc4");
+ *
+ * generateNonce();
+ * @example <caption>Encrypt a message with a random nonce</caption>
+ * const { encrypt, generateKey, generateNonce } = require("lc4");
+ *
+ * encrypt({
+ *     message: "Lorem Ipsum",
+ *     key: generateKey(),
+ *     nonce: generateNonce()
+ * })
+ * @throws {Error} Will throw an error if length is smaller than 6
+ * @returns {String} a valid LC4 nonce
+ */
 export function generateNonce(length = 10) {
     if (length < 6) {
         throw new Error("Nonce must be at least 6 characters long");
