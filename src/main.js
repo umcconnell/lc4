@@ -1,13 +1,14 @@
+/** @module lc4 */
 import { DEFAULT_SETTINGS } from "./config.js";
 import { validateSettings } from "./validate.js";
 import { escapeToLC4 } from "./helpers.js";
 
 import {
     initState,
-    generateKey,
-    generateNonce,
     encryptMsg,
-    decryptMsg
+    decryptMsg,
+    generateKey as _generateKey,
+    generateNonce as _generateNonce
 } from "./lc4.js";
 
 /**
@@ -117,4 +118,46 @@ export function decrypt(settings) {
     return msg;
 }
 
-export { generateKey, generateNonce };
+/**
+ * Generate a valid random LC4 key
+ * @param {String} [keyword=false] keyword to base key off (less secure)
+ * @example <caption>Generate a random key</caption>
+ * let { generateKey } = require("lc4");
+ *
+ * generateKey();
+ * @example <caption>Encrypt a message with a random key</caption>
+ * const { encrypt, generateKey } = require("lc4");
+ *
+ * encrypt({
+ *     message: "hello_world",
+ *     key: generateKey(),
+ * });
+ * @throws {Error} Will throw an error if the keyword contains invalid LC4
+ * characters
+ * @returns {String} a valid LC4 key
+ */
+export function generateKey(keyword) {
+    return _generateKey(keyword);
+}
+
+/**
+ * Generate a valid random LC4 nonce
+ * @param {Number} [length=10] length of nonce (at least 6)
+ * @example <caption>Generate a random nonce</caption>
+ * let { generateNonce } = require("lc4");
+ *
+ * generateNonce();
+ * @example <caption>Encrypt a message with a random nonce</caption>
+ * const { encrypt, generateKey, generateNonce } = require("lc4");
+ *
+ * encrypt({
+ *     message: "Lorem Ipsum",
+ *     key: generateKey(),
+ *     nonce: generateNonce()
+ * })
+ * @throws {Error} Will throw an error if length is smaller than 6
+ * @returns {String} a valid LC4 nonce
+ */
+export function generateNonce(length) {
+    return _generateNonce(length);
+}
