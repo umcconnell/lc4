@@ -55,6 +55,11 @@ export function shuffle(arr) {
     return arr;
 }
 
+/**
+ * Pick a random element from an array
+ * @param {Array} arr input array to pick element from
+ * @returns {*} a random element from the array
+ */
 export function randomElement(arr) {
     return arr[Math.floor(Math.random() * arr.length)];
 }
