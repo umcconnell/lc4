@@ -1,7 +1,7 @@
 /** @module lc4 */
 import { DEFAULT_SETTINGS } from "./config.js";
 import { validateSettings } from "./validate.js";
-import { escapeToLC4 } from "./helpers.js";
+import { escapeToLC4 as _escapeToLC4 } from "./helpers.js";
 
 import {
     initState,
@@ -14,7 +14,8 @@ import {
 /**
  * Encrypt a message with LC4
  * @param {Object} settings encryption settings
- * @param {String} settings.message message to encrypt. Invalid LC4 strings are escaped
+ * @param {String} settings.message message to encrypt. Invalid LC4 strings are
+ * escaped with the `escapeToLC4` method
  * @param {String} settings.key valid LC4 key
  * @param {String} [settings.nonce=null] valid LC4 nonce
  * @param {String} [settings.headerData=null] header data
@@ -44,9 +45,9 @@ import {
 export function encrypt(settings) {
     settings = Object.assign({}, DEFAULT_SETTINGS, settings);
 
-    if (settings.message) settings.message = escapeToLC4(settings.message);
+    if (settings.message) settings.message = _escapeToLC4(settings.message);
     if (settings.headerData)
-        settings.headerData = escapeToLC4(settings.headerData);
+        settings.headerData = _escapeToLC4(settings.headerData);
     validateSettings(settings);
 
     let env = {
@@ -101,7 +102,7 @@ export function decrypt(settings) {
     settings = Object.assign({}, DEFAULT_SETTINGS, settings);
 
     if (settings.headerData)
-        settings.headerData = escapeToLC4(settings.headerData);
+        settings.headerData = _escapeToLC4(settings.headerData);
 
     validateSettings(settings);
 
@@ -117,7 +118,7 @@ export function decrypt(settings) {
     // Decrypt message and signature
     let msg = decryptMsg(env, settings.message);
 
-    if (settings.signature && !msg.endsWith(escapeToLC4(settings.signature)))
+    if (settings.signature && !msg.endsWith(_escapeToLC4(settings.signature)))
         throw new Error("Invalid signature");
 
     return msg;
@@ -165,4 +166,18 @@ export function generateKey(keyword) {
  */
 export function generateNonce(length) {
     return _generateNonce(length);
+}
+
+/**
+ * Escape string to valid LC4 string
+ * @param {String} string (invalid) LC4 string
+ * @example
+ * let { escapeToLC4 } = require("lc4");
+ * escapeToLC4("Hello World! This is the 10th test!");
+ *
+ * //=> "hello_world_this_is_the__#th_test"
+ * @returns {String} valid LC4 string
+ */
+export function escapeToLC4(string) {
+    return _escapeToLC4(string);
 }
