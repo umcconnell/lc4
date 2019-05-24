@@ -282,6 +282,7 @@ Decrypt a ciphertext message and change the environment
     * [.decrypt(settings)](#module_lc4.decrypt) ⇒ <code>String</code>
     * [.generateKey([keyword])](#module_lc4.generateKey) ⇒ <code>String</code>
     * [.generateNonce([length])](#module_lc4.generateNonce) ⇒ <code>String</code>
+    * [.escapeToLC4(string)](#module_lc4.escapeToLC4) ⇒ <code>String</code>
 
 <a name="module_lc4.encrypt"></a>
 
@@ -299,7 +300,7 @@ missing
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
 | settings | <code>Object</code> |  | encryption settings |
-| settings.message | <code>String</code> |  | message to encrypt. Invalid LC4 strings are escaped |
+| settings.message | <code>String</code> |  | message to encrypt. Invalid LC4 strings are escaped with the `escapeToLC4` method |
 | settings.key | <code>String</code> |  | valid LC4 key |
 | [settings.nonce] | <code>String</code> | <code></code> | valid LC4 nonce |
 | [settings.headerData] | <code>String</code> | <code></code> | header data |
@@ -438,6 +439,25 @@ encrypt({
     key: generateKey(),
     nonce: generateNonce()
 })
+```
+<a name="module_lc4.escapeToLC4"></a>
+
+### lc4.escapeToLC4(string) ⇒ <code>String</code>
+Escape string to valid LC4 string
+
+**Kind**: static method of [<code>lc4</code>](#module_lc4)  
+**Returns**: <code>String</code> - valid LC4 string  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| string | <code>String</code> | (invalid) LC4 string |
+
+**Example**  
+```js
+let { escapeToLC4 } = require("lc4");
+escapeToLC4("Hello World! This is the 10th test!");
+
+//=> "hello_world_this_is_the__#th_test"
 ```
 <a name="module_lc4/validate"></a>
 
