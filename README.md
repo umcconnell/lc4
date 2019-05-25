@@ -29,7 +29,7 @@ npm install lc4
 Include in node
 
 ```js
-let lc4 = require("lc4);
+let lc4 = require("lc4");
 ```
 
 ## Examples
