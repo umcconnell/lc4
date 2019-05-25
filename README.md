@@ -3,7 +3,7 @@
 [![NPM](https://nodei.co/npm/lc4.png)](https://nodei.co/npm/lc4/)
 
 A [spec-compliant](https://eprint.iacr.org/2017/339.pdf)
-lc4 encryption/decryption library
+LC4 (ElsieFour) encryption/decryption library
 
 ## Table of Contents
 
@@ -147,12 +147,4 @@ This project is licensed under the MIT License - see the
 
 ## Acknowledgments
 
--   [node](https://nodejs.org/) - The server backend
--   [express](https://expressjs.com/) - The web server
--   [redis](https://redis.io/) - The database
--   [node_redis](https://github.com/NodeRedis/node_redis) - The redis client for node
--   [ws](https://github.com/websockets/ws) - The WebSocket server
--   [winston](https://github.com/winstonjs/winston) - The logging library
--   [feather](https://github.com/feathericons/feather) - The icons
--   [Warship icon by zidney on the NounProject (resized, minified and changed line thickness)](https://thenounproject.com/term/warship/1597472/) - The logo
--   Billie Thompson - [PurpleBooth](https://github.com/PurpleBooth) for the README and CONTRIBUTING template
+-   [reddit r/dailyprogrammer](https://www.reddit.com/r/dailyprogrammer/comments/8jvbzg/20180516_challenge_361_intermediate_elsiefour/)
