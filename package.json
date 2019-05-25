@@ -1,6 +1,6 @@
 {
     "name": "lc4",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "A spec-compliant lc4 encryption/decryption library",
     "main": "./lib/main.js",
     "scripts": {
@@ -11,7 +11,8 @@
     },
     "keywords": [
         "lc4",
-        "encryption"
+        "encryption",
+        "elsiefour"
     ],
     "author": "Ulysse McConnell",
     "license": "MIT",
