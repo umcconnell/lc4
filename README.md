@@ -18,15 +18,15 @@ LC4 (ElsieFour) encryption/decryption library
 -   [License](#license)
 -   [Acknowledgments](#acknowledgments)
 
-### Installing
+## Installing
 
-Install with npm
+Install with npm:
 
 ```bash
 npm install lc4
 ```
 
-Include in node
+Include in node:
 
 ```js
 let lc4 = require("lc4");
@@ -119,8 +119,8 @@ For more information about internal mechanisms and helpers, see the
 -   [babel](https://babeljs.io/) - The js transpiler
 -   [mocha](https://mochajs.org/) - The test framework
 -   [chai](https://www.chaijs.com/) - The assertion framework
--   [jsdoc2md](https://github.com/jsdoc2md/jsdoc-to-markdown) - The document
-    generator
+-   [jsdoc2md](https://github.com/jsdoc2md/jsdoc-to-markdown) - The
+    documentation generator
 
 ## Contributing
 
