@@ -8,5 +8,6 @@ export const GRIDSIZE = 6;
 export const DEFAULT_SETTINGS = {
     signature: null,
     headerData: null,
-    nonce: null
+    nonce: null,
+    verbose: false
 };
