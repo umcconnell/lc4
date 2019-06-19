@@ -30,6 +30,7 @@ missing
 | [settings.nonce] | <code>String</code> | <code></code> | valid LC4 nonce |
 | [settings.headerData] | <code>String</code> | <code></code> | header data |
 | [settings.signature] | <code>String</code> | <code></code> | signature for signing the message |
+| [settings.verbose] | <code>Boolean</code> | <code>false</code> | boolean indicating whether verbose mode should be used (will print intermediate steps to console) |
 
 **Example** *(Encrypt a message with a random key)*  
 ```js
@@ -49,7 +50,8 @@ encrypt({
     message: "Lorem Ipsum", // will be escaped to lorem_ipsum
     key: generateKey(),
     nonce: generateNonce(),
-    signature: "#secret_signature"
+    signature: "#secret_signature",
+    verbose: true
 });
 ```
 <a name="module_lc4.decrypt"></a>
@@ -75,6 +77,7 @@ missing
 | [settings.nonce] | <code>String</code> | <code></code> | valid LC4 nonce |
 | [settings.headerData] | <code>String</code> | <code></code> | header data |
 | [settings.signature] | <code>String</code> | <code></code> | signature of signed message |
+| [settings.verbose] | <code>Boolean</code> | <code>false</code> | boolean indicating whether verbose mode should be used (will print intermediate steps to console) |
 
 **Example** *(Decrypt a message with a given key)*  
 ```js
@@ -96,7 +99,8 @@ decrypt({
     message: "6q4ijz8p_qxbp5ys5w8qg_srnk3r",
     key: "notds7u_i3exc2wlbyzpa4g85#v9fqjkrmh6",
     nonce: "r#39_4kgpz",
-    signature: "#secret_signature"
+    signature: "#secret_signature",
+    verbose: true
 });
 
 //=> "lorem_ipsum#secret_signature"
