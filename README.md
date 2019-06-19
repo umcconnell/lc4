@@ -152,7 +152,7 @@ This project is licensed under the MIT License - see the
 
 ## See Also
 
-Check out the other LC4 implementations and LC4 variants:
+Check out these other LC4 implementations and LC4 variants:
 
 -   Python https://github.com/dstein64/LC4
 -   JS https://github.com/Gavin-Song/elsie-four-cipher
