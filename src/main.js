@@ -20,6 +20,8 @@ import {
  * @param {String} [settings.nonce=null] valid LC4 nonce
  * @param {String} [settings.headerData=null] header data
  * @param {String} [settings.signature=null] signature for signing the message
+ * @param {Boolean} [settings.verbose=false] boolean indicating whether verbose
+ * mode should be used (will print intermediate steps to console)
  * @example <caption>Encrypt a message with a random key</caption>
  * const { encrypt, generateKey } = require("lc4");
  *
@@ -36,7 +38,8 @@ import {
  *     message: "Lorem Ipsum", // will be escaped to lorem_ipsum
  *     key: generateKey(),
  *     nonce: generateNonce(),
- *     signature: "#secret_signature"
+ *     signature: "#secret_signature",
+ *     verbose: true
  * });
  * @throws {TypeError} Will throw a type error if settings are invalid or
  * missing
@@ -56,11 +59,16 @@ export function encrypt(settings) {
     };
 
     // Encrypt nonce and discard
-    if (settings.nonce) encryptMsg(env, settings.nonce);
+    if (settings.nonce) encryptMsg(env, settings.nonce, settings.verbose);
     // Encrypt header data and discard
-    if (settings.headerData) encryptMsg(env, settings.headerData);
+    if (settings.headerData)
+        encryptMsg(env, settings.headerData, settings.verbose);
     // Encrypt message concatenated with signature
-    return encryptMsg(env, settings.message + (settings.signature || ""));
+    return encryptMsg(
+        env,
+        settings.message + (settings.signature || ""),
+        settings.verbose
+    );
 }
 
 /**
@@ -71,6 +79,8 @@ export function encrypt(settings) {
  * @param {String} [settings.nonce=null] valid LC4 nonce
  * @param {String} [settings.headerData=null] header data
  * @param {String} [settings.signature=null] signature of signed message
+ * @param {Boolean} [settings.verbose=false] boolean indicating whether verbose
+ * mode should be used (will print intermediate steps to console)
  * @example <caption>Decrypt a message with a given key</caption>
  * const { decrypt } = require("lc4");
  *
@@ -88,7 +98,8 @@ export function encrypt(settings) {
  *     message: "6q4ijz8p_qxbp5ys5w8qg_srnk3r",
  *     key: "notds7u_i3exc2wlbyzpa4g85#v9fqjkrmh6",
  *     nonce: "r#39_4kgpz",
- *     signature: "#secret_signature"
+ *     signature: "#secret_signature",
+ *     verbose: true
  * });
  *
  * //=> "lorem_ipsum#secret_signature"
@@ -112,11 +123,12 @@ export function decrypt(settings) {
     };
 
     // Encrypt nonce and discard
-    if (settings.nonce) encryptMsg(env, settings.nonce);
+    if (settings.nonce) encryptMsg(env, settings.nonce, settings.verbose);
     // Encrypt header data and discard
-    if (settings.headerData) encryptMsg(env, settings.headerData);
+    if (settings.headerData)
+        encryptMsg(env, settings.headerData, settings.verbose);
     // Decrypt message and signature
-    let msg = decryptMsg(env, settings.message);
+    let msg = decryptMsg(env, settings.message, settings.verbose);
 
     if (settings.signature && !msg.endsWith(_escapeToLC4(settings.signature)))
         throw new Error("Invalid signature");

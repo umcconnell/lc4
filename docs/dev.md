@@ -51,6 +51,7 @@ Default LC4 encryption/decryption settings
     * [.shiftRowRight(state, row, marker)](#module_lc4/helpers.shiftRowRight) ⇒ <code>Array</code>
     * [.shiftColumnDown(state, col, marker)](#module_lc4/helpers.shiftColumnDown) ⇒ <code>Array</code>
     * [.position(char, state)](#module_lc4/helpers.position) ⇒ <code>Array</code>
+    * [.printState(state, chara, marker)](#module_lc4/helpers.printState) ⇒ <code>undefined</code>
     * [.validLC4(input)](#module_lc4/helpers.validLC4) ⇒ <code>Boolean</code>
 
 <a name="module_lc4/helpers.escapeToLC4"></a>
@@ -140,6 +141,23 @@ Return the coordinates of given search element in the state matrix
 | char | <code>\*</code> | search element |
 | state | <code>Array</code> | state matrix |
 
+<a name="module_lc4/helpers.printState"></a>
+
+### lc4/helpers.printState(state, chara, marker) ⇒ <code>undefined</code>
+Print out state for verbose mode
+
+**Kind**: static method of [<code>lc4/helpers</code>](#module_lc4/helpers)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| state | <code>Array</code> | state array to print out |
+| chara | <code>Object</code> | input character reference being encrypted/decrypted |
+| chara.row | <code>Number</code> | row of input character in the state matrix (-1 for no input character) |
+| chara.col | <code>Number</code> | column of input character in the state matrix (-1 for no input character) |
+| marker | <code>Object</code> | marker object representing active element |
+| marker.i | <code>Number</code> | row of the marker in the state |
+| marker.j | <code>Number</code> | column of the marker in the state |
+
 <a name="module_lc4/helpers.validLC4"></a>
 
 ### lc4/helpers.validLC4(input) ⇒ <code>Boolean</code>
@@ -160,8 +178,8 @@ Determine if input contains only valid LC4 characters
     * [.generateKey([keyword])](#module_lc4/lc4.generateKey) ⇒ <code>String</code>
     * [.generateNonce([length])](#module_lc4/lc4.generateNonce) ⇒ <code>String</code>
     * [.initState(key)](#module_lc4/lc4.initState) ⇒ <code>Array</code>
-    * [.encryptMsg(env, msg)](#module_lc4/lc4.encryptMsg) ⇒ <code>String</code>
-    * [.decryptMsg(env, msg)](#module_lc4/lc4.decryptMsg) ⇒ <code>String</code>
+    * [.encryptMsg(env, msg, [verbose])](#module_lc4/lc4.encryptMsg) ⇒ <code>String</code>
+    * [.decryptMsg(env, msg, [verbose])](#module_lc4/lc4.decryptMsg) ⇒ <code>String</code>
 
 <a name="module_lc4/lc4.generateKey"></a>
 
@@ -241,37 +259,39 @@ Populate a state matrix by filling in a key row by row
 
 <a name="module_lc4/lc4.encryptMsg"></a>
 
-### lc4/lc4.encryptMsg(env, msg) ⇒ <code>String</code>
+### lc4/lc4.encryptMsg(env, msg, [verbose]) ⇒ <code>String</code>
 Encrypt a cleartext message and change the environment
 
 **Kind**: static method of [<code>lc4/lc4</code>](#module_lc4/lc4)  
 **Returns**: <code>String</code> - ciphertext message  
 
-| Param | Type | Description |
-| --- | --- | --- |
-| env | <code>Object</code> | environment object |
-| env.state | <code>Array</code> | state matrix |
-| env.marker | <code>Object</code> | marker object representing active element |
-| env.marker.i | <code>Number</code> | row of the marker in the state |
-| env.marker.j | <code>Number</code> | column of the marker in the state |
-| msg | <code>String</code> | cleartext message |
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| env | <code>Object</code> |  | environment object |
+| env.state | <code>Array</code> |  | state matrix |
+| env.marker | <code>Object</code> |  | marker object representing active element |
+| env.marker.i | <code>Number</code> |  | row of the marker in the state |
+| env.marker.j | <code>Number</code> |  | column of the marker in the state |
+| msg | <code>String</code> |  | cleartext message |
+| [verbose] | <code>Boolean</code> | <code>false</code> | boolean indicating wether verbose mode should be used (will print out intermediate steps) |
 
 <a name="module_lc4/lc4.decryptMsg"></a>
 
-### lc4/lc4.decryptMsg(env, msg) ⇒ <code>String</code>
+### lc4/lc4.decryptMsg(env, msg, [verbose]) ⇒ <code>String</code>
 Decrypt a ciphertext message and change the environment
 
 **Kind**: static method of [<code>lc4/lc4</code>](#module_lc4/lc4)  
 **Returns**: <code>String</code> - cleartext message  
 
-| Param | Type | Description |
-| --- | --- | --- |
-| env | <code>Object</code> | environment object |
-| env.state | <code>Array</code> | state matrix |
-| env.marker | <code>Object</code> | marker object representing active element |
-| env.marker.i | <code>Number</code> | row of the marker in the state |
-| env.marker.j | <code>Number</code> | column of the marker in the state |
-| msg | <code>String</code> | ciphertext message |
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| env | <code>Object</code> |  | environment object |
+| env.state | <code>Array</code> |  | state matrix |
+| env.marker | <code>Object</code> |  | marker object representing active element |
+| env.marker.i | <code>Number</code> |  | row of the marker in the state |
+| env.marker.j | <code>Number</code> |  | column of the marker in the state |
+| msg | <code>String</code> |  | ciphertext message |
+| [verbose] | <code>Boolean</code> | <code>false</code> | boolean indicating wether verbose mode should be used (will print out intermediate steps) |
 
 <a name="module_lc4"></a>
 
@@ -305,6 +325,7 @@ missing
 | [settings.nonce] | <code>String</code> | <code></code> | valid LC4 nonce |
 | [settings.headerData] | <code>String</code> | <code></code> | header data |
 | [settings.signature] | <code>String</code> | <code></code> | signature for signing the message |
+| [settings.verbose] | <code>Boolean</code> | <code>false</code> | boolean indicating whether verbose mode should be used (will print intermediate steps to console) |
 
 **Example** *(Encrypt a message with a random key)*  
 ```js
@@ -324,7 +345,8 @@ encrypt({
     message: "Lorem Ipsum", // will be escaped to lorem_ipsum
     key: generateKey(),
     nonce: generateNonce(),
-    signature: "#secret_signature"
+    signature: "#secret_signature",
+    verbose: true
 });
 ```
 <a name="module_lc4.decrypt"></a>
@@ -350,6 +372,7 @@ missing
 | [settings.nonce] | <code>String</code> | <code></code> | valid LC4 nonce |
 | [settings.headerData] | <code>String</code> | <code></code> | header data |
 | [settings.signature] | <code>String</code> | <code></code> | signature of signed message |
+| [settings.verbose] | <code>Boolean</code> | <code>false</code> | boolean indicating whether verbose mode should be used (will print intermediate steps to console) |
 
 **Example** *(Decrypt a message with a given key)*  
 ```js
@@ -371,7 +394,8 @@ decrypt({
     message: "6q4ijz8p_qxbp5ys5w8qg_srnk3r",
     key: "notds7u_i3exc2wlbyzpa4g85#v9fqjkrmh6",
     nonce: "r#39_4kgpz",
-    signature: "#secret_signature"
+    signature: "#secret_signature",
+    verbose: true
 });
 
 //=> "lorem_ipsum#secret_signature"
