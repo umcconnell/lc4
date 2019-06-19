@@ -132,6 +132,47 @@ export function position(char, state) {
 }
 
 /**
+ * Print out state for verbose mode
+ * @param {Array} state state array to print out
+ * @param {Object} chara input character reference being encrypted/decrypted
+ * @param {Number} chara.row row of input character in the state matrix
+ * (-1 for no input character)
+ * @param {Number} chara.col column of input character in the state matrix
+ * (-1 for no input character)
+ * @param {Object} marker marker object representing active element
+ * @param {Number} marker.i row of the marker in the state
+ * @param {Number} marker.j column of the marker in the state
+ * @return {undefined}
+ */
+export function printState(state, chara, marker) {
+    // Deep-copy state
+    state = JSON.parse(JSON.stringify(state)).map(row =>
+        row.map(char => ALPHABET[char])
+    );
+
+    let markerChar = "\x1b[31m@\x1b[0m";
+    state[marker.i][marker.j] += markerChar;
+
+    console.log(
+        state
+            .map((row, i) => {
+                let out = row
+                    .map((char, j) =>
+                        i === chara.row || j === chara.col
+                            ? `\x1b[32m${char}\x1b[0m`
+                            : char
+                    )
+                    .join("  ");
+
+                return i === marker.i
+                    ? out.replace(`${markerChar} `, markerChar)
+                    : out;
+            })
+            .join("\n")
+    );
+}
+
+/**
  * Determine if input contains only valid LC4 characters
  * @param {Array} input input array
  * @returns {Boolean} indicating if input is valid LC4
