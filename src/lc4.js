@@ -6,6 +6,7 @@ import {
     shiftRowRight,
     shiftColumnDown,
     position,
+    printState,
     validLC4
 } from "./helpers.js";
 
@@ -99,11 +100,19 @@ export function initState(key) {
  * @param {Number} env.marker.i row of the marker in the state
  * @param {Number} env.marker.j column of the marker in the state
  * @param {String} msg cleartext message
+ * @param {Boolean} [verbose=false] boolean indicating wether verbose mode
+ * should be used (will print out intermediate steps)
  * @returns {String} ciphertext message
  */
-export function encryptMsg({ state, marker }, msg) {
+export function encryptMsg({ state, marker }, msg, verbose = false) {
+    if (verbose) {
+        console.log(`Encrypting: ${msg}`);
+        console.log("step: 0");
+        printState(state.slice(), { row: -1, col: -1 }, marker);
+    }
+
     return [...msg]
-        .map(char => {
+        .map((char, step) => {
             let code = ALPHABET.indexOf(char);
             let [row, col] = position(code, state);
 
@@ -122,6 +131,19 @@ export function encryptMsg({ state, marker }, msg) {
 
             marker.i = (marker.i + Math.floor(out / GRIDSIZE)) % GRIDSIZE;
             marker.j = (marker.j + (out % GRIDSIZE)) % GRIDSIZE;
+
+            if (verbose) {
+                console.log(`step: ${step + 1}`);
+                console.log(new Array(GRIDSIZE * 3 - 2).fill("-").join(""));
+                printState(state.slice(), { row, col: y }, marker);
+                console.log(new Array(GRIDSIZE * 3 - 2).fill("-").join(""));
+                console.log(
+                    `in: \x1b[31m${char}\x1b[0m  out: \x1b[31m${
+                        ALPHABET[out]
+                    }\x1b[0m`,
+                    "\n"
+                );
+            }
 
             return ALPHABET[out];
         })
