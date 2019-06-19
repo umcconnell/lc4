@@ -20,6 +20,8 @@ import {
  * @param {String} [settings.nonce=null] valid LC4 nonce
  * @param {String} [settings.headerData=null] header data
  * @param {String} [settings.signature=null] signature for signing the message
+ * @param {Boolean} [settings.verbose=false] boolean indicating whether verbose
+ * mode should be used (will print intermediate steps to console)
  * @example <caption>Encrypt a message with a random key</caption>
  * const { encrypt, generateKey } = require("lc4");
  *
@@ -36,7 +38,8 @@ import {
  *     message: "Lorem Ipsum", // will be escaped to lorem_ipsum
  *     key: generateKey(),
  *     nonce: generateNonce(),
- *     signature: "#secret_signature"
+ *     signature: "#secret_signature",
+ *     verbose: true
  * });
  * @throws {TypeError} Will throw a type error if settings are invalid or
  * missing
@@ -56,11 +59,16 @@ export function encrypt(settings) {
     };
 
     // Encrypt nonce and discard
-    if (settings.nonce) encryptMsg(env, settings.nonce);
+    if (settings.nonce) encryptMsg(env, settings.nonce, settings.verbose);
     // Encrypt header data and discard
-    if (settings.headerData) encryptMsg(env, settings.headerData);
+    if (settings.headerData)
+        encryptMsg(env, settings.headerData, settings.verbose);
     // Encrypt message concatenated with signature
-    return encryptMsg(env, settings.message + (settings.signature || ""));
+    return encryptMsg(
+        env,
+        settings.message + (settings.signature || ""),
+        settings.verbose
+    );
 }
 
 /**
