@@ -17,6 +17,7 @@ LC4 (ElsieFour) encryption/decryption library
 -   [Authors](#authors)
 -   [License](#license)
 -   [Acknowledgments](#acknowledgments)
+-   [See Also](#see-also)
 
 ## Installing
 
@@ -148,3 +149,12 @@ This project is licensed under the MIT License - see the
 ## Acknowledgments
 
 -   [reddit r/dailyprogrammer](https://www.reddit.com/r/dailyprogrammer/comments/8jvbzg/20180516_challenge_361_intermediate_elsiefour/)
+
+## See Also
+
+Check out the other LC4 implementations and LC4 variants:
+
+-   Python https://github.com/dstein64/LC4
+-   JS https://github.com/Gavin-Song/elsie-four-cipher
+-   Go https://github.com/tonetheman/golang_lc4
+-   LS47 https://gitea.blesmrt.net/exa/ls47
