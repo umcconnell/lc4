@@ -138,7 +138,7 @@ export function encryptMsg({ state, marker }, msg, verbose = false) {
                 printState(state.slice(), { row, col: y }, marker);
                 console.log(new Array(GRIDSIZE * 3 - 2).fill("-").join(""));
                 console.log(
-                    `in: \x1b[31m${char}\x1b[0m  out: \x1b[31m${
+                    `pt: \x1b[31m${char}\x1b[0m  ct: \x1b[31m${
                         ALPHABET[out]
                     }\x1b[0m`,
                     "\n"
@@ -158,11 +158,19 @@ export function encryptMsg({ state, marker }, msg, verbose = false) {
  * @param {Number} env.marker.i row of the marker in the state
  * @param {Number} env.marker.j column of the marker in the state
  * @param {String} msg ciphertext message
+ * @param {Boolean} [verbose=false] boolean indicating wether verbose mode
+ * should be used (will print out intermediate steps)
  * @returns {String} cleartext message
  */
-export function decryptMsg({ state, marker }, msg) {
+export function decryptMsg({ state, marker }, msg, verbose) {
+    if (verbose) {
+        console.log(`Decrypting: ${msg}`);
+        console.log("step: 0");
+        printState(state.slice(), { row: -1, col: -1 }, marker);
+    }
+
     return [...msg]
-        .map(char => {
+        .map((char, step) => {
             let code = ALPHABET.indexOf(char);
             let [x, y] = position(code, state);
 
@@ -184,6 +192,19 @@ export function decryptMsg({ state, marker }, msg) {
 
             marker.i = (marker.i + Math.floor(code / GRIDSIZE)) % GRIDSIZE;
             marker.j = (marker.j + (code % GRIDSIZE)) % GRIDSIZE;
+
+            if (verbose) {
+                console.log(`step: ${step + 1}`);
+                console.log(new Array(GRIDSIZE * 3 - 2).fill("-").join(""));
+                printState(state.slice(), { row, col: y }, marker);
+                console.log(new Array(GRIDSIZE * 3 - 2).fill("-").join(""));
+                console.log(
+                    `ct: \x1b[31m${char}\x1b[0m  pt: \x1b[31m${
+                        ALPHABET[out]
+                    }\x1b[0m`,
+                    "\n"
+                );
+            }
 
             return ALPHABET[out];
         })
