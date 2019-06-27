@@ -27,11 +27,35 @@ Install with npm:
 npm install lc4
 ```
 
-Include in node:
+And include in node:
 
 ```js
 let lc4 = require("lc4");
 ```
+
+Or use in the browser with jsDelivr:
+
+```html
+<script type="module">
+    import * as lc4 from "https://cdn.jsdelivr.net/gh/umcconnell/lc4/dist/main.js";
+
+    // Your code here...
+</script>
+```
+
+**Note:**
+
+> If you use lc4 in the browser, replace
+>
+> ```js
+> let { ... } = require("lc4");
+> ```
+>
+> with
+>
+> ```js
+> import { ... } from "https://cdn.jsdelivr.net/gh/umcconnell/lc4/dist/main.js";
+> ```
 
 ## Examples
 
