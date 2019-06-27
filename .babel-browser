@@ -1,0 +1,10 @@
+{
+    "presets": [
+        [
+            "minify",
+            {
+                "builtIns": false
+            }
+        ]
+    ]
+}
