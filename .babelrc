@@ -4,9 +4,7 @@
         [
             "minify",
             {
-                "builtIns": false,
-                "evaluate": false,
-                "mangle": false
+                "builtIns": false
             }
         ]
     ]
