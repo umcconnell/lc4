@@ -51,6 +51,7 @@ export function encrypt(settings) {
     if (settings.message) settings.message = _escapeToLC4(settings.message);
     if (settings.headerData)
         settings.headerData = _escapeToLC4(settings.headerData);
+    settings.mode = settings.mode.toLowerCase();
     validateSettings(settings);
 
     let env = {
@@ -115,6 +116,7 @@ export function decrypt(settings) {
 
     if (settings.headerData)
         settings.headerData = _escapeToLC4(settings.headerData);
+    settings.mode = settings.mode.toLowerCase();
 
     validateSettings(settings);
 
