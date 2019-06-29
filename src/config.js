@@ -6,6 +6,7 @@ export const ALPHABET = "#_23456789abcdefghijklmnopqrstuvwxyz";
 export const GRIDSIZE = 6;
 /** Default LC4 encryption/decryption settings */
 export const DEFAULT_SETTINGS = {
+    mode: "lc4",
     signature: null,
     headerData: null,
     nonce: null,
