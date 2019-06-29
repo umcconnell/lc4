@@ -1,5 +1,5 @@
 /** @module lc4/helpers */
-import { ALPHABET, GRIDSIZE } from "./config.js";
+import { ALPHABET, ALPHABET_LS47, GRIDSIZE, GRIDSIZE_LS47 } from "./config.js";
 
 /**
  * Escape string to valid LC4 string
@@ -177,6 +177,7 @@ export function printState(state, chara, marker) {
  * @param {Array} input input array
  * @returns {Boolean} indicating if input is valid LC4
  */
-export function validLC4(input) {
-    return input.every(char => ALPHABET.indexOf(char) > -1);
+export function validString(input, mode = "lc4") {
+    let alphabet = mode.toLowerCase() === "lc4" ? ALPHABET : ALPHABET_LS47;
+    return input.every(char => alphabet.indexOf(char) > -1);
 }

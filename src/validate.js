@@ -1,5 +1,5 @@
 /** @module lc4/validate */
-import { validLC4 } from "./helpers.js";
+import { validString } from "./helpers.js";
 import { ALPHABET } from "./config.js";
 
 /**
@@ -26,7 +26,7 @@ export function validateSettings(settings) {
         );
     } else if (settings.key.length !== ALPHABET.length) {
         throw new TypeError("Key is too short");
-    } else if (!validLC4([...settings.key])) {
+    } else if (!validString([...settings.key])) {
         throw new TypeError(
             "Keyword for key generation contains invalid characters!\n" +
                 "You may only use following characters: " +
@@ -34,7 +34,7 @@ export function validateSettings(settings) {
         );
     } else if (
         settings.nonce &&
-        (!validLC4([...settings.nonce]) || settings.nonce.length < 6)
+        (!validString([...settings.nonce]) || settings.nonce.length < 6)
     ) {
         throw new TypeError(
             "Invalid nonce!\n" +
@@ -44,7 +44,8 @@ export function validateSettings(settings) {
         );
     } else if (
         settings.signature &&
-        (!validLC4([...settings.signature]) || settings.signature.length < 10)
+        (!validString([...settings.signature]) ||
+            settings.signature.length < 10)
     ) {
         throw new TypeError(
             "Invalid signature!\n" +

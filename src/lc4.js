@@ -7,7 +7,7 @@ import {
     shiftColumnDown,
     position,
     printState,
-    validLC4
+    validString
 } from "./helpers.js";
 
 /**
@@ -30,7 +30,7 @@ import {
  */
 export function generateKey(keyword = false) {
     if (keyword) {
-        if (!validLC4([...keyword]))
+        if (!validString([...keyword]))
             throw new Error(
                 "Keyword for key generation contains invalid characters!\n" +
                     "You may only use following characters: " +
