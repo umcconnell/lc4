@@ -52,5 +52,15 @@ export function validateSettings(settings) {
                 ALPHABET +
                 " and must be at least 10 characters long."
         );
+    } else if (
+        settings.mode &&
+        !(
+            settings.mode.toLowerCase() === "lc4" ||
+            settings.mode.toLowerCase() === "ls47"
+        )
+    ) {
+        throw new TypeError(
+            "Invalid mode!\n" + "Mode may be either 'lc4' or 'ls47'."
+        );
     }
 }
