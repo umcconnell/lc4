@@ -104,7 +104,7 @@ export function initState(key) {
  * should be used (will print out intermediate steps)
  * @returns {String} ciphertext message
  */
-export function encryptMsg({ state, marker }, msg, verbose = false) {
+export function encryptMsg({ state, marker, mode }, msg, verbose = false) {
     if (verbose) {
         console.log(`Encrypting: ${msg}`);
         console.log("step: 0");
@@ -162,7 +162,7 @@ export function encryptMsg({ state, marker }, msg, verbose = false) {
  * should be used (will print out intermediate steps)
  * @returns {String} cleartext message
  */
-export function decryptMsg({ state, marker }, msg, verbose) {
+export function decryptMsg({ state, marker, mode }, msg, verbose) {
     if (verbose) {
         console.log(`Decrypting: ${msg}`);
         console.log("step: 0");
