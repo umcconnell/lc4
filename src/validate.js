@@ -26,6 +26,16 @@ export function validateSettings(settings) {
         );
     } else if (settings.key.length !== ALPHABET.length) {
         throw new TypeError("Key is too short");
+    } else if (
+        settings.mode &&
+        !(
+            settings.mode.toLowerCase() === "lc4" ||
+            settings.mode.toLowerCase() === "ls47"
+        )
+    ) {
+        throw new TypeError(
+            "Invalid mode!\n" + "Mode may be either 'lc4' or 'ls47'."
+        );
     } else if (!validString([...settings.key])) {
         throw new TypeError(
             "Keyword for key generation contains invalid characters!\n" +
@@ -52,16 +62,6 @@ export function validateSettings(settings) {
                 "Signature may only contain following characters: " +
                 ALPHABET +
                 " and must be at least 10 characters long."
-        );
-    } else if (
-        settings.mode &&
-        !(
-            settings.mode.toLowerCase() === "lc4" ||
-            settings.mode.toLowerCase() === "ls47"
-        )
-    ) {
-        throw new TypeError(
-            "Invalid mode!\n" + "Mode may be either 'lc4' or 'ls47'."
         );
     }
 }
