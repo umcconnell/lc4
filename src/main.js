@@ -55,7 +55,8 @@ export function encrypt(settings) {
 
     let env = {
         state: initState(settings.key),
-        marker: { i: 0, j: 0 }
+        marker: { i: 0, j: 0 },
+        mode: settings.mode.toLowerCase()
     };
 
     // Encrypt nonce and discard
@@ -119,7 +120,8 @@ export function decrypt(settings) {
 
     let env = {
         state: initState(settings.key),
-        marker: { i: 0, j: 0 }
+        marker: { i: 0, j: 0 },
+        mode: settings.mode.toLowerCase()
     };
 
     // Encrypt nonce and discard
