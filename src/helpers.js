@@ -75,6 +75,8 @@ export function randomElement(arr) {
  * @param {Object} marker marker object representing active element
  * @param {Number} marker.i row of the marker in the state
  * @param {Number} marker.j column of the marker in the state
+ * @param {String} [mode="lc4"] encryption/decryption algorithm. Can be either
+ * "lc4" or "ls47"
  * @returns {Array} updated state matrix
  */
 export function shiftRowRight(state, row, marker, mode = "lc4") {
