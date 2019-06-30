@@ -133,10 +133,10 @@ export function encryptMsg({ state, marker, mode }, msg, verbose = false) {
 
             let out = state[x][y];
 
-            shiftRowRight(state, row, marker);
+            shiftRowRight(state, row, marker, mode);
             if (x === row) y = (y + 1) % size;
 
-            shiftColumnDown(state, y, marker);
+            shiftColumnDown(state, y, marker, mode);
             if (y === col) row = (row + 1) % size;
 
             marker.i = (marker.i + Math.floor(out / size)) % size;
@@ -195,10 +195,10 @@ export function decryptMsg({ state, marker, mode }, msg, verbose) {
 
             let out = state[row][col];
 
-            shiftRowRight(state, row, marker);
+            shiftRowRight(state, row, marker, mode);
             if (x === row) y = (y + 1) % size;
 
-            shiftColumnDown(state, y, marker);
+            shiftColumnDown(state, y, marker, mode);
             if (y === col) row = (row + 1) % size;
 
             marker.i = (marker.i + Math.floor(code / size)) % size;
