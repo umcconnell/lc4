@@ -73,13 +73,15 @@ export function randomElement(arr) {
  * @param {Number} marker.j column of the marker in the state
  * @returns {Array} updated state matrix
  */
-export function shiftRowRight(state, row, marker) {
+export function shiftRowRight(state, row, marker, mode = "lc4") {
+    let size = mode === "lc4" ? GRIDSIZE : GRIDSIZE_LS47;
+
     state[row] = [
         state[row][state[row].length - 1],
         ...state[row].slice(0, -1)
     ];
 
-    if (marker.i === row) marker.j = (marker.j + 1) % GRIDSIZE;
+    if (marker.i === row) marker.j = (marker.j + 1) % size;
 
     return state;
 }
