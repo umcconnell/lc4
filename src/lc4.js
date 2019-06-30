@@ -68,14 +68,18 @@ export function generateKey(keyword = false, mode = "lc4") {
  * @throws {Error} Will throw an error if length is smaller than 6
  * @returns {String} a valid LC4 nonce
  */
-export function generateNonce(length = 10) {
+export function generateNonce(length = 10, mode = "lc4") {
     if (length < 6) {
         throw new Error("Nonce must be at least 6 characters long");
     }
 
     return new Array(length)
         .fill(0)
-        .map(_ => randomElement([...ALPHABET]))
+        .map(_ =>
+            randomElement([
+                ...(mode.toLowerCase() === "lc4" ? ALPHABET : ALPHABET_LS47)
+            ])
+        )
         .join("");
 }
 

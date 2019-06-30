@@ -189,8 +189,8 @@ export function generateKey(keyword, mode = "lc4") {
  * @throws {Error} Will throw an error if length is smaller than 6
  * @returns {String} a valid LC4 nonce
  */
-export function generateNonce(length) {
-    return _generateNonce(length);
+export function generateNonce(length, mode = "lc4") {
+    return _generateNonce(length, mode);
 }
 
 /**
