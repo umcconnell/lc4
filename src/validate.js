@@ -18,6 +18,15 @@ export function validateMode(settings) {
     }
 }
 
+/**
+ * Validates the message of the settings
+ * @param {Object} settings settings object
+ * @param {String} settings.message valid LC4 or LS47 message
+ * @param {String} [settings.mode="lc4"] encryption/decryption algorithm. Can be either
+ * "lc4" or "ls47"
+ * @throws {TypeError} when no message is specified or the message is invalid
+ * @return {undefined}
+ */
 export function validateMsg(settings) {
     if (!settings.message) {
         throw new TypeError("You must specify a message to encrypt");
