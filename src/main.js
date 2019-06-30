@@ -39,7 +39,8 @@ import {
  * encrypt({
  *     message: "hello_ls47",
  *     key: generateKey(null, "ls47"),
- *     nonce: "lorem_ipsum"
+ *     nonce: "lorem_ipsum",
+ *     mode: "ls47"
  * })
  *
  * @example <caption>Encrypt and sign a message</caption>
