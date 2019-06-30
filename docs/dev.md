@@ -591,7 +591,7 @@ Escapes a string to a valid LC4 or LS47 string
 let { escapeString } = require("lc4");
 escapeString("Hello World! This is the 10th test!", "ls47");
 
-//=> "hello_world!_this_is_10th_test!"
+//=> "hello_world!_this_is_the_10th_test!"
 ```
 **Example**  
 ```js
