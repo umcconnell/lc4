@@ -2,19 +2,20 @@
 import { ALPHABET, ALPHABET_LS47, GRIDSIZE, GRIDSIZE_LS47 } from "./config.js";
 
 /**
- * Escape string to valid LC4 string
- * @param {String} string (invalid) LC4 string
+ * Escape string to valid LC4 or LS47 string
+ * @param {String} string (invalid) LC4 or LS47 string
+ * @param {String} [mode="lc4"] Escape mode (either "lc4" or "ls47")
  * @example
- * escapeToLC4("Hello World! This is the 10th test!");
+ * escapeString("Hello World! This is the 10th test!");
  *
  * //=> "hello_world_this_is_the__#th_test"
- * @returns {String} valid LC4 string
+ * @returns {String} valid LC4 or LS47 string
  */
-export function escapeToLC4(string) {
+export function escapeString(string, mode = "lc4") {
+    if (mode === "lc4") string = string.replace(/0/g, "#").replace(/1/g, "_");
+
     return [
         ...string
-            .replace(/0/g, "#")
-            .replace(/1/g, "_")
             .replace(/\u00dc/g, "Ue")
             .replace(/\u00fc/g, "ue")
             .replace(/\u00c4/g, "Ae")
@@ -25,7 +26,10 @@ export function escapeToLC4(string) {
             .replace(/\s/g, "_")
             .toLowerCase()
     ]
-        .filter(char => ALPHABET.indexOf(char) > -1)
+        .filter(
+            char =>
+                (mode === "lc4" ? ALPHABET : ALPHABET_LS47).indexOf(char) > -1
+        )
         .join("");
 }
 
