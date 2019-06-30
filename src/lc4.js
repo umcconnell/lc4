@@ -114,47 +114,48 @@ export function initState(key, mode = "lc4") {
  * @returns {String} ciphertext message
  */
 export function encryptMsg({ state, marker, mode }, msg, verbose = false) {
+    let alphabet = mode === "lc4" ? ALPHABET : ALPHABET_LS47,
+        size = mode === "lc4" ? GRIDSIZE : GRIDSIZE_LS47;
+
     if (verbose) {
         console.log(`Encrypting: ${msg}`);
         console.log("step: 0");
-        printState(state.slice(), { row: -1, col: -1 }, marker);
+        printState(state.slice(), { row: -1, col: -1 }, marker, mode);
     }
 
     return [...msg]
         .map((char, step) => {
-            let code = ALPHABET.indexOf(char);
+            let code = alphabet.indexOf(char);
             let [row, col] = position(code, state);
 
-            let x =
-                (row + Math.floor(state[marker.i][marker.j] / GRIDSIZE)) %
-                GRIDSIZE;
-            let y = (col + (state[marker.i][marker.j] % GRIDSIZE)) % GRIDSIZE;
+            let x = (row + Math.floor(state[marker.i][marker.j] / size)) % size;
+            let y = (col + (state[marker.i][marker.j] % size)) % size;
 
             let out = state[x][y];
 
             shiftRowRight(state, row, marker);
-            if (x === row) y = (y + 1) % GRIDSIZE;
+            if (x === row) y = (y + 1) % size;
 
             shiftColumnDown(state, y, marker);
-            if (y === col) row = (row + 1) % GRIDSIZE;
+            if (y === col) row = (row + 1) % size;
 
-            marker.i = (marker.i + Math.floor(out / GRIDSIZE)) % GRIDSIZE;
-            marker.j = (marker.j + (out % GRIDSIZE)) % GRIDSIZE;
+            marker.i = (marker.i + Math.floor(out / size)) % size;
+            marker.j = (marker.j + (out % size)) % size;
 
             if (verbose) {
                 console.log(`step: ${step + 1}`);
-                console.log(new Array(GRIDSIZE * 3 - 2).fill("-").join(""));
-                printState(state.slice(), { row, col: y }, marker);
-                console.log(new Array(GRIDSIZE * 3 - 2).fill("-").join(""));
+                console.log(new Array(size * 3 - 2).fill("-").join(""));
+                printState(state.slice(), { row, col: y }, marker, mode);
+                console.log(new Array(size * 3 - 2).fill("-").join(""));
                 console.log(
                     `pt: \x1b[31m${char}\x1b[0m  ct: \x1b[31m${
-                        ALPHABET[out]
+                        alphabet[out]
                     }\x1b[0m`,
                     "\n"
                 );
             }
 
-            return ALPHABET[out];
+            return alphabet[out];
         })
         .join("");
 }
