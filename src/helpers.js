@@ -153,7 +153,9 @@ export function position(char, state) {
  * @param {Object} marker marker object representing active element
  * @param {Number} marker.i row of the marker in the state
  * @param {Number} marker.j column of the marker in the state
- * @return {undefined}
+ * @param {String} [mode="lc4"] encryption/decryption algorithm. Can be either
+ * "lc4" or "ls47"
+ * @returns {undefined}
  */
 export function printState(state, chara, marker, mode = "lc4") {
     // Deep-copy state
