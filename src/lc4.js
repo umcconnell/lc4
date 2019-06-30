@@ -1,5 +1,5 @@
 /** @module lc4/lc4 */
-import { ALPHABET, GRIDSIZE } from "./config.js";
+import { ALPHABET, GRIDSIZE, ALPHABET_LS47, GRIDSIZE_LS47 } from "./config.js";
 import {
     shuffle,
     randomElement,
@@ -7,16 +7,23 @@ import {
     shiftColumnDown,
     position,
     printState,
-    validLC4
+    validString
 } from "./helpers.js";
 
 /**
- * Generate a valid random LC4 key
- * @param {String} [keyword=false] keyword to base key off (less secure)
+ * Generate a valid random LC4 or LS47 key
+ * @param {String} [keyword=false] keyword to base key off (less secure) or
+ * falsy value if key shouldn't be based off a keyword
+ * @param {String} [mode="lc4"] encryption/decryption algorithm. Can be either
+ * "lc4" or "ls47"
  * @example <caption>Generate a random key</caption>
  * let { generateKey } = require("lc4");
  *
  * generateKey();
+ * @example <caption>Generate a random LS47 key with keword</caption>
+ * let { generateKey } = require("lc4");
+ *
+ * generateKey("hello", "ls47");
  * @example <caption>Encrypt a message with a random key</caption>
  * const { encrypt, generateKey } = require("lc4");
  *
@@ -24,23 +31,25 @@ import {
  *     message: "hello_world",
  *     key: generateKey(),
  * });
- * @throws {Error} Will throw an error if the keyword contains invalid LC4
- * characters
- * @returns {String} a valid LC4 key
+ * @throws {Error} Will throw an error if the keyword contains invalid LC4 or
+ * LS47 characters
+ * @returns {String} a valid LC4 or LS47 key
  */
-export function generateKey(keyword = false) {
+export function generateKey(keyword = false, mode = "lc4") {
+    let alphabet = mode.toLowerCase() === "lc4" ? ALPHABET : ALPHABET_LS47;
+
     if (keyword) {
-        if (!validLC4([...keyword]))
+        if (!validString([...keyword], mode))
             throw new Error(
                 "Keyword for key generation contains invalid characters!\n" +
                     "You may only use following characters: " +
-                    ALPHABET
+                    alphabet
             );
     }
 
     // Shuffle alphabet without letters already in keyword
     let key = shuffle(
-        [...ALPHABET].filter(char =>
+        [...alphabet].filter(char =>
             keyword ? keyword.indexOf(char) > -1 : true
         )
     ).join("");
@@ -49,12 +58,18 @@ export function generateKey(keyword = false) {
 }
 
 /**
- * Generate a valid random LC4 nonce
+ * Generate a valid random LC4 or LS47 nonce
  * @param {Number} [length=10] length of nonce (at least 6)
+ * @param {String} [mode="lc4"] encryption/decryption algorithm. Can be either
+ * "lc4" or "ls47"
  * @example <caption>Generate a random nonce</caption>
  * let { generateNonce } = require("lc4");
  *
  * generateNonce();
+ * @example <caption>Generate a random LS47 nonce</caption>
+ * let { generateNonce } = require("lc4");
+ *
+ * generateNonce(10, "ls47");
  * @example <caption>Encrypt a message with a random nonce</caption>
  * const { encrypt, generateKey, generateNonce } = require("lc4");
  *
@@ -64,29 +79,38 @@ export function generateKey(keyword = false) {
  *     nonce: generateNonce()
  * })
  * @throws {Error} Will throw an error if length is smaller than 6
- * @returns {String} a valid LC4 nonce
+ * @returns {String} a valid LC4 or LS47 nonce
  */
-export function generateNonce(length = 10) {
+export function generateNonce(length = 10, mode = "lc4") {
     if (length < 6) {
         throw new Error("Nonce must be at least 6 characters long");
     }
 
     return new Array(length)
         .fill(0)
-        .map(_ => randomElement([...ALPHABET]))
+        .map(_ =>
+            randomElement([
+                ...(mode.toLowerCase() === "lc4" ? ALPHABET : ALPHABET_LS47)
+            ])
+        )
         .join("");
 }
 
 /**
  * Populate a state matrix by filling in a key row by row
- * @param {(String|Key)} key key string or array
+ * @param {(String|Array)} key key string or array
+ * @param {String} [mode="lc4"] encryption/decryption algorithm. Can be either
+ * "lc4" or "ls47"
  * @returns {Array} state matrix
  */
-export function initState(key) {
-    let S = new Array(GRIDSIZE).fill(0).map(_ => new Array(GRIDSIZE).fill(0));
+export function initState(key, mode = "lc4") {
+    let size = mode === "ls47" ? GRIDSIZE_LS47 : GRIDSIZE,
+        alphabet = mode === "ls47" ? ALPHABET_LS47 : ALPHABET;
 
-    for (let k = 0; k < ALPHABET.length; k++) {
-        S[Math.floor(k / GRIDSIZE)][k % GRIDSIZE] = ALPHABET.indexOf(key[k]);
+    let S = new Array(size).fill(0).map(_ => new Array(size).fill(0));
+
+    for (let k = 0; k < alphabet.length; k++) {
+        S[Math.floor(k / size)][k % size] = alphabet.indexOf(key[k]);
     }
 
     return S;
@@ -99,53 +123,56 @@ export function initState(key) {
  * @param {Object} env.marker marker object representing active element
  * @param {Number} env.marker.i row of the marker in the state
  * @param {Number} env.marker.j column of the marker in the state
+ * @param {String} env.mode encryption algorithm. Can be either
+ * "lc4" or "ls47"
  * @param {String} msg cleartext message
  * @param {Boolean} [verbose=false] boolean indicating wether verbose mode
  * should be used (will print out intermediate steps)
  * @returns {String} ciphertext message
  */
-export function encryptMsg({ state, marker }, msg, verbose = false) {
+export function encryptMsg({ state, marker, mode }, msg, verbose = false) {
+    let alphabet = mode === "ls47" ? ALPHABET_LS47 : ALPHABET,
+        size = mode === "ls47" ? GRIDSIZE_LS47 : GRIDSIZE;
+
     if (verbose) {
         console.log(`Encrypting: ${msg}`);
         console.log("step: 0");
-        printState(state.slice(), { row: -1, col: -1 }, marker);
+        printState(state.slice(), { row: -1, col: -1 }, marker, mode);
     }
 
     return [...msg]
         .map((char, step) => {
-            let code = ALPHABET.indexOf(char);
+            let code = alphabet.indexOf(char);
             let [row, col] = position(code, state);
 
-            let x =
-                (row + Math.floor(state[marker.i][marker.j] / GRIDSIZE)) %
-                GRIDSIZE;
-            let y = (col + (state[marker.i][marker.j] % GRIDSIZE)) % GRIDSIZE;
+            let x = (row + Math.floor(state[marker.i][marker.j] / size)) % size;
+            let y = (col + (state[marker.i][marker.j] % size)) % size;
 
             let out = state[x][y];
 
-            shiftRowRight(state, row, marker);
-            if (x === row) y = (y + 1) % GRIDSIZE;
+            shiftRowRight(state, row, marker, mode);
+            if (x === row) y = (y + 1) % size;
 
-            shiftColumnDown(state, y, marker);
-            if (y === col) row = (row + 1) % GRIDSIZE;
+            shiftColumnDown(state, y, marker, mode);
+            if (y === col) row = (row + 1) % size;
 
-            marker.i = (marker.i + Math.floor(out / GRIDSIZE)) % GRIDSIZE;
-            marker.j = (marker.j + (out % GRIDSIZE)) % GRIDSIZE;
+            marker.i = (marker.i + Math.floor(out / size)) % size;
+            marker.j = (marker.j + (out % size)) % size;
 
             if (verbose) {
                 console.log(`step: ${step + 1}`);
-                console.log(new Array(GRIDSIZE * 3 - 2).fill("-").join(""));
-                printState(state.slice(), { row, col: y }, marker);
-                console.log(new Array(GRIDSIZE * 3 - 2).fill("-").join(""));
+                console.log(new Array(size * 3 - 2).fill("-").join(""));
+                printState(state.slice(), { row, col: y }, marker, mode);
+                console.log(new Array(size * 3 - 2).fill("-").join(""));
                 console.log(
                     `pt: \x1b[31m${char}\x1b[0m  ct: \x1b[31m${
-                        ALPHABET[out]
+                        alphabet[out]
                     }\x1b[0m`,
                     "\n"
                 );
             }
 
-            return ALPHABET[out];
+            return alphabet[out];
         })
         .join("");
 }
@@ -157,56 +184,59 @@ export function encryptMsg({ state, marker }, msg, verbose = false) {
  * @param {Object} env.marker marker object representing active element
  * @param {Number} env.marker.i row of the marker in the state
  * @param {Number} env.marker.j column of the marker in the state
+ * @param {Strin} env.mode decryption algorithm. Can be either
+ * "lc4" or "ls47"
  * @param {String} msg ciphertext message
  * @param {Boolean} [verbose=false] boolean indicating wether verbose mode
  * should be used (will print out intermediate steps)
  * @returns {String} cleartext message
  */
-export function decryptMsg({ state, marker }, msg, verbose) {
+export function decryptMsg({ state, marker, mode }, msg, verbose) {
+    let alphabet = mode === "ls47" ? ALPHABET_LS47 : ALPHABET,
+        size = mode === "ls47" ? GRIDSIZE_LS47 : GRIDSIZE;
+
     if (verbose) {
         console.log(`Decrypting: ${msg}`);
         console.log("step: 0");
-        printState(state.slice(), { row: -1, col: -1 }, marker);
+        printState(state.slice(), { row: -1, col: -1 }, marker, mode);
     }
 
     return [...msg]
         .map((char, step) => {
-            let code = ALPHABET.indexOf(char);
+            let code = alphabet.indexOf(char);
             let [x, y] = position(code, state);
 
-            let row =
-                (x - Math.floor(state[marker.i][marker.j] / GRIDSIZE)) %
-                GRIDSIZE;
-            let col = (y - (state[marker.i][marker.j] % GRIDSIZE)) % GRIDSIZE;
+            let row = (x - Math.floor(state[marker.i][marker.j] / size)) % size;
+            let col = (y - (state[marker.i][marker.j] % size)) % size;
 
-            if (row < 0) row += GRIDSIZE;
-            if (col < 0) col += GRIDSIZE;
+            if (row < 0) row += size;
+            if (col < 0) col += size;
 
             let out = state[row][col];
 
-            shiftRowRight(state, row, marker);
-            if (x === row) y = (y + 1) % GRIDSIZE;
+            shiftRowRight(state, row, marker, mode);
+            if (x === row) y = (y + 1) % size;
 
-            shiftColumnDown(state, y, marker);
-            if (y === col) row = (row + 1) % GRIDSIZE;
+            shiftColumnDown(state, y, marker, mode);
+            if (y === col) row = (row + 1) % size;
 
-            marker.i = (marker.i + Math.floor(code / GRIDSIZE)) % GRIDSIZE;
-            marker.j = (marker.j + (code % GRIDSIZE)) % GRIDSIZE;
+            marker.i = (marker.i + Math.floor(code / size)) % size;
+            marker.j = (marker.j + (code % size)) % size;
 
             if (verbose) {
                 console.log(`step: ${step + 1}`);
-                console.log(new Array(GRIDSIZE * 3 - 2).fill("-").join(""));
-                printState(state.slice(), { row, col: y }, marker);
-                console.log(new Array(GRIDSIZE * 3 - 2).fill("-").join(""));
+                console.log(new Array(size * 3 - 2).fill("-").join(""));
+                printState(state.slice(), { row, col: y }, marker, mode);
+                console.log(new Array(size * 3 - 2).fill("-").join(""));
                 console.log(
                     `ct: \x1b[31m${char}\x1b[0m  pt: \x1b[31m${
-                        ALPHABET[out]
+                        alphabet[out]
                     }\x1b[0m`,
                     "\n"
                 );
             }
 
-            return ALPHABET[out];
+            return alphabet[out];
         })
         .join("");
 }

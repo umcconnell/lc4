@@ -1,20 +1,21 @@
 /** @module lc4/helpers */
-import { ALPHABET, GRIDSIZE } from "./config.js";
+import { ALPHABET, ALPHABET_LS47, GRIDSIZE, GRIDSIZE_LS47 } from "./config.js";
 
 /**
- * Escape string to valid LC4 string
- * @param {String} string (invalid) LC4 string
+ * Escape string to valid LC4 or LS47 string
+ * @param {String} string (invalid) LC4 or LS47 string
+ * @param {String} [mode="lc4"] Escape mode (either "lc4" or "ls47")
  * @example
- * escapeToLC4("Hello World! This is the 10th test!");
+ * escapeString("Hello World! This is the 10th test!");
  *
  * //=> "hello_world_this_is_the__#th_test"
- * @returns {String} valid LC4 string
+ * @returns {String} valid LC4 or LS47 string
  */
-export function escapeToLC4(string) {
+export function escapeString(string, mode = "lc4") {
+    if (mode === "lc4") string = string.replace(/0/g, "#").replace(/1/g, "_");
+
     return [
         ...string
-            .replace(/0/g, "#")
-            .replace(/1/g, "_")
             .replace(/\u00dc/g, "Ue")
             .replace(/\u00fc/g, "ue")
             .replace(/\u00c4/g, "Ae")
@@ -25,7 +26,10 @@ export function escapeToLC4(string) {
             .replace(/\s/g, "_")
             .toLowerCase()
     ]
-        .filter(char => ALPHABET.indexOf(char) > -1)
+        .filter(
+            char =>
+                (mode === "ls47" ? ALPHABET_LS47 : ALPHABET).indexOf(char) > -1
+        )
         .join("");
 }
 
@@ -71,15 +75,19 @@ export function randomElement(arr) {
  * @param {Object} marker marker object representing active element
  * @param {Number} marker.i row of the marker in the state
  * @param {Number} marker.j column of the marker in the state
+ * @param {String} [mode="lc4"] encryption/decryption algorithm. Can be either
+ * "lc4" or "ls47"
  * @returns {Array} updated state matrix
  */
-export function shiftRowRight(state, row, marker) {
+export function shiftRowRight(state, row, marker, mode = "lc4") {
+    let size = mode === "ls47" ? GRIDSIZE_LS47 : GRIDSIZE;
+
     state[row] = [
         state[row][state[row].length - 1],
         ...state[row].slice(0, -1)
     ];
 
-    if (marker.i === row) marker.j = (marker.j + 1) % GRIDSIZE;
+    if (marker.i === row) marker.j = (marker.j + 1) % size;
 
     return state;
 }
@@ -91,21 +99,24 @@ export function shiftRowRight(state, row, marker) {
  * @param {Object} marker marker object representing active element
  * @param {Number} marker.i row of the marker in the state
  * @param {Number} marker.j column of the marker in the state
+ * @param {String} [mode="lc4"] encryption/decryption algorithm. Can be either
+ * "lc4" or "ls47"
  * @returns {Array} updated state matrix
  */
-export function shiftColumnDown(state, col, marker) {
-    let shiftRow = GRIDSIZE - 1,
+export function shiftColumnDown(state, col, marker, mode = "lc4") {
+    let size = mode === "ls47" ? GRIDSIZE_LS47 : GRIDSIZE,
+        shiftRow = size - 1,
         last = state[shiftRow][col];
 
     state = state.map(row => {
         let temp = row[col];
         row[col] = last;
         last = temp;
-        shiftRow = (shiftRow + 1) % GRIDSIZE;
+        shiftRow = (shiftRow + 1) % size;
         return row;
     });
 
-    if (marker.j === col) marker.i = (marker.i + 1) % GRIDSIZE;
+    if (marker.j === col) marker.i = (marker.i + 1) % size;
 
     return state;
 }
@@ -142,12 +153,14 @@ export function position(char, state) {
  * @param {Object} marker marker object representing active element
  * @param {Number} marker.i row of the marker in the state
  * @param {Number} marker.j column of the marker in the state
- * @return {undefined}
+ * @param {String} [mode="lc4"] encryption/decryption algorithm. Can be either
+ * "lc4" or "ls47"
+ * @returns {undefined}
  */
-export function printState(state, chara, marker) {
+export function printState(state, chara, marker, mode = "lc4") {
     // Deep-copy state
     state = JSON.parse(JSON.stringify(state)).map(row =>
-        row.map(char => ALPHABET[char])
+        row.map(char => (mode === "ls47" ? ALPHABET_LS47 : ALPHABET)[char])
     );
 
     let markerChar = "\x1b[31m@\x1b[0m";
@@ -173,10 +186,13 @@ export function printState(state, chara, marker) {
 }
 
 /**
- * Determine if input contains only valid LC4 characters
+ * Determine if input contains only valid LC4 or LS47 characters
  * @param {Array} input input array
- * @returns {Boolean} indicating if input is valid LC4
+ * @param {String} [mode="lc4"] encryption/decryption algorithm. Can be either
+ * "lc4" or "ls47"
+ * @returns {Boolean} indicating if input is valid LC4 or LS47
  */
-export function validLC4(input) {
-    return input.every(char => ALPHABET.indexOf(char) > -1);
+export function validString(input, mode = "lc4") {
+    let alphabet = mode.toLowerCase() === "lc4" ? ALPHABET : ALPHABET_LS47;
+    return input.every(char => alphabet.indexOf(char) > -1);
 }
