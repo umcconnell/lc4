@@ -147,10 +147,10 @@ export function position(char, state) {
  * @param {Number} marker.j column of the marker in the state
  * @return {undefined}
  */
-export function printState(state, chara, marker) {
+export function printState(state, chara, marker, mode = "lc4") {
     // Deep-copy state
     state = JSON.parse(JSON.stringify(state)).map(row =>
-        row.map(char => ALPHABET[char])
+        row.map(char => (mode === "lc4" ? ALPHABET : ALPHABET_LS47)[char])
     );
 
     let markerChar = "\x1b[31m@\x1b[0m";
