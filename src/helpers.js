@@ -95,19 +95,20 @@ export function shiftRowRight(state, row, marker, mode = "lc4") {
  * @param {Number} marker.j column of the marker in the state
  * @returns {Array} updated state matrix
  */
-export function shiftColumnDown(state, col, marker) {
-    let shiftRow = GRIDSIZE - 1,
+export function shiftColumnDown(state, col, marker, mode = "lc4") {
+    let size = mode === "lc4" ? GRIDSIZE : GRIDSIZE_LS47,
+        shiftRow = size - 1,
         last = state[shiftRow][col];
 
     state = state.map(row => {
         let temp = row[col];
         row[col] = last;
         last = temp;
-        shiftRow = (shiftRow + 1) % GRIDSIZE;
+        shiftRow = (shiftRow + 1) % size;
         return row;
     });
 
-    if (marker.j === col) marker.i = (marker.i + 1) % GRIDSIZE;
+    if (marker.j === col) marker.i = (marker.i + 1) % size;
 
     return state;
 }
