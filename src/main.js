@@ -59,7 +59,7 @@ export function encrypt(settings) {
     validateSettings(settings);
 
     let env = {
-        state: initState(settings.key),
+        state: initState(settings.key, settings.mode),
         marker: { i: 0, j: 0 },
         mode: settings.mode
     };
@@ -127,7 +127,7 @@ export function decrypt(settings) {
     validateSettings(settings);
 
     let env = {
-        state: initState(settings.key),
+        state: initState(settings.key, settings.mode),
         marker: { i: 0, j: 0 },
         mode: settings.mode
     };

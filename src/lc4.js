@@ -1,5 +1,5 @@
 /** @module lc4/lc4 */
-import { ALPHABET, GRIDSIZE, ALPHABET_LS47 } from "./config.js";
+import { ALPHABET, GRIDSIZE, ALPHABET_LS47, GRIDSIZE_LS47 } from "./config.js";
 import {
     shuffle,
     randomElement,
@@ -88,11 +88,14 @@ export function generateNonce(length = 10, mode = "lc4") {
  * @param {(String|Key)} key key string or array
  * @returns {Array} state matrix
  */
-export function initState(key) {
-    let S = new Array(GRIDSIZE).fill(0).map(_ => new Array(GRIDSIZE).fill(0));
+export function initState(key, mode = "lc4") {
+    let size = mode === "lc4" ? GRIDSIZE : GRIDSIZE_LS47,
+        alphabet = mode === "lc4" ? ALPHABET : ALPHABET_LS47;
 
-    for (let k = 0; k < ALPHABET.length; k++) {
-        S[Math.floor(k / GRIDSIZE)][k % GRIDSIZE] = ALPHABET.indexOf(key[k]);
+    let S = new Array(size).fill(0).map(_ => new Array(size).fill(0));
+
+    for (let k = 0; k < alphabet.length; k++) {
+        S[Math.floor(k / size)][k % size] = alphabet.indexOf(key[k]);
     }
 
     return S;
