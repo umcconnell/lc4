@@ -62,6 +62,17 @@ export function validateHeaderData(settings) {
     }
 }
 
+/**
+ * Validates the key of the settings
+ * @param {Object} settings settings object
+ * @param {String} settings.key valid key (as long as alphabet, no illegal
+ * characters)
+ * @param {String} [settings.mode="lc4"] encryption/decryption algorithm. Can be
+ * either "lc4" or "ls47"
+ * @throws {TypeError} when key is not specified, too short or contains illegal
+ * characters
+ * @returns {undefined}
+ */
 export function validateKey(settings) {
     if (!settings.key) {
         throw new TypeError(
