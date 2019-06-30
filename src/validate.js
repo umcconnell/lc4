@@ -94,6 +94,16 @@ export function validateKey(settings) {
     }
 }
 
+/**
+ * Validates nonce option of the settings
+ * @param {Object} settings settings object
+ * @param {String} [settings.nonce=null] optional valid nonce
+ * @param {String} [settings.mode="lc4"] encryption/decryption algorithm. Can be
+ * either "lc4" or "ls47"
+ * @throws {TypeError} when nonce is specified and too short (< 6 characters) or
+ * contains illegal characters
+ * @returns {undefined}
+ */
 export function validateNonce(settings) {
     if (
         settings.nonce &&
