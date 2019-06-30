@@ -123,6 +123,8 @@ export function initState(key, mode = "lc4") {
  * @param {Object} env.marker marker object representing active element
  * @param {Number} env.marker.i row of the marker in the state
  * @param {Number} env.marker.j column of the marker in the state
+ * @param {String} env.mode encryption algorithm. Can be either
+ * "lc4" or "ls47"
  * @param {String} msg cleartext message
  * @param {Boolean} [verbose=false] boolean indicating wether verbose mode
  * should be used (will print out intermediate steps)
