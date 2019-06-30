@@ -1,7 +1,7 @@
 {
     "name": "lc4",
-    "version": "1.2.0",
-    "description": "A spec-compliant lc4 encryption/decryption library",
+    "version": "1.3.0",
+    "description": "A spec-compliant LC4 and LS47 encryption/decryption library",
     "main": "./lib/main.js",
     "scripts": {
         "build:node": "./node_modules/.bin/babel src -s --no-comments --out-dir lib",
