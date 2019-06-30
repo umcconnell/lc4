@@ -2,6 +2,14 @@
 import { validString } from "./helpers.js";
 import { ALPHABET, ALPHABET_LS47 } from "./config.js";
 
+/**
+ * Validates the mode option of the settings
+ * @param {Object} settings settings object
+ * @param {String} settings.mode encryption/decryption algorithm. Can be either
+ * "lc4" or "ls47"
+ * @throws {TypeError} when settings.mode is invalid
+ * @returns {undefined}
+ */
 export function validateMode(settings) {
     if (!(settings.mode === "lc4" || settings.mode === "ls47")) {
         throw new TypeError(
