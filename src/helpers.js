@@ -186,9 +186,11 @@ export function printState(state, chara, marker, mode = "lc4") {
 }
 
 /**
- * Determine if input contains only valid LC4 characters
+ * Determine if input contains only valid LC4 or LS47 characters
  * @param {Array} input input array
- * @returns {Boolean} indicating if input is valid LC4
+ * @param {String} [mode="lc4"] encryption/decryption algorithm. Can be either
+ * "lc4" or "ls47"
+ * @returns {Boolean} indicating if input is valid LC4 or LS47
  */
 export function validString(input, mode = "lc4") {
     let alphabet = mode.toLowerCase() === "lc4" ? ALPHABET : ALPHABET_LS47;
