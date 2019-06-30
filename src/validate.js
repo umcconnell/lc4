@@ -119,6 +119,16 @@ export function validateNonce(settings) {
     }
 }
 
+/**
+ * Validates signature option of the settings
+ * @param {Object} settings settings object
+ * @param {String} [settings.signature=null] optional valid signature
+ * @param {String} [settings.mode="lc4"] encryption/decryption algorithm. Can be
+ * either "lc4" or "ls47"
+ * @throws {TypeError} when signature is specified and too short (< 10
+ * characters) or contains illegal characters
+ * @returns {undefined}
+ */
 export function validateSignature(settings) {
     if (
         settings.signature &&
