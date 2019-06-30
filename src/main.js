@@ -32,7 +32,6 @@ import {
  *     key: generateKey(),
  *     nonce: "lorem_ipsum"
  * });
- *
  * @example <caption>Encrypt a message with a random key and ls47</caption>
  * const { encrypt, generateKey } = require("lc4");
  *
@@ -42,7 +41,6 @@ import {
  *     nonce: "lorem_ipsum",
  *     mode: "ls47"
  * })
- *
  * @example <caption>Encrypt and sign a message</caption>
  * const { encrypt, generateKey, generateNonce } = require("lc4");
  *
@@ -90,11 +88,13 @@ export function encrypt(settings) {
 }
 
 /**
- * Decrypt a message with LC4
+ * Decrypt a message with LC4 or LS47
  * @param {Object} settings decryption settings
+ * @param {String} [settings.mode="lc4"] decryption algorithm. Can be either
+ * "lc4" or "ls47"
  * @param {String} settings.message message to decrypt
- * @param {String} settings.key valid LC4 key
- * @param {String} [settings.nonce=null] valid LC4 nonce
+ * @param {String} settings.key valid LC4 or LS47 key
+ * @param {String} [settings.nonce=null] valid LC4 or LS47 nonce
  * @param {String} [settings.headerData=null] header data
  * @param {String} [settings.signature=null] signature of signed message
  * @param {Boolean} [settings.verbose=false] boolean indicating whether verbose
@@ -109,6 +109,16 @@ export function encrypt(settings) {
  * });
  *
  * //=> "hello_world"
+ * @example <caption>Decrypt a message with a given key and ls47</caption>
+ * const { decrypt } = require("lc4");
+ *
+ * decrypt({
+ *     message: "8.bc-'suz+6l",
+ *     key: "4un)pj0c6(h!ms+_-5q*vkt,zi?9xoglw:18e'.dy/rba73f2",
+ *     mode: "ls47"
+ * })
+ *
+ * //=> "hello_world!"
  * @example <caption>Encrypt and sign a message</caption>
  * const { decrypt } = require("lc4");
  *
