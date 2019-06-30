@@ -32,7 +32,7 @@ import {
  *     key: generateKey(),
  *     nonce: "lorem_ipsum"
  * });
- * @example <caption>Encrypt a message with a random key and ls47</caption>
+ * @example <caption>Encrypt a message with a random key and LS47</caption>
  * const { encrypt, generateKey } = require("lc4");
  *
  * encrypt({
@@ -109,7 +109,7 @@ export function encrypt(settings) {
  * });
  *
  * //=> "hello_world"
- * @example <caption>Decrypt a message with a given key and ls47</caption>
+ * @example <caption>Decrypt a message with a given key and LS47</caption>
  * const { decrypt } = require("lc4");
  *
  * decrypt({
@@ -181,7 +181,7 @@ export function decrypt(settings) {
  * let { generateKey } = require("lc4");
  *
  * generateKey();
- * @example <caption>Generate a random ls47 key without keword</caption>
+ * @example <caption>Generate a random LS47 key without keword</caption>
  * let { generateKey } = require("lc4");
  *
  * generateKey(null, "ls47");
@@ -209,7 +209,7 @@ export function generateKey(keyword, mode = "lc4") {
  * let { generateNonce } = require("lc4");
  *
  * generateNonce();
- * @example <caption>Encrypt a message with a random nonce</caption>
+ * @example <caption>Encrypt a message with LS47 and a random nonce</caption>
  * const { encrypt, generateKey, generateNonce } = require("lc4");
  *
  * encrypt({
@@ -238,6 +238,16 @@ export function escapeToLC4(string) {
     return _escapeString(string, "lc4");
 }
 
+/**
+ * Escape string to valid LS47 string
+ * @param {String} string (invalid) LS47 string
+ * @example
+ * let { escapeToLS47 } = require("lc4");
+ * escapeToLS47("Hello World! This is the 10th test!")
+ *
+ * //=> "hello_world!_this_is_10th_test!"
+ * @returns {String} valid LS47 string
+ */
 export function escapeToLS47(string) {
     return _escapeString(string, "ls47");
 }
