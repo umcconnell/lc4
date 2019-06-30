@@ -571,7 +571,7 @@ Escape string to valid LS47 string
 let { escapeToLS47 } = require("lc4");
 escapeToLS47("Hello World! This is the 10th test!");
 
-//=> "hello_world!_this_is_10th_test!"
+//=> "hello_world!_this_is_the_10th_test!"
 ```
 <a name="module_lc4.escapeString"></a>
 
