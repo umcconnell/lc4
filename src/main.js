@@ -167,8 +167,8 @@ export function decrypt(settings) {
  * characters
  * @returns {String} a valid LC4 key
  */
-export function generateKey(keyword) {
-    return _generateKey(keyword);
+export function generateKey(keyword, mode = "lc4") {
+    return _generateKey(keyword, mode);
 }
 
 /**

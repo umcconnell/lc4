@@ -1,5 +1,5 @@
 /** @module lc4/lc4 */
-import { ALPHABET, GRIDSIZE } from "./config.js";
+import { ALPHABET, GRIDSIZE, ALPHABET_LS47 } from "./config.js";
 import {
     shuffle,
     randomElement,
@@ -28,19 +28,21 @@ import {
  * characters
  * @returns {String} a valid LC4 key
  */
-export function generateKey(keyword = false) {
+export function generateKey(keyword = false, mode = "lc4") {
+    let alphabet = mode.toLowerCase() === "lc4" ? ALPHABET : ALPHABET_LS47;
+
     if (keyword) {
         if (!validString([...keyword]))
             throw new Error(
                 "Keyword for key generation contains invalid characters!\n" +
                     "You may only use following characters: " +
-                    ALPHABET
+                    alphabet
             );
     }
 
     // Shuffle alphabet without letters already in keyword
     let key = shuffle(
-        [...ALPHABET].filter(char =>
+        [...alphabet].filter(char =>
             keyword ? keyword.indexOf(char) > -1 : true
         )
     ).join("");
