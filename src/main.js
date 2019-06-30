@@ -1,6 +1,6 @@
 /** @module lc4 */
 import { DEFAULT_SETTINGS } from "./config.js";
-import { validateSettings } from "./validate.js";
+import { validateSettings, validateMode } from "./validate.js";
 import { escapeString as _escapeString } from "./helpers.js";
 
 import {
@@ -48,17 +48,20 @@ import {
 export function encrypt(settings) {
     settings = Object.assign({}, DEFAULT_SETTINGS, settings);
 
+    settings.mode = settings.mode.toLowerCase();
+    validateMode(settings);
+
     if (settings.message)
         settings.message = _escapeString(settings.message, settings.mode);
     if (settings.headerData)
         settings.headerData = _escapeString(settings.headerData, settings.mode);
-    settings.mode = settings.mode.toLowerCase();
+
     validateSettings(settings);
 
     let env = {
         state: initState(settings.key),
         marker: { i: 0, j: 0 },
-        mode: settings.mode.toLowerCase()
+        mode: settings.mode
     };
 
     // Encrypt nonce and discard
@@ -115,16 +118,18 @@ export function encrypt(settings) {
 export function decrypt(settings) {
     settings = Object.assign({}, DEFAULT_SETTINGS, settings);
 
+    settings.mode = settings.mode.toLowerCase();
+    validateMode(settings);
+
     if (settings.headerData)
         settings.headerData = _escapeString(settings.headerData, settings.mode);
-    settings.mode = settings.mode.toLowerCase();
 
     validateSettings(settings);
 
     let env = {
         state: initState(settings.key),
         marker: { i: 0, j: 0 },
-        mode: settings.mode.toLowerCase()
+        mode: settings.mode
     };
 
     // Encrypt nonce and discard
