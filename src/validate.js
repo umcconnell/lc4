@@ -147,15 +147,18 @@ export function validateSignature(settings) {
 /**
  * Validate encryption/decryption LC4 settings
  * @param {Object} settings LC4 settings message
- * @param {String} settings.message valid LC4 string
- * @param {String} settings.key valid LC4 string
- * @param {String} [settings.signature=null] valid LC4 string (at least 10
+ * @param {String} settings.mode encryption/decryption algorithm. Can be either
+ * "lc4" or "ls47"
+ * @param {String} settings.message valid LC4 or LS47 string
+ * @param {String} settings.key valid LC4 or LS47 string
+ * @param {String} [settings.signature=null] valid LC4 or LS47 string (at least
+ * 10 characters long)
+ * @param {String} [settings.headerData=null] valid LC4 or LS47 string
+ * @param {String} [settings.nonce=null] valid LC4 or LS47 string (at least 6
  * characters long)
- * @param {String} [settings.headerData=null] valid LC4 string
- * @param {String} [settings.nonce=null] valid LC4 string (at least 6 characters
- * long)
- * @throws {TypeError} When message and/or key is missing or if invalid value
- * (invalid LC4 string) is passed
+ * @throws {TypeError} When message and/or key and/or mode is missing or if
+ * invalid value (invalid LC4 or LS47 string) is passed
+ * @returns {undefined}
  */
 export function validateSettings(settings) {
     return [
