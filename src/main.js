@@ -243,7 +243,7 @@ export function escapeToLC4(string) {
  * @param {String} string (invalid) LS47 string
  * @example
  * let { escapeToLS47 } = require("lc4");
- * escapeToLS47("Hello World! This is the 10th test!")
+ * escapeToLS47("Hello World! This is the 10th test!");
  *
  * //=> "hello_world!_this_is_10th_test!"
  * @returns {String} valid LS47 string
@@ -252,6 +252,23 @@ export function escapeToLS47(string) {
     return _escapeString(string, "ls47");
 }
 
+/**
+ * Escapes a string to a valid LC4 or LS47 string
+ * @param {String} string (invalid) LC4 or LS47 string
+ * @param {String} [mode="lc4"] encryption/decryption mode. Can be either "lc4"
+ * or "ls47"
+ * @example
+ * let { escapeString } = require("lc4");
+ * escapeString("Hello World! This is the 10th test!", "ls47");
+ *
+ * //=> "hello_world!_this_is_10th_test!"
+ * @example
+ * let { escapeString } = require("lc4");
+ * escapeString("Hello World! This is the 10th test!", "lc4");
+ *
+ * //=> "hello_world_this_is_the__#th_test"
+ * @returns {String} valid LC4 or LS47 string
+ */
 export function escapeString(string, mode) {
     return _escapeString(string, mode);
 }
