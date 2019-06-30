@@ -12,12 +12,14 @@ import {
 } from "./lc4.js";
 
 /**
- * Encrypt a message with LC4
+ * Encrypt a message with LC4 or LS47
  * @param {Object} settings encryption settings
- * @param {String} settings.message message to encrypt. Invalid LC4 strings are
- * escaped with the `escapeToLC4` method
- * @param {String} settings.key valid LC4 key
- * @param {String} [settings.nonce=null] valid LC4 nonce
+ * @param {String} [settings.mode="lc4"] encryption algorithm. Can be either
+ * "lc4" or "ls47"
+ * @param {String} settings.message message to encrypt. Invalid LC4 or LS47
+ * strings are escaped with the `escapeString` method
+ * @param {String} settings.key valid LC4 or LS47 key
+ * @param {String} [settings.nonce=null] valid LC4 or LS47 nonce
  * @param {String} [settings.headerData=null] header data
  * @param {String} [settings.signature=null] signature for signing the message
  * @param {Boolean} [settings.verbose=false] boolean indicating whether verbose
@@ -30,6 +32,15 @@ import {
  *     key: generateKey(),
  *     nonce: "lorem_ipsum"
  * });
+ *
+ * @example <caption>Encrypt a message with a random key and ls47</caption>
+ * const { encrypt, generateKey } = require("lc4");
+ *
+ * encrypt({
+ *     message: "hello_ls47",
+ *     key: generateKey(null, "ls47"),
+ *     nonce: "lorem_ipsum"
+ * })
  *
  * @example <caption>Encrypt and sign a message</caption>
  * const { encrypt, generateKey, generateNonce } = require("lc4");
