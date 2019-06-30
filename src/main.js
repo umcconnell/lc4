@@ -245,7 +245,7 @@ export function escapeToLC4(string) {
  * let { escapeToLS47 } = require("lc4");
  * escapeToLS47("Hello World! This is the 10th test!");
  *
- * //=> "hello_world!_this_is_10th_test!"
+ * //=> "hello_world!_this_is_the_10th_test!"
  * @returns {String} valid LS47 string
  */
 export function escapeToLS47(string) {
