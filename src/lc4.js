@@ -32,7 +32,7 @@ export function generateKey(keyword = false, mode = "lc4") {
     let alphabet = mode.toLowerCase() === "lc4" ? ALPHABET : ALPHABET_LS47;
 
     if (keyword) {
-        if (!validString([...keyword]))
+        if (!validString([...keyword], mode))
             throw new Error(
                 "Keyword for key generation contains invalid characters!\n" +
                     "You may only use following characters: " +

@@ -172,12 +172,19 @@ export function decrypt(settings) {
 }
 
 /**
- * Generate a valid random LC4 key
- * @param {String} [keyword=false] keyword to base key off (less secure)
+ * Generate a valid random LC4 or LS47 key
+ * @param {String} [keyword=false] keyword to base key off (less secure) or
+ * falsy value if key shouldn't be based off a keyword
+ * @param {String} [mode="lc4"] encryption/decryption mode. Can be either "lc4"
+ * or "ls47"
  * @example <caption>Generate a random key</caption>
  * let { generateKey } = require("lc4");
  *
  * generateKey();
+ * @example <caption>Generate a random ls47 key without keword</caption>
+ * let { generateKey } = require("lc4");
+ *
+ * generateKey(null, "ls47");
  * @example <caption>Encrypt a message with a random key</caption>
  * const { encrypt, generateKey } = require("lc4");
  *
@@ -185,9 +192,9 @@ export function decrypt(settings) {
  *     message: "hello_world",
  *     key: generateKey(),
  * });
- * @throws {Error} Will throw an error if the keyword contains invalid LC4
- * characters
- * @returns {String} a valid LC4 key
+ * @throws {Error} Will throw an error if the keyword contains invalid LC4 or
+ * LS47 characters
+ * @returns {String} a valid LC4 or LS47 key
  */
 export function generateKey(keyword, mode = "lc4") {
     return _generateKey(keyword, mode);
