@@ -3,7 +3,7 @@
 [![NPM](https://nodei.co/npm/lc4.png)](https://nodei.co/npm/lc4/)
 
 A [spec-compliant](https://eprint.iacr.org/2017/339.pdf)
-LC4 (ElsieFour) encryption/decryption library
+LC4 (ElsieFour) and LS47 encryption/decryption library
 
 ## Table of Contents
 
@@ -70,6 +70,18 @@ encrypt({
 });
 ```
 
+Encrypt a message with a random key using LS47:
+
+```js
+let { encrypt, generateKey } = require("lc4");
+
+encrypt({
+    message: "Hello World!",
+    key: generateKey(null, "ls47"),
+    mode: "ls47"
+}):
+```
+
 Encrypt a message and sign it:
 
 ```js
@@ -114,6 +126,8 @@ decrypt({
 
 ## About
 
+### LC4
+
 > ElsieFour (LC4) is a low-tech cipher that can be computed by hand;but unlike
 > many historical ciphers, LC4 is designed to be hard to break. LC4 is intended
 > for encrypted communication between humans only, and therefore it encrypts
@@ -131,6 +145,23 @@ grid used for the encryption or decryption.
 
 For a tutorial on how to encrypt and decrypt a message by hand using the LC4
 algorithm, see the [white paper](https://eprint.iacr.org/2017/339.pdf#page=12).
+
+### LS47
+
+> This is a slight improvement of the ElsieFour cipher as described by Alan
+> Kaminsky [1]. We use 7x7 characters instead of original (barely fitting) 6x6,
+> to be able to encrypt some structured information. We also describe a simple
+> key-expansion algorithm, because remembering passwords is popular. Similar
+> security considerations as with ElsieFour hold.
+
+The LS47 alphabet consists of following characters:
+`_abcdefghijklmnopqrstuvwxyz.0123456789,-+*/:?!'()`
+
+A LS47 key is a permutation of the alphabet that is then represented in a 7x7
+grid used for the encryption or decryption.
+
+For a tutorial on how to encrypt and decrypt a message by hand using the LS47
+algorithm, see the [white paper](https://gitea.blesmrt.net/exa/ls47).
 
 ## Docs
 
@@ -175,6 +206,11 @@ This project is licensed under the MIT License - see the
 -   [reddit r/dailyprogrammer](https://www.reddit.com/r/dailyprogrammer/comments/8jvbzg/20180516_challenge_361_intermediate_elsiefour/)
 
 ## See Also
+
+Find the specifications here:
+
+-   LC4 https://eprint.iacr.org/2017/339.pdf
+-   LS47 https://gitea.blesmrt.net/exa/ls47
 
 Check out these other LC4 implementations and LC4 variants:
 
