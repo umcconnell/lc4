@@ -22,8 +22,8 @@ export function validateMode(settings) {
  * Validates the message of the settings
  * @param {Object} settings settings object
  * @param {String} settings.message valid LC4 or LS47 message
- * @param {String} [settings.mode="lc4"] encryption/decryption algorithm. Can be either
- * "lc4" or "ls47"
+ * @param {String} [settings.mode="lc4"] encryption/decryption algorithm. Can be
+ * either "lc4" or "ls47"
  * @throws {TypeError} when no message is specified or the message is invalid
  * @return {undefined}
  */
@@ -39,6 +39,16 @@ export function validateMsg(settings) {
     }
 }
 
+/**
+ * Validates the headerDate option of the settings
+ * @param {Object} settings settings object
+ * @param {String} [settings.headerData=null] optional valid header data
+ * @param {String} [settings.mode="lc4"] encryption/decryption algorithm. Can be
+ * either "lc4" or "ls47"
+ * @throws {TypeError} when header data is specified but contains illegal
+ * characters
+ * @returns {undefined}
+ */
 export function validateHeaderData(settings) {
     if (
         settings.headerData &&
