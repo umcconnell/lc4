@@ -98,7 +98,9 @@ export function generateNonce(length = 10, mode = "lc4") {
 
 /**
  * Populate a state matrix by filling in a key row by row
- * @param {(String|Key)} key key string or array
+ * @param {(String|Array)} key key string or array
+ * @param {String} [mode="lc4"] encryption/decryption algorithm. Can be either
+ * "lc4" or "ls47"
  * @returns {Array} state matrix
  */
 export function initState(key, mode = "lc4") {
