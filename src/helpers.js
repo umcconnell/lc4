@@ -28,7 +28,7 @@ export function escapeString(string, mode = "lc4") {
     ]
         .filter(
             char =>
-                (mode === "lc4" ? ALPHABET : ALPHABET_LS47).indexOf(char) > -1
+                (mode === "ls47" ? ALPHABET_LS47 : ALPHABET).indexOf(char) > -1
         )
         .join("");
 }
@@ -80,7 +80,7 @@ export function randomElement(arr) {
  * @returns {Array} updated state matrix
  */
 export function shiftRowRight(state, row, marker, mode = "lc4") {
-    let size = mode === "lc4" ? GRIDSIZE : GRIDSIZE_LS47;
+    let size = mode === "ls47" ? GRIDSIZE_LS47 : GRIDSIZE;
 
     state[row] = [
         state[row][state[row].length - 1],
@@ -104,7 +104,7 @@ export function shiftRowRight(state, row, marker, mode = "lc4") {
  * @returns {Array} updated state matrix
  */
 export function shiftColumnDown(state, col, marker, mode = "lc4") {
-    let size = mode === "lc4" ? GRIDSIZE : GRIDSIZE_LS47,
+    let size = mode === "ls47" ? GRIDSIZE_LS47 : GRIDSIZE,
         shiftRow = size - 1,
         last = state[shiftRow][col];
 
@@ -160,7 +160,7 @@ export function position(char, state) {
 export function printState(state, chara, marker, mode = "lc4") {
     // Deep-copy state
     state = JSON.parse(JSON.stringify(state)).map(row =>
-        row.map(char => (mode === "lc4" ? ALPHABET : ALPHABET_LS47)[char])
+        row.map(char => (mode === "ls47" ? ALPHABET_LS47 : ALPHABET)[char])
     );
 
     let markerChar = "\x1b[31m@\x1b[0m";

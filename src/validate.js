@@ -17,7 +17,7 @@ export function validateMsg(settings) {
         throw new TypeError(
             "Message contains invalid characters!\n" +
                 "You may only use following characters: " +
-                (settings.mode === "lc4" ? ALPHABET : ALPHABET_LS47)
+                (settings.mode === "ls47" ? ALPHABET_LS47 : ALPHABET)
         );
     }
 }
@@ -30,7 +30,7 @@ export function validateHeaderData(settings) {
         throw new TypeError(
             "Invalid header data!\n" +
                 "Header data may only contain following characters: " +
-                (settings.mode === "lc4" ? ALPHABET : ALPHABET_LS47)
+                (settings.mode === "ls47" ? ALPHABET_LS47 : ALPHABET)
         );
     }
 }
@@ -40,18 +40,18 @@ export function validateKey(settings) {
         throw new TypeError(
             "You must specify a (valid) key!\n" +
                 "You may only use following characters: " +
-                (settings.mode === "lc4" ? ALPHABET : ALPHABET_LS47)
+                (settings.mode === "ls47" ? ALPHABET_LS47 : ALPHABET)
         );
     } else if (
         settings.key.length !==
-        (settings.mode === "lc4" ? ALPHABET : ALPHABET_LS47).length
+        (settings.mode === "ls47" ? ALPHABET_LS47 : ALPHABET).length
     ) {
         throw new TypeError("Key is too short");
     } else if (!validString([...settings.key], settings.mode)) {
         throw new TypeError(
             "Keyword for key generation contains invalid characters!\n" +
                 "You may only use following characters: " +
-                (settings.mode === "lc4" ? ALPHABET : ALPHABET_LS47)
+                (settings.mode === "ls47" ? ALPHABET_LS47 : ALPHABET)
         );
     }
 }
@@ -65,7 +65,7 @@ export function validateNonce(settings) {
         throw new TypeError(
             "Invalid nonce!\n" +
                 "Nonce may only contain following characters: " +
-                (settings.mode === "lc4" ? ALPHABET : ALPHABET_LS47) +
+                (settings.mode === "ls47" ? ALPHABET_LS47 : ALPHABET) +
                 " and must be at least 6 characters long."
         );
     }
@@ -80,7 +80,7 @@ export function validateSignature(settings) {
         throw new TypeError(
             "Invalid signature!\n" +
                 "Signature may only contain following characters: " +
-                (settings.mode === "lc4" ? ALPHABET : ALPHABET_LS47) +
+                (settings.mode === "ls47" ? ALPHABET_LS47 : ALPHABET) +
                 " and must be at least 10 characters long."
         );
     }

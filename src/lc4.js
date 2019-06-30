@@ -104,8 +104,8 @@ export function generateNonce(length = 10, mode = "lc4") {
  * @returns {Array} state matrix
  */
 export function initState(key, mode = "lc4") {
-    let size = mode === "lc4" ? GRIDSIZE : GRIDSIZE_LS47,
-        alphabet = mode === "lc4" ? ALPHABET : ALPHABET_LS47;
+    let size = mode === "ls47" ? GRIDSIZE_LS47 : GRIDSIZE,
+        alphabet = mode === "ls47" ? ALPHABET_LS47 : ALPHABET;
 
     let S = new Array(size).fill(0).map(_ => new Array(size).fill(0));
 
@@ -131,8 +131,8 @@ export function initState(key, mode = "lc4") {
  * @returns {String} ciphertext message
  */
 export function encryptMsg({ state, marker, mode }, msg, verbose = false) {
-    let alphabet = mode === "lc4" ? ALPHABET : ALPHABET_LS47,
-        size = mode === "lc4" ? GRIDSIZE : GRIDSIZE_LS47;
+    let alphabet = mode === "ls47" ? ALPHABET_LS47 : ALPHABET,
+        size = mode === "ls47" ? GRIDSIZE_LS47 : GRIDSIZE;
 
     if (verbose) {
         console.log(`Encrypting: ${msg}`);
@@ -192,8 +192,8 @@ export function encryptMsg({ state, marker, mode }, msg, verbose = false) {
  * @returns {String} cleartext message
  */
 export function decryptMsg({ state, marker, mode }, msg, verbose) {
-    let alphabet = mode === "lc4" ? ALPHABET : ALPHABET_LS47,
-        size = mode === "lc4" ? GRIDSIZE : GRIDSIZE_LS47;
+    let alphabet = mode === "ls47" ? ALPHABET_LS47 : ALPHABET,
+        size = mode === "ls47" ? GRIDSIZE_LS47 : GRIDSIZE;
 
     if (verbose) {
         console.log(`Decrypting: ${msg}`);
