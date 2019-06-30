@@ -1,7 +1,7 @@
 /** @module lc4 */
 import { DEFAULT_SETTINGS } from "./config.js";
 import { validateSettings } from "./validate.js";
-import { escapeToLC4 as _escapeToLC4 } from "./helpers.js";
+import { escapeString as _escapeString } from "./helpers.js";
 
 import {
     initState,
@@ -48,9 +48,10 @@ import {
 export function encrypt(settings) {
     settings = Object.assign({}, DEFAULT_SETTINGS, settings);
 
-    if (settings.message) settings.message = _escapeToLC4(settings.message);
+    if (settings.message)
+        settings.message = _escapeString(settings.message, settings.mode);
     if (settings.headerData)
-        settings.headerData = _escapeToLC4(settings.headerData);
+        settings.headerData = _escapeString(settings.headerData, settings.mode);
     settings.mode = settings.mode.toLowerCase();
     validateSettings(settings);
 
@@ -115,7 +116,7 @@ export function decrypt(settings) {
     settings = Object.assign({}, DEFAULT_SETTINGS, settings);
 
     if (settings.headerData)
-        settings.headerData = _escapeToLC4(settings.headerData);
+        settings.headerData = _escapeString(settings.headerData, settings.mode);
     settings.mode = settings.mode.toLowerCase();
 
     validateSettings(settings);
@@ -134,7 +135,10 @@ export function decrypt(settings) {
     // Decrypt message and signature
     let msg = decryptMsg(env, settings.message, settings.verbose);
 
-    if (settings.signature && !msg.endsWith(_escapeToLC4(settings.signature)))
+    if (
+        settings.signature &&
+        !msg.endsWith(_escapeString(settings.signature, settings.mode))
+    )
         throw new Error("Invalid signature");
 
     return msg;
@@ -195,5 +199,13 @@ export function generateNonce(length) {
  * @returns {String} valid LC4 string
  */
 export function escapeToLC4(string) {
-    return _escapeToLC4(string);
+    return _escapeString(string, "lc4");
+}
+
+export function escapeToLS47(string) {
+    return _escapeString(string, "ls47");
+}
+
+export function escapeString(string, mode) {
+    return _escapeString(string, mode);
 }
