@@ -2,6 +2,8 @@
 
 [![NPM](https://nodei.co/npm/lc4.png)](https://nodei.co/npm/lc4/)
 
+[![](https://data.jsdelivr.com/v1/package/gh/umcconnell/lc4/badge)](https://www.jsdelivr.com/package/gh/umcconnell/lc4)
+
 A [spec-compliant](https://eprint.iacr.org/2017/339.pdf)
 LC4 (ElsieFour) and LS47 encryption/decryption library
 
