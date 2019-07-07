@@ -72,17 +72,22 @@ encrypt({
 });
 ```
 
-Encrypt a message with a random key using LS47:
+Encrypt a message with a password using LS47:
 
 ```js
 let { encrypt, generateKey } = require("lc4");
 
 encrypt({
     message: "Hello World!",
-    key: generateKey(null, "ls47"),
+    key: "my_super_secret_password",
     mode: "ls47"
 }):
 ```
+
+**Note:**
+
+> When using a password instead of a key, make sure the password is long enough
+> to ensure high enough entropy.
 
 Encrypt a message and sign it:
 

@@ -65,8 +65,8 @@ export function validateHeaderData(settings) {
 /**
  * Validates the key of the settings
  * @param {Object} settings settings object
- * @param {String} settings.key valid key (as long as alphabet, no illegal
- * characters)
+ * @param {String} settings.key valid key (no illegal characters, no duplicate
+ * characters if as long as alphabet) or password
  * @param {String} [settings.mode="lc4"] encryption/decryption algorithm. Can be
  * either "lc4" or "ls47"
  * @throws {TypeError} when key is not specified, too short or contains illegal
@@ -80,17 +80,18 @@ export function validateKey(settings) {
                 "You may only use following characters: " +
                 (settings.mode === "ls47" ? ALPHABET_LS47 : ALPHABET)
         );
-    } else if (
-        settings.key.length !==
-        (settings.mode === "ls47" ? ALPHABET_LS47 : ALPHABET).length
-    ) {
-        throw new TypeError("Key is too short");
     } else if (!validString([...settings.key], settings.mode)) {
         throw new TypeError(
             "Keyword for key generation contains invalid characters!\n" +
                 "You may only use following characters: " +
                 (settings.mode === "ls47" ? ALPHABET_LS47 : ALPHABET)
         );
+    } else if (
+        settings.key.length ===
+            (settings.mode === "ls47" ? ALPHABET_LS47 : ALPHABET).length &&
+        Array.from(new Set([...settings.key])).length !== settings.key.length
+    ) {
+        throw new TypeError("Duplicate characters aren't allowed in key!");
     }
 }
 
