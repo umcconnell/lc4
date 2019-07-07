@@ -18,7 +18,8 @@ import {
  * "lc4" or "ls47"
  * @param {String} settings.message message to encrypt. Invalid LC4 or LS47
  * strings are escaped with the `escapeString` method
- * @param {String} settings.key valid LC4 or LS47 key
+ * @param {String} settings.key valid LC4 or LS47 key or password; If a
+ * password is passed, the key/state will be expanded from the password
  * @param {String} [settings.nonce=null] valid LC4 or LS47 nonce
  * @param {String} [settings.headerData=null] header data
  * @param {String} [settings.signature=null] signature for signing the message
@@ -46,7 +47,7 @@ import {
  *
  * encrypt({
  *     message: "Lorem Ipsum", // will be escaped to lorem_ipsum
- *     key: generateKey(),
+ *     key: "my_super_secret_password",
  *     nonce: generateNonce(),
  *     signature: "#secret_signature",
  *     verbose: true
@@ -93,7 +94,8 @@ export function encrypt(settings) {
  * @param {String} [settings.mode="lc4"] decryption algorithm. Can be either
  * "lc4" or "ls47"
  * @param {String} settings.message message to decrypt
- * @param {String} settings.key valid LC4 or LS47 key
+ * @param {String} settings.key valid LC4 or LS47 key or password; If a
+ * password is passed, the key/state will be expanded from the password
  * @param {String} [settings.nonce=null] valid LC4 or LS47 nonce
  * @param {String} [settings.headerData=null] header data
  * @param {String} [settings.signature=null] signature of signed message
