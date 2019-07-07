@@ -44,6 +44,23 @@ describe("LC4 encryption and decryption", () => {
             ).to.equal(msg);
         });
     });
+
+    describe("Key expansion", () => {
+        it("should expand key correctly", () => {
+            const msg = "im_about_to_put_the_hammer_down";
+            const key = "hello_world";
+
+            expect(
+                decrypt({
+                    message: encrypt({
+                        message: msg,
+                        key
+                    }),
+                    key
+                })
+            ).to.equal(msg);
+        });
+    });
 });
 
 describe("LS47 encryption and decryption", () => {
@@ -94,6 +111,25 @@ describe("LS47 encryption and decryption", () => {
                     }),
                     key,
                     nonce,
+                    mode: "ls47"
+                })
+            ).to.equal(msg);
+        });
+    });
+
+    describe("Key expansion", () => {
+        it("should expand key correctly", () => {
+            const msg = "im_about_to_put_the_hammer_down";
+            const key = "hello_world";
+
+            expect(
+                decrypt({
+                    message: encrypt({
+                        message: msg,
+                        key,
+                        mode: "ls47"
+                    }),
+                    key,
                     mode: "ls47"
                 })
             ).to.equal(msg);
