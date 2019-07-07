@@ -97,7 +97,7 @@ export function generateNonce(length = 10, mode = "lc4") {
 }
 
 /**
- * Populate a state matrix by filling in a key row by row
+ * Populate a state matrix by filling in a key row by row or by expanding a key
  * @param {(String|Array)} key key string or array
  * @param {String} [mode="lc4"] encryption/decryption algorithm. Can be either
  * "lc4" or "ls47"
@@ -105,12 +105,31 @@ export function generateNonce(length = 10, mode = "lc4") {
  */
 export function initState(key, mode = "lc4") {
     let size = mode === "ls47" ? GRIDSIZE_LS47 : GRIDSIZE,
-        alphabet = mode === "ls47" ? ALPHABET_LS47 : ALPHABET;
+        alphabet = mode === "ls47" ? ALPHABET_LS47 : ALPHABET,
+        characters = key.length === size * size ? key : alphabet;
 
     let S = new Array(size).fill(0).map(_ => new Array(size).fill(0));
 
     for (let k = 0; k < alphabet.length; k++) {
-        S[Math.floor(k / size)][k % size] = alphabet.indexOf(key[k]);
+        S[Math.floor(k / size)][k % size] = alphabet.indexOf(characters[k]);
+    }
+
+    if (key.length !== size * size) {
+        let i = 0;
+        for (let char of key) {
+            let Px = alphabet.indexOf(char) % size,
+                Py = Math.floor(alphabet.indexOf(char) / size);
+
+            // Rotate i-th row Px positions to the right
+            for (let shiftedRight = 0; shiftedRight < Px; shiftedRight++)
+                shiftRowRight(S, i % size, {}, mode);
+
+            // Rotate i-th column Py positions to the bottom
+            for (let shiftedDown = 0; shiftedDown < Py; shiftedDown++)
+                shiftColumnDown(S, i % size, {}, mode);
+
+            i++;
+        }
     }
 
     return S;
