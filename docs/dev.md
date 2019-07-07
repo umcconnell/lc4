@@ -281,7 +281,7 @@ encrypt({
 <a name="module_lc4/lc4.initState"></a>
 
 ### lc4/lc4.initState(key, [mode]) ⇒ <code>Array</code>
-Populate a state matrix by filling in a key row by row
+Populate a state matrix by filling in a key row by row or by expanding a key
 
 **Kind**: static method of [<code>lc4/lc4</code>](#module_lc4/lc4)  
 **Returns**: <code>Array</code> - state matrix  
@@ -360,7 +360,7 @@ missing
 | settings | <code>Object</code> |  | encryption settings |
 | [settings.mode] | <code>String</code> | <code>&quot;lc4&quot;</code> | encryption algorithm. Can be either "lc4" or "ls47" |
 | settings.message | <code>String</code> |  | message to encrypt. Invalid LC4 or LS47 strings are escaped with the `escapeString` method |
-| settings.key | <code>String</code> |  | valid LC4 or LS47 key |
+| settings.key | <code>String</code> |  | valid LC4 or LS47 key or password; If a password is passed, the key/state will be expanded from the password |
 | [settings.nonce] | <code>String</code> | <code></code> | valid LC4 or LS47 nonce |
 | [settings.headerData] | <code>String</code> | <code></code> | header data |
 | [settings.signature] | <code>String</code> | <code></code> | signature for signing the message |
@@ -393,7 +393,7 @@ const { encrypt, generateKey, generateNonce } = require("lc4");
 
 encrypt({
     message: "Lorem Ipsum", // will be escaped to lorem_ipsum
-    key: generateKey(),
+    key: "my_super_secret_password",
     nonce: generateNonce(),
     signature: "#secret_signature",
     verbose: true
@@ -419,7 +419,7 @@ missing
 | settings | <code>Object</code> |  | decryption settings |
 | [settings.mode] | <code>String</code> | <code>&quot;lc4&quot;</code> | decryption algorithm. Can be either "lc4" or "ls47" |
 | settings.message | <code>String</code> |  | message to decrypt |
-| settings.key | <code>String</code> |  | valid LC4 or LS47 key |
+| settings.key | <code>String</code> |  | valid LC4 or LS47 key or password; If a password is passed, the key/state will be expanded from the password |
 | [settings.nonce] | <code>String</code> | <code></code> | valid LC4 or LS47 nonce |
 | [settings.headerData] | <code>String</code> | <code></code> | header data |
 | [settings.signature] | <code>String</code> | <code></code> | signature of signed message |
@@ -679,7 +679,7 @@ characters
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
 | settings | <code>Object</code> |  | settings object |
-| settings.key | <code>String</code> |  | valid key (as long as alphabet, no illegal characters) |
+| settings.key | <code>String</code> |  | valid key (no illegal characters, no duplicate characters if as long as alphabet) or password |
 | [settings.mode] | <code>String</code> | <code>&quot;lc4&quot;</code> | encryption/decryption algorithm. Can be either "lc4" or "ls47" |
 
 <a name="module_lc4/validate.validateNonce"></a>
