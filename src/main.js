@@ -16,8 +16,9 @@ import {
  * @param {Object} settings encryption settings
  * @param {String} [settings.mode="lc4"] encryption algorithm. Can be either
  * "lc4" or "ls47"
- * @param {String} settings.message message to encrypt. Invalid LC4 or LS47
- * strings are escaped with the `escapeString` method
+ * @param {(String|Array)} settings.message message or array of messages to
+ * encrypt. Invalid LC4 or LS47 strings are escaped with the `escapeString`
+ * method
  * @param {String} settings.key valid LC4 or LS47 key or password; If a
  * password is passed, the key/state will be expanded from the password
  * @param {String} [settings.nonce=null] valid LC4 or LS47 nonce (> 5
@@ -35,11 +36,11 @@ import {
  *     key: generateKey(),
  *     nonce: "lorem_ipsum"
  * });
- * @example <caption>Encrypt a message with a random key and LS47</caption>
+ * @example <caption>Encrypt a multiline message with a random key and LS47</caption>
  * const { encrypt, generateKey } = require("lc4");
  *
  * encrypt({
- *     message: "hello_ls47",
+ *     message: [ "hello", "ls47" ],
  *     key: generateKey(null, "ls47"),
  *     nonce: "lorem_ipsum",
  *     mode: "ls47"
@@ -65,7 +66,9 @@ export function encrypt(settings) {
     validateMode(settings);
 
     if (settings.message)
-        settings.message = _escapeString(settings.message, settings.mode);
+        settings.message = Array.isArray(settings.message)
+            ? settings.message.map(line => _escapeString(line, settings.mode))
+            : _escapeString(settings.message, settings.mode);
     if (settings.headerData)
         settings.headerData = _escapeString(settings.headerData, settings.mode);
 
@@ -83,11 +86,17 @@ export function encrypt(settings) {
     if (settings.headerData)
         encryptMsg(env, settings.headerData, settings.verbose);
     // Encrypt message concatenated with signature
-    return encryptMsg(
-        env,
-        settings.message + (settings.signature || ""),
-        settings.verbose
-    );
+    if (Array.isArray(settings.message))
+        return (settings.signature
+            ? settings.message.concat(settings.signature)
+            : settings.message
+        ).map(line => encryptMsg(env, line, settings.verbose));
+    else
+        return encryptMsg(
+            env,
+            settings.message + (settings.signature || ""),
+            settings.verbose
+        );
 }
 
 /**
