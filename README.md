@@ -102,6 +102,26 @@ encrypt({
 });
 ```
 
+Encrypt a multiline message:
+
+```js
+let { encrypt, generateKey, generateNonce } = require("lc4");
+
+let msg = "Hello\nWorld";
+
+encrypt({
+    message: msg.split("\n"),
+    key: generateKey(),
+    nonce: generateNonce(),
+    signature: "__mySignature"
+});
+```
+
+**Note:**
+
+> To encrypt or decrypt a multiline text, just pass an array of lines as
+> message.
+
 Decrypt a message:
 
 ```js
