@@ -21,15 +21,20 @@ export function validateMode(settings) {
 /**
  * Validates the message of the settings
  * @param {Object} settings settings object
- * @param {String} settings.message valid LC4 or LS47 message
+ * @param {(String|Array)} settings.message valid LC4 or LS47 message or array
+ * of valid strings
  * @param {String} [settings.mode="lc4"] encryption/decryption algorithm. Can be
  * either "lc4" or "ls47"
  * @throws {TypeError} when no message is specified or the message is invalid
  * @return {undefined}
  */
 export function validateMsg(settings) {
-    if (!settings.message) {
+    if (!settings.message || settings.message.length === 0) {
         throw new TypeError("You must specify a message to encrypt");
+    } else if (Array.isArray(settings.message)) {
+        return settings.message.forEach(line =>
+            validateMsg({ message: line, mode: settings.mode })
+        );
     } else if (!validString([...settings.message], settings.mode)) {
         throw new TypeError(
             "Message contains invalid characters!\n" +
