@@ -30,9 +30,9 @@ missing
 | [settings.mode] | <code>String</code> | <code>&quot;lc4&quot;</code> | encryption algorithm. Can be either "lc4" or "ls47" |
 | settings.message | <code>String</code> |  | message to encrypt. Invalid LC4 or LS47 strings are escaped with the `escapeString` method |
 | settings.key | <code>String</code> |  | valid LC4 or LS47 key or password; If a password is passed, the key/state will be expanded from the password |
-| [settings.nonce] | <code>String</code> | <code></code> | valid LC4 or LS47 nonce |
+| [settings.nonce] | <code>String</code> | <code></code> | valid LC4 or LS47 nonce (> 5 characters) |
 | [settings.headerData] | <code>String</code> | <code></code> | header data |
-| [settings.signature] | <code>String</code> | <code></code> | signature for signing the message |
+| [settings.signature] | <code>String</code> | <code></code> | signature for signing the message (> 9 characters) |
 | [settings.verbose] | <code>Boolean</code> | <code>false</code> | boolean indicating whether verbose mode should be used (will print intermediate steps to console) |
 
 **Example** *(Encrypt a message with a random key)*  
@@ -89,9 +89,9 @@ missing
 | [settings.mode] | <code>String</code> | <code>&quot;lc4&quot;</code> | decryption algorithm. Can be either "lc4" or "ls47" |
 | settings.message | <code>String</code> |  | message to decrypt |
 | settings.key | <code>String</code> |  | valid LC4 or LS47 key or password; If a password is passed, the key/state will be expanded from the password |
-| [settings.nonce] | <code>String</code> | <code></code> | valid LC4 or LS47 nonce |
+| [settings.nonce] | <code>String</code> | <code></code> | valid LC4 or LS47 nonce (> 5 characters) |
 | [settings.headerData] | <code>String</code> | <code></code> | header data |
-| [settings.signature] | <code>String</code> | <code></code> | signature of signed message |
+| [settings.signature] | <code>String</code> | <code></code> | signature of signed message (> 9 characters) |
 | [settings.verbose] | <code>Boolean</code> | <code>false</code> | boolean indicating whether verbose mode should be used (will print intermediate steps to console) |
 
 **Example** *(Decrypt a message with a given key)*  
