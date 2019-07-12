@@ -28,7 +28,7 @@ missing
 | --- | --- | --- | --- |
 | settings | <code>Object</code> |  | encryption settings |
 | [settings.mode] | <code>String</code> | <code>&quot;lc4&quot;</code> | encryption algorithm. Can be either "lc4" or "ls47" |
-| settings.message | <code>String</code> |  | message to encrypt. Invalid LC4 or LS47 strings are escaped with the `escapeString` method |
+| settings.message | <code>String</code> \| <code>Array</code> |  | message or array of messages to encrypt. Invalid LC4 or LS47 strings are escaped with the `escapeString` method |
 | settings.key | <code>String</code> |  | valid LC4 or LS47 key or password; If a password is passed, the key/state will be expanded from the password |
 | [settings.nonce] | <code>String</code> | <code></code> | valid LC4 or LS47 nonce (> 5 characters) |
 | [settings.headerData] | <code>String</code> | <code></code> | header data |
@@ -45,12 +45,12 @@ encrypt({
     nonce: "lorem_ipsum"
 });
 ```
-**Example** *(Encrypt a message with a random key and LS47)*  
+**Example** *(Encrypt a multiline message with a random key and LS47)*  
 ```js
 const { encrypt, generateKey } = require("lc4");
 
 encrypt({
-    message: "hello_ls47",
+    message: [ "hello", "ls47" ],
     key: generateKey(null, "ls47"),
     nonce: "lorem_ipsum",
     mode: "ls47"
@@ -87,7 +87,7 @@ missing
 | --- | --- | --- | --- |
 | settings | <code>Object</code> |  | decryption settings |
 | [settings.mode] | <code>String</code> | <code>&quot;lc4&quot;</code> | decryption algorithm. Can be either "lc4" or "ls47" |
-| settings.message | <code>String</code> |  | message to decrypt |
+| settings.message | <code>String</code> \| <code>Array</code> |  | message or array of multiline message to decrypt; When decrypting a multiline message with a signature the signature must be the last element of the array |
 | settings.key | <code>String</code> |  | valid LC4 or LS47 key or password; If a password is passed, the key/state will be expanded from the password |
 | [settings.nonce] | <code>String</code> | <code></code> | valid LC4 or LS47 nonce (> 5 characters) |
 | [settings.headerData] | <code>String</code> | <code></code> | header data |
@@ -118,19 +118,19 @@ decrypt({
 
 //=> "hello_world!"
 ```
-**Example** *(Encrypt and sign a message)*  
+**Example** *(Decrypt a multiline, signed message)*  
 ```js
 const { decrypt } = require("lc4");
 
 decrypt({
-    message: "6q4ijz8p_qxbp5ys5w8qg_srnk3r",
+    message: [ '6q4ij', 'p9597', 'bc8p325u2jc_d9xfw' ],
     key: "notds7u_i3exc2wlbyzpa4g85#v9fqjkrmh6",
     nonce: "r#39_4kgpz",
     signature: "#secret_signature",
     verbose: true
 });
 
-//=> "lorem_ipsum#secret_signature"
+//=> ["lorem", "ipsum", "#secret_signature"]
 ```
 <a name="module_lc4.generateKey"></a>
 
