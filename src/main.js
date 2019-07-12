@@ -20,9 +20,11 @@ import {
  * strings are escaped with the `escapeString` method
  * @param {String} settings.key valid LC4 or LS47 key or password; If a
  * password is passed, the key/state will be expanded from the password
- * @param {String} [settings.nonce=null] valid LC4 or LS47 nonce
+ * @param {String} [settings.nonce=null] valid LC4 or LS47 nonce (> 5
+ * characters)
  * @param {String} [settings.headerData=null] header data
  * @param {String} [settings.signature=null] signature for signing the message
+ * (> 9 characters)
  * @param {Boolean} [settings.verbose=false] boolean indicating whether verbose
  * mode should be used (will print intermediate steps to console)
  * @example <caption>Encrypt a message with a random key</caption>
@@ -96,9 +98,11 @@ export function encrypt(settings) {
  * @param {String} settings.message message to decrypt
  * @param {String} settings.key valid LC4 or LS47 key or password; If a
  * password is passed, the key/state will be expanded from the password
- * @param {String} [settings.nonce=null] valid LC4 or LS47 nonce
+ * @param {String} [settings.nonce=null] valid LC4 or LS47 nonce (> 5
+ * characters)
  * @param {String} [settings.headerData=null] header data
  * @param {String} [settings.signature=null] signature of signed message
+ * (> 9 characters)
  * @param {Boolean} [settings.verbose=false] boolean indicating whether verbose
  * mode should be used (will print intermediate steps to console)
  * @example <caption>Decrypt a message with a given key</caption>
