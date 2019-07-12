@@ -104,7 +104,9 @@ export function encrypt(settings) {
  * @param {Object} settings decryption settings
  * @param {String} [settings.mode="lc4"] decryption algorithm. Can be either
  * "lc4" or "ls47"
- * @param {String} settings.message message to decrypt
+ * @param {(String|Array)} settings.message message or array of multiline
+ * message to decrypt; When decrypting a multiline message with a signature the
+ * signature must be the last element of the array
  * @param {String} settings.key valid LC4 or LS47 key or password; If a
  * password is passed, the key/state will be expanded from the password
  * @param {String} [settings.nonce=null] valid LC4 or LS47 nonce (> 5
@@ -134,18 +136,18 @@ export function encrypt(settings) {
  * })
  *
  * //=> "hello_world!"
- * @example <caption>Encrypt and sign a message</caption>
+ * @example <caption>Decrypt a multiline, signed message</caption>
  * const { decrypt } = require("lc4");
  *
  * decrypt({
- *     message: "6q4ijz8p_qxbp5ys5w8qg_srnk3r",
+ *     message: [ '6q4ij', 'p9597', 'bc8p325u2jc_d9xfw' ],
  *     key: "notds7u_i3exc2wlbyzpa4g85#v9fqjkrmh6",
  *     nonce: "r#39_4kgpz",
  *     signature: "#secret_signature",
  *     verbose: true
  * });
  *
- * //=> "lorem_ipsum#secret_signature"
+ * //=> ["lorem", "ipsum", "#secret_signature"]
  * @throws {Error} Will throw error "Invalid Signature" if message doesn't end
  * with specified signature
  * @throws {TypeError} Will throw a type error if settings are invalid or
@@ -175,11 +177,19 @@ export function decrypt(settings) {
     if (settings.headerData)
         encryptMsg(env, settings.headerData, settings.verbose);
     // Decrypt message and signature
-    let msg = decryptMsg(env, settings.message, settings.verbose);
+    let msg;
+    if (Array.isArray(settings.message))
+        msg = settings.message.map(line =>
+            decryptMsg(env, line, settings.verbose)
+        );
+    else msg = decryptMsg(env, settings.message, settings.verbose);
 
     if (
         settings.signature &&
-        !msg.endsWith(_escapeString(settings.signature, settings.mode))
+        (Array.isArray(msg)
+            ? msg[msg.length - 1] !==
+              _escapeString(settings.signature, settings.mode)
+            : !msg.endsWith(_escapeString(settings.signature, settings.mode)))
     )
         throw new Error("Invalid signature");
 
