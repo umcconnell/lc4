@@ -5,7 +5,7 @@
 * [lc4](#module_lc4)
     * [.encrypt(settings)](#module_lc4.encrypt) ⇒ <code>String</code>
     * [.decrypt(settings)](#module_lc4.decrypt) ⇒ <code>String</code>
-    * [.generateKey([keyword], [mode])](#module_lc4.generateKey) ⇒ <code>String</code>
+    * [.generateKey([mode])](#module_lc4.generateKey) ⇒ <code>String</code>
     * [.generateNonce([length], [mode])](#module_lc4.generateNonce) ⇒ <code>String</code>
     * [.escapeToLC4(string)](#module_lc4.escapeToLC4) ⇒ <code>String</code>
     * [.escapeToLS47(string)](#module_lc4.escapeToLS47) ⇒ <code>String</code>
@@ -51,7 +51,7 @@ const { encrypt, generateKey } = require("lc4");
 
 encrypt({
     message: [ "hello", "ls47" ],
-    key: generateKey(null, "ls47"),
+    key: generateKey("ls47"),
     nonce: "lorem_ipsum",
     mode: "ls47"
 })
@@ -134,20 +134,14 @@ decrypt({
 ```
 <a name="module_lc4.generateKey"></a>
 
-### lc4.generateKey([keyword], [mode]) ⇒ <code>String</code>
+### lc4.generateKey([mode]) ⇒ <code>String</code>
 Generate a valid random LC4 or LS47 key
 
 **Kind**: static method of [<code>lc4</code>](#module_lc4)  
 **Returns**: <code>String</code> - a valid LC4 or LS47 key  
-**Throws**:
-
-- <code>Error</code> Will throw an error if the keyword contains invalid LC4 or
-LS47 characters
-
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
-| [keyword] | <code>String</code> | <code>false</code> | keyword to base key off (less secure) or falsy value if key shouldn't be based off a keyword |
 | [mode] | <code>String</code> | <code>&quot;lc4&quot;</code> | encryption/decryption mode. Can be either "lc4" or "ls47" |
 
 **Example** *(Generate a random key)*  
@@ -156,11 +150,11 @@ let { generateKey } = require("lc4");
 
 generateKey();
 ```
-**Example** *(Generate a random LS47 key without keword)*  
+**Example** *(Generate a random LS47 key)*  
 ```js
 let { generateKey } = require("lc4");
 
-generateKey(null, "ls47");
+generateKey("ls47");
 ```
 **Example** *(Encrypt a message with a random key)*  
 ```js
@@ -200,7 +194,7 @@ const { encrypt, generateKey, generateNonce } = require("lc4");
 
 encrypt({
     message: "Lorem Ipsum!",
-    key: generateKey(null, "ls47"),
+    key: generateKey("ls47"),
     nonce: generateNonce(10, "ls47")
 })
 ```
