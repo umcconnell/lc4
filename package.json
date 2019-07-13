@@ -1,6 +1,6 @@
 {
     "name": "lc4",
-    "version": "1.5.1",
+    "version": "1.5.2",
     "description": "A spec-compliant LC4 and LS47 encryption/decryption library",
     "main": "./lib/main.js",
     "scripts": {
