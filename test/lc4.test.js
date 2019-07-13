@@ -16,12 +16,12 @@ describe("LC4 encryption and decryption", () => {
 
         it("multiline: should encrypt and sign correctly", () => {
             const str = encrypt({
-                message: ["hello", "world"],
+                message: ["hello", "", "world"],
                 signature: "#rubberduck",
                 key: "h4lr32jb6ecsykxotn7z#f_vpgdamiwq598u"
             });
 
-            expect(str).to.eql(["ntoti", "6a46f", "olebl7e_wen"]);
+            expect(str).to.eql(["ntoti", "", "6a46f", "olebl7e_wen"]);
         });
     });
 

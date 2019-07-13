@@ -19,7 +19,7 @@ describe("LS47 encryption and decryption", () => {
 
         it("multiline: should encrypt and sign correctly", () => {
             const str = encrypt({
-                message: ["Im about to put", "the hammer down!"],
+                message: ["Im about to put", "", "the hammer down!"],
                 key: "dbmxqa!nzf_e34h/k+.-ugl)9yj*?0:5two26sir1p',7c(8v",
                 nonce: "u8:)w5_c!f",
                 signature: "__rubberduck",
@@ -28,6 +28,7 @@ describe("LS47 encryption and decryption", () => {
 
             expect(str).to.eql([
                 "-erdw!dw52i:610",
+                "",
                 "+.,xt7?ols981sgp",
                 "?rhm(/8rfy?."
             ]);
