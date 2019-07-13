@@ -223,9 +223,9 @@ export function generateKey(mode = "lc4") {
 
 /**
  * Generate a valid random LC4 or LS47 nonce
- * @param {Number} [length=10] length of nonce (at least 6)
  * @param {String} [mode="lc4"] encryption/decryption mode. Can be either "lc4"
  * or "ls47"
+ * @param {Number} [length=10] length of nonce (at least 6)
  * @example <caption>Generate a random nonce</caption>
  * let { generateNonce } = require("lc4");
  *
