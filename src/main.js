@@ -236,13 +236,13 @@ export function generateKey(mode = "lc4") {
  * encrypt({
  *     message: "Lorem Ipsum!",
  *     key: generateKey("ls47"),
- *     nonce: generateNonce(10, "ls47")
+ *     nonce: generateNonce("ls47")
  * })
  * @throws {Error} Will throw an error if length is smaller than 6
  * @returns {String} a valid LC4 or LS47 nonce
  */
-export function generateNonce(length, mode = "lc4") {
-    return _generateNonce(length, mode);
+export function generateNonce(mode = "lc4", length) {
+    return _generateNonce(mode, length);
 }
 
 /**

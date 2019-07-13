@@ -195,7 +195,7 @@ Determine if input contains only valid LC4 or LS47 characters
 
 * [lc4/lc4](#module_lc4/lc4)
     * [.generateKey([mode])](#module_lc4/lc4.generateKey) ⇒ <code>String</code>
-    * [.generateNonce([length], [mode])](#module_lc4/lc4.generateNonce) ⇒ <code>String</code>
+    * [.generateNonce([mode], [length])](#module_lc4/lc4.generateNonce) ⇒ <code>String</code>
     * [.initState(key, [mode])](#module_lc4/lc4.initState) ⇒ <code>Array</code>
     * [.encryptMsg(env, msg, [verbose])](#module_lc4/lc4.encryptMsg) ⇒ <code>String</code>
     * [.decryptMsg(env, msg, [verbose])](#module_lc4/lc4.decryptMsg) ⇒ <code>String</code>
@@ -235,7 +235,7 @@ encrypt({
 ```
 <a name="module_lc4/lc4.generateNonce"></a>
 
-### lc4/lc4.generateNonce([length], [mode]) ⇒ <code>String</code>
+### lc4/lc4.generateNonce([mode], [length]) ⇒ <code>String</code>
 Generate a valid random LC4 or LS47 nonce
 
 **Kind**: static method of [<code>lc4/lc4</code>](#module_lc4/lc4)  
@@ -247,8 +247,8 @@ Generate a valid random LC4 or LS47 nonce
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
-| [length] | <code>Number</code> | <code>10</code> | length of nonce (at least 6) |
 | [mode] | <code>String</code> | <code>&quot;lc4&quot;</code> | encryption/decryption algorithm. Can be either "lc4" or "ls47" |
+| [length] | <code>Number</code> | <code>10</code> | length of nonce (at least 6) |
 
 **Example** *(Generate a random nonce)*  
 ```js
@@ -260,7 +260,7 @@ generateNonce();
 ```js
 let { generateNonce } = require("lc4");
 
-generateNonce(10, "ls47");
+generateNonce("ls47");
 ```
 **Example** *(Encrypt a message with a random nonce)*  
 ```js
@@ -520,7 +520,7 @@ const { encrypt, generateKey, generateNonce } = require("lc4");
 encrypt({
     message: "Lorem Ipsum!",
     key: generateKey("ls47"),
-    nonce: generateNonce(10, "ls47")
+    nonce: generateNonce("ls47")
 })
 ```
 <a name="module_lc4.escapeToLC4"></a>

@@ -195,7 +195,7 @@ const { encrypt, generateKey, generateNonce } = require("lc4");
 encrypt({
     message: "Lorem Ipsum!",
     key: generateKey("ls47"),
-    nonce: generateNonce(10, "ls47")
+    nonce: generateNonce("ls47")
 })
 ```
 <a name="module_lc4.escapeToLC4"></a>

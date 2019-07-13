@@ -66,7 +66,7 @@ describe("LS47 encryption and decryption", () => {
     describe("random key and nonce", () => {
         it("should encrypt and decrypt correctly with nonce", () => {
             const key = generateKey("ls47");
-            const nonce = generateNonce(10, "ls47");
+            const nonce = generateNonce("ls47");
             const msg = "im_about_to_put_the_hammer_down";
 
             expect(
@@ -86,7 +86,7 @@ describe("LS47 encryption and decryption", () => {
 
         it("multiline: should encrypt and decrypt correctly with nonce", () => {
             const key = generateKey("ls47");
-            const nonce = generateNonce(10, "ls47");
+            const nonce = generateNonce("ls47");
             const msg = ["im", "about", "to", "put", "the", "hammer", "down"];
 
             expect(
