@@ -12,18 +12,16 @@ import {
 
 /**
  * Generate a valid random LC4 or LS47 key
- * @param {String} [keyword=false] keyword to base key off (less secure) or
- * falsy value if key shouldn't be based off a keyword
  * @param {String} [mode="lc4"] encryption/decryption algorithm. Can be either
  * "lc4" or "ls47"
  * @example <caption>Generate a random key</caption>
  * let { generateKey } = require("lc4");
  *
  * generateKey();
- * @example <caption>Generate a random LS47 key with keword</caption>
+ * @example <caption>Generate a random LS47 key</caption>
  * let { generateKey } = require("lc4");
  *
- * generateKey("hello", "ls47");
+ * generateKey("ls47");
  * @example <caption>Encrypt a message with a random key</caption>
  * const { encrypt, generateKey } = require("lc4");
  *
@@ -31,30 +29,12 @@ import {
  *     message: "hello_world",
  *     key: generateKey(),
  * });
- * @throws {Error} Will throw an error if the keyword contains invalid LC4 or
- * LS47 characters
  * @returns {String} a valid LC4 or LS47 key
  */
-export function generateKey(keyword = false, mode = "lc4") {
+export function generateKey(mode = "lc4") {
     let alphabet = mode.toLowerCase() === "lc4" ? ALPHABET : ALPHABET_LS47;
 
-    if (keyword) {
-        if (!validString([...keyword], mode))
-            throw new Error(
-                "Keyword for key generation contains invalid characters!\n" +
-                    "You may only use following characters: " +
-                    alphabet
-            );
-    }
-
-    // Shuffle alphabet without letters already in keyword
-    let key = shuffle(
-        [...alphabet].filter(char =>
-            keyword ? keyword.indexOf(char) > -1 : true
-        )
-    ).join("");
-
-    return (keyword ? keyword : "") + key;
+    return shuffle([...alphabet]).join("");
 }
 
 /**
