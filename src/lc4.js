@@ -6,8 +6,7 @@ import {
     shiftRowRight,
     shiftColumnDown,
     position,
-    printState,
-    validString
+    printState
 } from "./helpers.js";
 
 /**
