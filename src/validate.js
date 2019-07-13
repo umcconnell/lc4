@@ -32,8 +32,13 @@ export function validateMsg(settings) {
     if (!settings.message || settings.message.length === 0) {
         throw new TypeError("You must specify a message to encrypt");
     } else if (Array.isArray(settings.message)) {
-        return settings.message.forEach(line =>
-            validateMsg({ message: line, mode: settings.mode })
+        return (
+            settings.message
+                // Allow empty lines
+                .filter(line => line !== "")
+                .forEach(line =>
+                    validateMsg({ message: line, mode: settings.mode })
+                )
         );
     } else if (!validString([...settings.message], settings.mode)) {
         throw new TypeError(
