@@ -245,3 +245,7 @@ Check out these other LC4 implementations and LC4 variants:
 -   JS https://github.com/Gavin-Song/elsie-four-cipher
 -   Go https://github.com/tonetheman/golang_lc4
 -   LS47 https://gitea.blesmrt.net/exa/ls47
+
+Try it yourself:
+
+-   lc4-encryptor https://lc4-encryptor.glitch.me
