@@ -1,6 +1,6 @@
 {
     "name": "lc4",
-    "version": "3.0.3",
+    "version": "3.0.4",
     "description": "A spec-compliant LC4 and LS47 encryption/decryption library",
     "main": "./lib/main.js",
     "scripts": {
@@ -23,13 +23,13 @@
         "url": "git+https://github.com/umcconnell/lc4.git"
     },
     "devDependencies": {
-        "@babel/cli": "^7.6.0",
-        "@babel/core": "^7.6.0",
-        "@babel/preset-env": "^7.6.0",
-        "@babel/register": "^7.6.0",
+        "@babel/cli": "^7.6.2",
+        "@babel/core": "^7.6.2",
+        "@babel/preset-env": "^7.6.2",
+        "@babel/register": "^7.6.2",
         "babel-preset-minify": "^0.5.1",
         "chai": "^4.2.0",
         "jsdoc-to-markdown": "^5.0.1",
-        "mocha": "^6.2.0"
+        "mocha": "^6.2.1"
     }
 }
