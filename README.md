@@ -75,7 +75,7 @@ encrypt({
 Encrypt a message with a password using LS47:
 
 ```js
-let { encrypt, generateKey } = require("lc4");
+let { encrypt } = require("lc4");
 
 encrypt({
     message: "Hello World!",
