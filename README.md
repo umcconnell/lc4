@@ -69,7 +69,7 @@ let { encrypt, generateKey } = require("lc4");
 
 encrypt({
     message: "Hello World",
-    key: generateKey()
+    key: generateKey(),
 });
 ```
 
@@ -99,7 +99,7 @@ encrypt({
     message: "Lorem Ipsum",
     key: generateKey(),
     nonce: generateNonce(),
-    signature: "#rubberduck"
+    signature: "#rubberduck",
 });
 ```
 
@@ -114,7 +114,7 @@ encrypt({
     message: msg.split("\n"),
     key: generateKey(),
     nonce: generateNonce(),
-    signature: "__mySignature"
+    signature: "__mySignature",
 });
 ```
 
@@ -131,7 +131,7 @@ const { decrypt } = require("lc4");
 decrypt({
     message: "v74hxj5pxmo",
     key: "igqehmd48pvxrl7k36y95j2sfnbo#wc_ztau",
-    nonce: "lorem_ipsum"
+    nonce: "lorem_ipsum",
 });
 
 //=> "hello_world"
@@ -146,7 +146,7 @@ decrypt({
     message: "6q4ijz8p_qxbp5ys5w8qg_srnk3r",
     key: "notds7u_i3exc2wlbyzpa4g85#v9fqjkrmh6",
     nonce: "r#39_4kgpz",
-    signature: "#secret_signature"
+    signature: "#secret_signature",
 });
 
 //=> "lorem_ipsum#secret_signature"
