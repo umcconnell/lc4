@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>LC4 encryptor | Further Information</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="style/style.css">
+    <link rel="stylesheet" href="style/image.css">
+  </head>  
+  <body>
+    <header>
+      <h1>LC4 encryptor</h1>
+    </header>
+    
+    <nav class="navbar">
+      <a href="./index.html">Home</a> / <a href="./information.html">Further Information</a>
+    </nav>
+    
+    <main>
+      <h2 id="lc4">LC4</h2>
+      
+      <p>
+        ElsieFour ("LC4") was created by Alan Kaminsky. It is a low-tech cipher, which means
+        that it is meant to be easily computable by hand and optionally with the help of
+        wooden tiles or cards. LC4 is intended to encrypt English sentences and thus consists
+        only of characters and can not encrypt individual bits.
+      </p>
+      
+      <h3>Terms</h3>
+      
+      <p>
+        <em><u>alphabet:</u></em><br>
+        <code>#_23456789abcdefghijklmnopqrstuvwxyz</code>
+      </p>
+      <p>
+        <em><u>key:</u></em><br>
+        A random permutation of the LC4-alphabet
+      </p>
+      <p>
+        <em><u>nonce:</u></em><br>
+        Character sequence to randomize ciphertext (&gt; 5 characters)
+      </p>
+      <p>
+        <em><u>signature:</u></em><br>
+        Signature that proves authenticity of the message (&gt; 9 characters)
+      </p>
+      <p>
+        <em><u>header data:</u></em><br>
+        Additional authentication; receiver must know header data
+      </p>
+      <p>
+        <em><u>state:</u></em><br>
+        System state as a 6x6 grid of the alphabet used for encryption and decrpytion
+      </p>
+      <p>
+        <em><u>marker:</u></em><br>
+        Reference to current marker-character deciding how to shift state
+      </p>
+      
+      <h3>Encryption</h3>
+      
+      <img
+        src="https://cdn.glitch.com/37bed7b2-fbaa-4f3c-aa42-fd6bb811190f%2Finitial.png?v=1566235167895"
+        class="img--dynamic"
+        alt="Initial grid state"
+      >
+      <p>
+        In the first step the state is initialized by creating a <strong>6x6</strong>
+        grid and filling in the key row-by-row. The marker is set on the top-left
+        character. Every character is assigned two numbers (possibly written on the
+        tiles/cards):
+      </p>
+      <p>
+        - a number <strong>r = c mod 6</strong> on the right side of the tile<br>
+        - a number <strong>d = &lfloor;c / 6&rfloor;</strong>(truncated division by 6)
+        on the bottom edge of the tile
+      </p>
+      <p>
+        ...where <strong>c</strong> is the <strong>zero-based index</strong> of the
+        character in the alphabet (e.g. '#' is 0).
+      </p>
+      <img
+        src="https://cdn.glitch.com/37bed7b2-fbaa-4f3c-aa42-fd6bb811190f%2Fencryption.png?v=1566235167987"
+        class="img--dynamic"
+        alt="Encrypting plaintext character 'a' to 's'"
+      >
+      <p>
+        To encrypt a character, locate it in your state grid. To find the corresponding
+        ciphertext character, move, according to the marker, <strong>r fields to the
+        right</strong> and <strong>d fields down</strong>, possibly wrapping around the
+        edge of the grid.
+      </p>
+      <div class="img-container">
+        <img
+          src="https://cdn.glitch.com/37bed7b2-fbaa-4f3c-aa42-fd6bb811190f%2Fshift-row-1.png?v=1566235169638"
+          class="img--dynamic"
+          alt="Shifting plaintext-row one to the right"
+        >
+        <img
+          src="https://cdn.glitch.com/37bed7b2-fbaa-4f3c-aa42-fd6bb811190f%2Fshift-row-2.png?v=1566235169638"
+          class="img--dynamic"
+          alt="Shifting plaintext-row one to the right"
+        >
+      </div>
+      <p>
+        Move the row of the plaintext one to the right, wrapping around the grid.
+      </p>
+      <div class="img-container">
+        <img
+          src="https://cdn.glitch.com/37bed7b2-fbaa-4f3c-aa42-fd6bb811190f%2Fshift-column-1.png?v=1566235168075"
+          class="img--dynamic"
+          alt="Shifting ciphertext-column one down"
+        >
+        <img
+          src="https://cdn.glitch.com/37bed7b2-fbaa-4f3c-aa42-fd6bb811190f%2Fshift-column-2.png?v=1566235169638"
+          class="img--dynamic"
+          alt="Shifting ciphertext-column one down"
+        >
+      </div>
+      <p>
+        Move the column of the ciphertext character one down, also wrapping around the
+        grid. If the row or column of the marker is moved, move the marker along with
+        its character.
+      </p>
+      <img
+        src="https://cdn.glitch.com/37bed7b2-fbaa-4f3c-aa42-fd6bb811190f%2Fmove-marker.png?v=1566235168222"
+        class="img--dynamic"
+        alt="Move the marker after the encryption"
+      >
+      <p>
+        Move the marker, by going <em>r</em> of the ciphertext character to the
+        right and <em>d</em> of the ciphertext character down.
+      </p>
+      
+      <h3 id="decryption">Decryption</h3>
+      
+      <p>
+        The decryption process is identical to the encryption process, except that
+        you decrypt a ciphertext character by moving <strong>r</strong> of the
+        ciphertext character to the <strong>left</strong> and <strong>d</strong> of
+        the ciphertext character to the <strong>top</strong>.
+      </p>
+      
+      <h3>Tutorial</h3>
+      
+      <p>
+        A tutorial about the encryption process can be found in the
+        <a
+           href="https://eprint.iacr.org/2017/339.pdf#page=12"
+           target="_blank"
+           rel="noreferrer"
+        >
+          LC4 white paper
+        </a>  
+      </p>
+      
+      
+      <h2 id="ls47">LS47</h2>
+      
+      <p>
+        LS47 is an improved and extended version of the LC4-Cipher by Mirek
+        Kratochvil. It works like LC4 but uses an extended alphabet with
+        47 (7x7 Grid) characters. This allows for a wider variety of
+        messages to be represented. Following characters are used:
+      </p>
+      <p>
+        <code>_abcdefghijklmnopqrstuvwxyz.0123456789,-+*/:?!'()</code>
+      </p>
+      
+      <h3>Tutorial</h3>
+      
+      <p>
+        A tutorial about the encryption and decryption process can be found in the
+        <a
+           href="https://gitea.blesmrt.net/exa/ls47#how-to"
+           target="_blank"
+           rel="noreferrer"
+        >
+          LS47 white paper
+        </a>
+      </p>
+      
+      <h2>Sources</h2>
+      
+      <ul>
+        <li>
+          <a
+             href="https://eprint.iacr.org/2017/339.pdf"
+             target="_blank"
+             rel="noreferrer"
+          >
+            LC4 white paper
+          </a> 
+        </li>
+        <li>
+          <a
+           href="https://gitea.blesmrt.net/exa/ls47"
+           target="_blank"
+           rel="noreferrer"
+          >
+            LS47 white paper
+          </a>
+        </li>
+      </ul>
+    </main>
+    
+    <footer>
+      &lt;/&gt; with &hearts; by 
+      <a href="https://github.com/umcconnell" target="_blank">Ulysse McConnell</a>
+      <p>
+        <a href="./index.html">Home</a> |
+        <a href="./about.html">About</a>
+      </p>
+    </footer>
+
+    <div class="glitchButton" style="position:fixed;top:20px;right:20px;"></div>
+    <script src="https://button.glitch.me/button.js"></script>
+  </body>
+</html>

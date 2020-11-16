@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>LC4 encryptor | Encryptor</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="style/style.css" />
+    <link rel="stylesheet" href="style/button.css" />
+    <link rel="stylesheet" href="style/input.css" />
+    <link rel="stylesheet" href="style/snackbar.css" />
+    <style>
+      main {
+        width: 100vw;
+      }
+
+      .encryptor {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        grid-gap: 1rem;
+      }
+
+      .encryptor__header {
+        grid-column: 1/-1;
+      }
+    </style>
+    <script src="script/script.js" type="module" defer></script>
+  </head>
+  <body>
+    <header>
+      <h1>LC4 encryptor</h1>
+    </header>
+
+    <nav class="navbar">
+      <a href="./index.html">Home</a> / <a href="./encryptor.html">Encryptor</a>
+    </nav>
+
+    <main>
+      <div class="encryptor">
+        <div class="encryptor__header">
+          <span class="encryptor__label">Cleartext</span
+          ><button class="btn--none btn--padded btn--margin" id="encryptorFlip">
+            &#x2942;</button
+          ><span class="encryptor__label">Ciphertext</span>
+        </div>
+        <textarea
+          id="clearText"
+          placeholder="Cleartext..."
+          autofocus
+        ></textarea>
+        <textarea id="cipherText" placeholder="Ciphertext..."></textarea>
+      </div>
+
+      <label class="toggle toggle--full" for="mode">
+        Mode: LC4
+        <input type="checkbox" id="mode" />
+        <span class="toggle__widget"></span>
+        LS47
+      </label>
+
+      <label for="key">Key or Password:</label>
+      <div class="input-container">
+        <input type="text" id="key" placeholder="my_super_secret_password" />
+        <button id="generateKey" class="input-container__icon">
+          &#9860;
+        </button>
+      </div>
+
+      <label for="nonce">Nonce:</label>
+      <div class="input-container">
+        <input type="text" id="nonce" placeholder="(> 5 characters)..." />
+        <button id="generateNonce" class="input-container__icon">
+          &#9860;
+        </button>
+      </div>
+
+      <label for="Signature">Signature:</label>
+      <input
+        type="text"
+        id="signature"
+        placeholder="__mysignature (> 9 characters)..."
+      />
+
+      <label for="headerData">Header Data:</label>
+      <input
+        type="text"
+        id="headerData"
+        placeholder="Reciever must know your header data..."
+      />
+    </main>
+
+    <footer>
+      &lt;/&gt; with &hearts; by
+      <a href="https://github.com/umcconnell" target="_blank"
+        >Ulysse McConnell</a
+      >
+      <p>
+        <a href="./index.html">Home</a> |
+        <a href="./about.html">About</a>
+      </p>
+    </footer>
+
+    <div class="glitchButton" style="position:fixed;top:20px;right:20px;"></div>
+    <script src="https://button.glitch.me/button.js"></script>
+  </body>
+</html>

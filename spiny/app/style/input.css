@@ -1,0 +1,112 @@
+/* Text Inputs */
+input,
+textarea {
+  font-size: 1rem;
+  padding: .75em;
+  border: 1px solid #ddd;
+}
+
+input {
+  width: 100%;
+}
+
+textarea {
+  min-height: 10em;
+  resize: vertical
+}
+
+input:focus,
+textarea:focus {
+  border-color: var(--main-color);
+}
+
+/* Label */
+label {
+  display: block;
+  text-align: left;
+  margin: 1em 0 .5em 0;
+}
+
+/* Input group */
+.input-container {
+  display: flex;
+  align-items: stretch;
+}
+
+.input-container input {
+  flex: 1;
+  border-right: none;
+}
+
+.input-container .input-container__icon {
+  background: none;
+  border: 1px solid #ddd;
+  font-size: 1.7rem;
+  cursor: pointer;
+  padding: 0 .4em 0.15em .4em;
+}
+
+.input-container input:focus + .input-container__icon {
+  border-color: var(--main-color);
+  border-left-color: #ddd;
+}
+
+/* Toggle switch */
+.toggle {
+  --toggle-width: 3.6em;
+  --toggle-height: 1.8em;
+  --toggle-padding: 0.16em;
+  --toggle-radius: 0.85em;
+  --indicator-radius: 0.6em;
+  --indicator-color: #aaa;
+  
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+}
+.toggle--full {
+  display: flex;
+}
+
+.toggle input {
+  position: absolute !important;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  clip: rect(1px 1px 1px 1px);
+  clip: rect(1px, 1px, 1px, 1px);
+}
+
+.toggle__widget {
+  display: inline-block;
+  padding: var(--toggle-padding);
+  width: var(--toggle-width);
+  height: var(--toggle-height);
+  /* Use box shadow instead of border to make calculations easier */
+  box-shadow: 0 0 0 1px #ddd;
+  background: none;
+  margin: 0 1em;
+  border-radius: var(--toggle-radius);
+}
+
+.toggle__widget::after {
+  --size: calc(var(--toggle-height) - (2 * var(--toggle-padding)));
+  
+  content: "";
+  display: inline-block;
+  width: var(--size);
+  height: var(--size);
+  border-radius: var(--indicator-radius);
+  background: var(--indicator-color);
+  transition: 0.25s ease-out;
+}
+
+.toggle input:focus + .toggle__widget {
+  --indicator-color: var(--main-color);
+}
+
+.toggle input:checked + .toggle__widget::after {
+  transform: translateX(calc(
+    var(--toggle-width) - var(--size) - (2 * var(--toggle-padding))
+  ));
+}
