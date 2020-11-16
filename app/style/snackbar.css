@@ -1,0 +1,33 @@
+.snackbar {
+  position: fixed;
+  top: 1em;
+  left: 50%;
+
+  width: 80%;
+  max-width: 600px;
+
+  display: flex;
+  transform: translateX(-50%);
+
+  visibility: hidden;
+
+  border-radius: 4px;
+  padding: 1em;
+  z-index: 10;
+}
+
+.snackbar.show {
+  visibility: visible;
+  animation: zoomIn 0.25s;
+}
+
+.snackbar.snackbar--error {
+  background-color: red;
+  color: #fff;
+}
+
+@keyframes zoomIn {
+  from {
+    transform: translate(-50%, -100%) scale(0.98);
+  }
+}

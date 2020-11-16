@@ -1,0 +1,81 @@
+@import url("./normalize.css");
+
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --main-color: #7cb518;
+}
+
+body,
+html {
+  font-size: 18px;
+  font-family: 'IBM Plex Mono', monospace;
+  -webkit-font-smoothing: antialiased;
+  margin: 0;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+header {
+  background-color: var(--main-color);
+  color: #fff;
+  font-size: 1em;
+}
+
+main {
+  padding: 1em 1em 3em 1em;
+  display: inline-block;
+  max-width: 750px;
+  width: 100vw;
+  align-self: center;
+}
+
+footer {
+  margin-top: auto;
+  padding: 2em;
+  background-color: #333;
+  color: #fff;
+}
+
+footer a {
+  color: #fff;
+}
+
+.navbar {
+  text-align: left;
+  padding: 0 1em;
+  margin-top: 1em;
+}
+
+a {
+  color: currentColor;
+  cursor: pointer;
+}
+
+.cta-link {
+  margin-top: 2em;
+  display: inline-block;
+  padding: .75em 2em;
+  box-shadow: 4px 4px 0 0 #d8d8d8;
+  border: 2px solid var(--main-color);
+  background: none;
+  text-decoration: none;
+}
+
+.cta-link:hover {
+  box-shadow: 4px 4px 0 0 #bbb;
+}
+
+.cta-link:active {
+  background-color: var(--main-color);
+  color: #fff;
+  box-shadow: none;
+}
+
+code {
+  word-wrap: anywhere;
+}

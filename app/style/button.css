@@ -1,0 +1,29 @@
+button {
+  cursor: pointer;
+  border: 2px solid var(--main-color);
+}
+
+button:hover,
+button:focus {
+  color: var(--main-color);
+}
+
+button:focus {
+  border-color: var(--main-color);
+  outline: none;
+}
+
+.btn--none {
+  font-size: 1rem;
+  border: none;
+  background: none;
+  padding: 0;
+}
+
+.btn--padded {
+  padding: .5em 1em;
+}
+
+.btn--margin {
+  margin: 0 1em;
+}
