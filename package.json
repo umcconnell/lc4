@@ -29,7 +29,7 @@
         "@babel/register": "^7.9.0",
         "babel-preset-minify": "^0.5.1",
         "chai": "^4.2.0",
-        "jsdoc-to-markdown": "^6.0.1",
+        "jsdoc-to-markdown": "^7.0.0",
         "mocha": "^8.0.1"
     }
 }
