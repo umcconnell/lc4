@@ -163,9 +163,7 @@ export function encryptMsg({ state, marker, mode }, msg, verbose = false) {
                 printState(state.slice(), { row, col: y }, marker, mode);
                 console.log(new Array(size * 3 - 2).fill("-").join(""));
                 console.log(
-                    `pt: \x1b[31m${char}\x1b[0m  ct: \x1b[31m${
-                        alphabet[out]
-                    }\x1b[0m`,
+                    `pt: \x1b[31m${char}\x1b[0m  ct: \x1b[31m${alphabet[out]}\x1b[0m`,
                     "\n"
                 );
             }
@@ -227,9 +225,7 @@ export function decryptMsg({ state, marker, mode }, msg, verbose) {
                 printState(state.slice(), { row, col: y }, marker, mode);
                 console.log(new Array(size * 3 - 2).fill("-").join(""));
                 console.log(
-                    `ct: \x1b[31m${char}\x1b[0m  pt: \x1b[31m${
-                        alphabet[out]
-                    }\x1b[0m`,
+                    `ct: \x1b[31m${char}\x1b[0m  pt: \x1b[31m${alphabet[out]}\x1b[0m`,
                     "\n"
                 );
             }
