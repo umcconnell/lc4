@@ -1,9 +1,12 @@
 # lc4
 
-[![NPM](https://nodei.co/npm/lc4.png)](https://nodei.co/npm/lc4/)
-
+[![Test](https://github.com/umcconnell/lc4/actions/workflows/test.yml/badge.svg)](https://github.com/umcconnell/lc4/actions/workflows/test.yml)
+[![Lint](https://github.com/umcconnell/lc4/actions/workflows/lint.yml/badge.svg)](https://github.com/umcconnell/lc4/actions/workflows/lint.yml)
 ![NPM Package](https://github.com/umcconnell/lc4/workflows/NPM%20Package/badge.svg)
+
 [![](https://data.jsdelivr.com/v1/package/gh/umcconnell/lc4/badge)](https://www.jsdelivr.com/package/gh/umcconnell/lc4)
+
+[![NPM](https://nodei.co/npm/lc4.png)](https://nodei.co/npm/lc4/)
 
 A [spec-compliant](https://eprint.iacr.org/2017/339.pdf)
 LC4 (ElsieFour) and LS47 encryption/decryption library
