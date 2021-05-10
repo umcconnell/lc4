@@ -87,9 +87,10 @@ export function encrypt(settings) {
         encryptMsg(env, settings.headerData, settings.verbose);
     // Encrypt message concatenated with signature
     if (Array.isArray(settings.message))
-        return (settings.signature
-            ? settings.message.concat(settings.signature)
-            : settings.message
+        return (
+            settings.signature
+                ? settings.message.concat(settings.signature)
+                : settings.message
         ).map(line => encryptMsg(env, line, settings.verbose));
     else
         return encryptMsg(
