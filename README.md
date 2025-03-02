@@ -13,17 +13,17 @@ LC4 (ElsieFour) and LS47 encryption/decryption library
 
 ## Table of Contents
 
--   [Installing](#installing)
--   [Examples](#examples)
--   [About](#about)
--   [Docs](#docs)
--   [Built With](#built-with)
--   [Contributing](#contributing)
--   [Versioning](#versioning)
--   [Authors](#authors)
--   [License](#license)
--   [Acknowledgments](#acknowledgments)
--   [See Also](#see-also)
+- [Installing](#installing)
+- [Examples](#examples)
+- [About](#about)
+- [Docs](#docs)
+- [Built With](#built-with)
+- [Contributing](#contributing)
+- [Versioning](#versioning)
+- [Authors](#authors)
+- [License](#license)
+- [Acknowledgments](#acknowledgments)
+- [See Also](#see-also)
 
 ## Installing
 
@@ -203,11 +203,11 @@ For more information about internal mechanisms and helpers, see the
 
 ## Built With
 
--   [babel](https://babeljs.io/) - The js transpiler
--   [mocha](https://mochajs.org/) - The test framework
--   [chai](https://www.chaijs.com/) - The assertion framework
--   [jsdoc2md](https://github.com/jsdoc2md/jsdoc-to-markdown) - The
-    documentation generator
+- [babel](https://babeljs.io/) - The js transpiler
+- [mocha](https://mochajs.org/) - The test framework
+- [chai](https://www.chaijs.com/) - The assertion framework
+- [jsdoc2md](https://github.com/jsdoc2md/jsdoc-to-markdown) - The
+  documentation generator
 
 ## Contributing
 
@@ -234,22 +234,22 @@ This project is licensed under the MIT License - see the
 
 ## Acknowledgments
 
--   [reddit r/dailyprogrammer](https://www.reddit.com/r/dailyprogrammer/comments/8jvbzg/20180516_challenge_361_intermediate_elsiefour/)
+- [reddit r/dailyprogrammer](https://www.reddit.com/r/dailyprogrammer/comments/8jvbzg/20180516_challenge_361_intermediate_elsiefour/)
 
 ## See Also
 
 Find the specifications here:
 
--   LC4 https://eprint.iacr.org/2017/339.pdf
--   LS47 https://gitea.blesmrt.net/exa/ls47
+- LC4 https://eprint.iacr.org/2017/339.pdf
+- LS47 https://gitea.blesmrt.net/exa/ls47
 
 Check out these other LC4 implementations and LC4 variants:
 
--   Python https://github.com/dstein64/LC4
--   JS https://github.com/Gavin-Song/elsie-four-cipher
--   Go https://github.com/tonetheman/golang_lc4
--   LS47 https://gitea.blesmrt.net/exa/ls47
+- Python https://github.com/dstein64/LC4
+- JS https://github.com/Gavin-Song/elsie-four-cipher
+- Go https://github.com/tonetheman/golang_lc4
+- LS47 https://gitea.blesmrt.net/exa/ls47
 
 Try it yourself:
 
--   lc4-encryptor https://lc4-encryptor.glitch.me
+- lc4-encryptor https://lc4-encryptor.glitch.me
