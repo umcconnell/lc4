@@ -24,7 +24,7 @@
         "url": "git+https://github.com/umcconnell/lc4.git"
     },
     "devDependencies": {
-        "@babel/cli": "^7.8.4",
+        "@babel/cli": "^8.0.5",
         "@babel/core": "^7.9.0",
         "@babel/preset-env": "^7.9.0",
         "@babel/register": "^7.9.0",
